@@ -6,5 +6,5 @@ xrandr --output DVI-D-0 --auto
 xrandr --output HDMI-0 --auto --left-of DVI-D-0
 gdrive_sync.sh &
 shared_sync.sh &
-redshift-gtk &
+redshift-gtk -t 6500K:4000K &
 no-accel.sh &

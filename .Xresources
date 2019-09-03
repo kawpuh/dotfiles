@@ -1,17 +1,6 @@
-! Xft.dpi:    96
-! Xft.antialias:  1
-! Xft.hinting:    1
-! Xft.hintstyle:  hintmedium
-! 
-! URxvt.termName: rxvt
-! URxvt.depth: 32
-! URxvt.transparent: false
-! URxvt.iconFile: .rexim/icons/terminal-icon.png
 URxvt.font: xft:DejaVu Sans Mono:size=12
 URxvt.scrollBar: false
 URxvt.depth: 32
-
-
 ! Dracula Xresources palette
 ! *.foreground: #F8F8F2
 ! *.background: #282A36
@@ -31,7 +20,6 @@ URxvt.depth: 32
 ! *.color14:    #9AEDFE
 ! *.color7:     #BFBFBF
 ! *.color15:    #E6E6E6
-
 
 ! Base16 Tomorrow Night
 ! Scheme: Chris Kempson (http://chriskempson.com)
