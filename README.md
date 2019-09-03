@@ -7,7 +7,7 @@ adduser <user-name> sudo
 ```
 re-log
 ```
-sudo apt install rxvt-unicode emacs i3 rofi neovim fish calibre rclone redshift-gtk
+sudo apt install rxvt-unicode emacs i3 rofi neovim fish calibre rclone redshift-gtk curl
 ```
 on laptop also do
 ```
@@ -25,3 +25,5 @@ rename i3 config file
 ```
 mv .config/i3/laptop-config config
 ```
+install vim-plug
+https://github.com/junegunn/vim-plug
