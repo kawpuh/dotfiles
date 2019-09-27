@@ -7,7 +7,7 @@ adduser <user-name> sudo
 ```
 re-log
 ```
-sudo apt install rxvt-unicode emacs i3 rofi neovim fish calibre rclone redshift-gtk curl
+sudo apt install rxvt-unicode emacs i3 rofi neovim fish calibre rclone redshift-gtk curl tmux
 ```
 on laptop also do
 ```
