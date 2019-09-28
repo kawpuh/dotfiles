@@ -19,7 +19,7 @@ chsh -s /usr/bin/fish
 ```
 hard link dotfiles
 ```
-cp -rl .Xresources .spacemacs .config ~/
+find . -maxdepth 1 -type f -exec cp {} .config bin ~/ \;
 ```
 rename i3 config file
 ```
