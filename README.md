@@ -19,7 +19,7 @@ chsh -s /usr/bin/fish
 ```
 hard link dotfiles
 ```
-find .* -maxdepth 0 -type f | xargs cp -rl .config bin ~/
+find .* -maxdepth 0 -type f | xargs -I % cp -rl % .config bin ~/
 ```
 rename i3 config file
 ```
