@@ -62,8 +62,7 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec "rofi -show run"
-bindsym $mod+a exec "rofi -show combi"
+bindsym $mod+d exec "rofi -show combi"
 
 # web browser key
 bindsym $mod+b exec "google-chrome"
@@ -190,29 +189,33 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+
 # set colors
-set $PRIME_ #5d4037
-set $LIGHT_ #8b6b61
-set $DARK__ #321911
+set $PRIME_ #3c3836
+set $LIGHT_ #665c54
+set $DARK__ #3c3836
+
+set $D_TEXT #fbf1c7
+set $L_TEXT #888888
 
 # window colors         border  back.   text
-client.focused          $LIGHT_ $LIGHT_ #f6f5f1
-client.focused_inactive $PRIME_ $PRIME_ #888888
-client.unfocused        $DARK__ $DARK__ #888888
-client.urgent           #C51162 #c51162 #888888
+client.focused          $LIGHT_ $LIGHT_ $D_TEXT
+client.focused_inactive $PRIME_ $PRIME_ $L_TEXT
+client.unfocused        $DARK__ $DARK__ $L_TEXT
+client.urgent           #C51162 #c51162 $L_TEXT
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
-        # status_command i3bar
+        status_command i3blocks
     colors {
         #color class       border  back.   text
-        focused_workspace  $LIGHT_ $PRIME_ #f6f5f1
-        active_workspace   $PRIME_ $DARK__ #f6f5f1
-        inactive_workspace $DARK__ $DARK__ #888888
-        urgent_workspace   #2f343a #c51162 #f6f5f1
-        background         #201815
+        focused_workspace  $LIGHT_ $PRIME_ $D_TEXT
+        active_workspace   $PRIME_ $DARK__ $D_TEXT
+        inactive_workspace $DARK__ $DARK__ $L_TEXT
+        urgent_workspace   #2f343a #c51162 $D_TEXT
+
+        background         #32302f
     }
 }
 
