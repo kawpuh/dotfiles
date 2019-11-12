@@ -1,6 +1,10 @@
 # dotfiles
 
-# Usage
+# Notes
+- libinput > synaptics for touchpad
+- latest version of emacs > packaged version of emacs
+
+# Rough Walkthrough
 ```
 su
 adduser <user-name> sudo
