@@ -185,12 +185,20 @@ bindsym $mod+r mode "resize"
 
 
 # set colors
-set $PRIME_ #3c3836
-set $LIGHT_ #665c54
-set $DARK__ #3c3836
+set $PRIME_ #000000
+set $LIGHT_ #555555
+set $DARK__ #000000
 
-set $D_TEXT #fbf1c7
+set $D_TEXT #ffffff
 set $L_TEXT #888888
+
+# set $PRIME_ #3c3836
+# set $LIGHT_ #665c54
+# set $DARK__ #3c3836
+#
+#
+# set $D_TEXT #fbf1c7
+# set $L_TEXT #888888
 
 # window colors         border  back.   text
 client.focused          $LIGHT_ $LIGHT_ $D_TEXT
@@ -209,7 +217,8 @@ bar {
         inactive_workspace $DARK__ $DARK__ $L_TEXT
         urgent_workspace   #2f343a #c51162 $D_TEXT
 
-        background         #32302f
+        background         #000000
+        # background         #32302f
     }
 }
 
