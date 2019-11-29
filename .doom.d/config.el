@@ -4,6 +4,8 @@
 (setq doom-theme 'doom-gruvbox
       doom-font (font-spec :family "Go Mono" :size 16))
 
-(map! :map +write-mode-map
+(map! :map org-mode-map
       :nv "j" #'evil-next-visual-line
       :nv "k" #'evil-previous-visual-line)
+
+;; (add-hook! org-mode (setq truncate-lines nil))
