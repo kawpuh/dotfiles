@@ -16,6 +16,8 @@
 for_window [window_role="About"] floating enable
 for_window [window_role="pop-up"] floating enable
 
+new_window pixel 1
+
 
 set $mod Mod4
 
@@ -80,7 +82,7 @@ bindsym $mod+d exec "rofi -show combi"
 bindsym $mod+a exec "rofi -show run"
 
 # launch browser 
-bindsym $mod+b exec "google-chrome"
+bindsym $mod+b exec "firefox"
 
 # multimedia keys 
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
