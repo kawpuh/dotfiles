@@ -38,13 +38,15 @@ label=VOL
 command=~/.config/i3blocks/volume
 instance=Master
 #label=♪
+label=🔊
 #instance=PCM
 interval=1
 signal=10
 
 # Brightness indicator
 [brightness]
-label=BRI:
+#label=BRI:
+label=🔆
 command=xbacklight -get | grep -o '[0-9]*\.[0-9]' | tr -d '\n'; echo "%"
 interval=1
 
@@ -52,8 +54,7 @@ interval=1
 #
 # The type defaults to "mem" if the instance is not specified.
 [memory]
-label=MEM
-separator=false
+label=memory
 interval=30
 
 # [memory]
@@ -61,35 +62,6 @@ interval=30
 # instance=swap
 # separator=false
 # interval=30
-
-# Disk usage
-#
-# The directory defaults to $HOME if the instance is not specified.
-# The script may be called with a optional argument to set the alert
-# (defaults to 10 for 10%).
-# [disk]
-# label=HOME
-# #instance=/mnt/data
-# interval=30
-
-# Network interface monitoring
-#
-# If the instance is not specified, use the interface used for default route.
-# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
-[iface]
-#instance=wlan0
-color=#00FF00
-interval=10
-separator=false
-
-[wifi]
-#instance=wlp3s0
-interval=10
-separator=false
-
-[bandwidth]
-#instance=eth0
-interval=5
 
 # CPU usage
 #
@@ -105,19 +77,49 @@ min_width=CPU: 100.00%
 #interval=10
 
 
+
+# Disk usage
+#
+# The directory defaults to $HOME if the instance is not specified.
+# The script may be called with a optional argument to set the alert
+# (defaults to 10 for 10%).
+# [disk]
+# label=HOME
+# #instance=/mnt/data
+# interval=30
+
+# Network interface monitoring
+#
+# If the instance is not specified, use the interface used for default route.
+# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
+# [iface]
+# instance=wlan0
+# color=#00FF00
+# interval=10
+# separator=false
+
+# [wifi]
+# instance=wlp3s0
+# interval=10
+# separator=false
+
+[bandwidth]
+#instance=eth0
+interval=5
+
 # Battery indicator
 #
 # The battery instance defaults to 0.
 [battery]
-label=BAT
-#label=⚡
-#instance=1
+#label=BAT
+label=⚡
+#instance=0
 interval=30
 
 # Date Time
 #
 [time]
-command=date '+%Y-%m-%d %H:%M:%S'
+command=date '+%a %m/%d/%Y %H:%M:%S'
 interval=5
 
 # Generic media player support
