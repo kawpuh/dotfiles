@@ -9,7 +9,8 @@
       :nv "j" #'evil-next-visual-line
       :nv "k" #'evil-previous-visual-line)
 
+(map! :map evil-surround-mode-map
+      :v "s" #'evil-surround-region)
+
 (add-hook! 'c++-mode-hook (lambda ()
                             (push '(?< . ("<" . ">")) evil-surround-pairs-alist)))
-
-;; (add-hook! org-mode (setq truncate-lines nil))
