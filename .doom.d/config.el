@@ -12,5 +12,6 @@
 (map! :map evil-surround-mode-map
       :v "s" #'evil-surround-region)
 
-(add-hook! 'c++-mode-hook (lambda ()
-                            (push '(?< . ("<" . ">")) evil-surround-pairs-alist)))
+(add-hook! 'c++-mode-hook 
+	   (lambda ()
+	     (push '(?< . ("<" . ">")) evil-surround-pairs-alist)))
