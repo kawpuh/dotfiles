@@ -44,7 +44,7 @@ set $ws10 10
 floating_modifier $mod
 
 # Startup Programs
-exec /home/ethan/.config/i3/autostart.sh
+exec /home/ethan/.config/i3/autostart-laptop.sh
 
 
 # start a terminal
