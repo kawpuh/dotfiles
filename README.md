@@ -2,7 +2,6 @@
 
 # Notes
 - libinput > synaptics for touchpad
-- latest version of emacs > packaged version of emacs
 
 # Rough Walkthrough
 ```
@@ -22,10 +21,7 @@ make fish default shell
 chsh -s /usr/bin/fish
 ```
 hard link dotfiles
-```
-find .* -maxdepth 0 -type f | xargs -I % cp -rl % .config bin ~/
-```
-rename i3 config file
+rename appropriate i3 config file
 ```
 mv .config/i3/laptop-config config
 ```
