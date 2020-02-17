@@ -52,13 +52,15 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-source /usr/share/autojump/autojump.zsh 2>/dev/null
-
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
 alias ec="emacsclient -n"
 alias em="emacs -nw"
+alias vi="nvim"
+alias mupdf="mupdf-gl"
+
+# Load zsh-syntax-highlighting; should be last.
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/autojump/autojump.zsh 2>/dev/null
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
