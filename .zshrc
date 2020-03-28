@@ -52,6 +52,11 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# ssl conf
+export OPENSSL_CONF=/etc/ssl/
+
+path+=('/home/ethan/bin')
+
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
