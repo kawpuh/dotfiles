@@ -1,9 +1,0 @@
-#+TITLE: help
-
-g-c evilnc-comment-operator
-works like change/delete
-
-C-q to simply insert next character
-useful if you get mismatched parens in lispy mode
-
-M-R lispyville raise list -> delete surrounding s-exp
