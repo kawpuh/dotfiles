@@ -86,7 +86,7 @@
    cider-eval-buffer)
   :init
   (evil-define-key 'normal global-map (kbd "<leader>rr") 'cider-jack-in)
-  (evil-define-key 'visual global-map (kbd "<leader>er") 'cider-eval-region))
+  (evil-define-key 'visual global-map (kbd " er") 'cider-eval-region))
 
 ;; load custom-set-variables
 (setq custom-file "~/.emacs.d/custom.el")
