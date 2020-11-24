@@ -15,3 +15,5 @@
 (add-hook! 'c++-mode-hook 
   (lambda ()
     (push '(?< . ("<" . ">")) evil-surround-pairs-alist)))
+
+(after! lispy (lispy-set-key-theme '(special c-digits)))
