@@ -18,7 +18,6 @@ for_window [window_role="pop-up"] floating enable
 
 new_window pixel 1
 
-
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -46,11 +45,11 @@ set $ws8 8
 set $ws9 9
 set $ws10 10
 
-workspace $ws1 output HDMI-0
-workspace $ws2 output HDMI-0
-workspace $ws3 output HDMI-0
-workspace $ws4 output HDMI-0
-workspace $ws5 output HDMI-0
+workspace $ws1 output DP-0
+workspace $ws2 output DP-0
+workspace $ws3 output DP-0
+workspace $ws4 output DP-0
+workspace $ws5 output DP-0
 workspace $ws6 output DVI-D-0 
 workspace $ws7 output DVI-D-0
 workspace $ws8 output DVI-D-0
@@ -218,7 +217,7 @@ set $D_TEXT #fbf1c7
 set $L_TEXT #888888
 
 # window colors         border  back.   text
-client.focused          $LIGHT_ $LIGHT_ $D_TEXT
+client.focused          $LIGHT_ #dddddd #111111
 client.focused_inactive $PRIME_ $PRIME_ $L_TEXT
 client.unfocused        $DARK__ $DARK__ $L_TEXT
 client.urgent           #C51162 #c51162 $L_TEXT
