@@ -15,8 +15,8 @@
 # Settings
 for_window [window_role="About"] floating enable
 for_window [window_role="pop-up"] floating enable
-
-new_window pixel 1
+#for_window [*] border normal
+# new_window border normal
 
 set $mod Mod4
 
@@ -61,6 +61,7 @@ floating_modifier $mod
 
 # switch monitors
 bindsym $mod+o focus output right
+bindsym $mod+Shift+o move output right
 bindsym button8 --whole-window focus output right
 
 
@@ -180,7 +181,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec i3-exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -216,8 +217,8 @@ set $DARK__ #3c3836
 set $D_TEXT #fbf1c7
 set $L_TEXT #888888
 
-# window colors         border  back.   text
-client.focused          $LIGHT_ #dddddd #111111
+# window colors         border  bg      text     indicator
+client.focused          $LIGHT_ #dddddd #111111  #dddddd
 client.focused_inactive $PRIME_ $PRIME_ $L_TEXT
 client.unfocused        $DARK__ $DARK__ $L_TEXT
 client.urgent           #C51162 #c51162 $L_TEXT
@@ -227,7 +228,7 @@ client.urgent           #C51162 #c51162 $L_TEXT
 bar {
         status_command i3blocks
     colors {
-        #color class       border  back.   text
+        #color class       border  bg      text
         focused_workspace  $LIGHT_ $PRIME_ $D_TEXT
         active_workspace   $PRIME_ $DARK__ $D_TEXT
         inactive_workspace $DARK__ $DARK__ $L_TEXT

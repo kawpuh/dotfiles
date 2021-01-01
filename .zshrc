@@ -56,6 +56,7 @@ bindkey '^e' edit-command-line
 export OPENSSL_CONF=/etc/ssl/
 
 path+=('/home/ethan/bin')
+path+=('/home/ethan/.emacs.d/bin')
 
 # aliases
 alias ls="ls --color=auto"
