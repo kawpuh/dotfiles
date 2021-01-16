@@ -1,0 +1,12 @@
+#!/bin/python3
+
+import sys
+import json
+
+def main():
+    raw_json = sys.stdin.read()
+    print(json.dumps(json.loads(raw_json), indent=2))
+
+
+if __name__ == "__main__":
+    main()
