@@ -10,8 +10,6 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 #
 #
-
-
 # Settings
 for_window [window_role="About"] floating enable
 for_window [window_role="pop-up"] floating enable
@@ -73,6 +71,7 @@ bindsym Print exec "flameshot gui"
 
 # start a terminal
 bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+n exec --no-startup-id cd "`xcwd`" && urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -90,10 +89,6 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-
-# music player scratchpad
-bindsym $mod+Shift+m move to scratchpad
-bindsym $mod+m scratchpad show
 
 # change focus
 bindsym $mod+h focus left

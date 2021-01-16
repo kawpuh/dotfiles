@@ -65,6 +65,7 @@ alias ec="emacsclient -n"
 alias em="emacs -nw"
 alias vi="nvim"
 alias mupdf="mupdf-gl"
+alias 2clip="xclip -selection c"
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
