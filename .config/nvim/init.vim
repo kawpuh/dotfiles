@@ -1,5 +1,7 @@
 set number
 let mapleader=" "
+set tabstop=4
+set shiftwidth=4
 
 " Binds
 nnoremap <leader>w :w<CR>
@@ -51,7 +53,7 @@ nnoremap <leader>bp :bp<CR>
 " :set filetype?
 "
 augroup vimscript
-    au!
+	au!
     au FileType vim nnoremap <buffer> <leader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
 augroup end
 
@@ -69,7 +71,7 @@ augroup end
 augroup golang
     au!
     au FileType go nnoremap <buffer> <leader>r :!go run %<CR>
-    au FileType go nnoremap <buffer> <leader>b :!go build %<CR>
+	au FileType go nnoremap <buffer> <leader>b :!go build %<CR>
     au FileType go nnoremap <buffer> <leader>f :call GoFmt()<CR>
 augroup end
 
