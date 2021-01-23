@@ -24,7 +24,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
-Plug 'hkupty/iron.nvim'
+" Plug 'hkupty/iron.nvim'
 call plug#end()
 
 colorscheme gruvbox
@@ -45,6 +45,7 @@ luafile $HOME/.config/nvim/plugins.lua
 xmap s <Plug>VSurround
 nnoremap <leader>ft :NERDTreeToggle<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
+nnoremap <leader>fs :w<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bn :bn<CR>
