@@ -47,3 +47,28 @@ nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
+
+augroup c++
+    au!
+    au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
+    au FileType cpp nnoremap <buffer> <localleader>r :!g++ % && ./a.exe<CR>
+augroup end
+
+augroup perl
+    au!
+    au FileType perl nnoremap <buffer> <localleader>r :!perl %<CR>
+augroup end
+
+augroup golang
+    au!
+    au FileType go nnoremap <buffer> <localleader>r :!go run %<CR>
+    au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
+    au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
+augroup end
+
+augroup python
+    au!
+    au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
+    " au FileType python setlocal tabstop=2
+    " au FileType python setlocal shiftwidth=2
+augroup end
