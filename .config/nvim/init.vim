@@ -48,27 +48,33 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 
+" :set filetype?
+"
+augroup vimscript
+    au!
+    au FileType vim nnoremap <buffer> <leader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
+augroup end
+
 augroup c++
     au!
-    au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
-    au FileType cpp nnoremap <buffer> <localleader>r :!g++ % && ./a.exe<CR>
+    au FileType cpp nnoremap <buffer> <leader>b :!g++ %<CR>
+    au FileType cpp nnoremap <buffer> <leader>r :!g++ % && ./a.exe<CR>
 augroup end
 
 augroup perl
     au!
-    au FileType perl nnoremap <buffer> <localleader>r :!perl %<CR>
+    au FileType perl nnoremap <buffer> <leader>r :!perl %<CR>
 augroup end
 
 augroup golang
     au!
-    au FileType go nnoremap <buffer> <localleader>r :!go run %<CR>
-    au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
-    au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
+    au FileType go nnoremap <buffer> <leader>r :!go run %<CR>
+    au FileType go nnoremap <buffer> <leader>b :!go build %<CR>
+    au FileType go nnoremap <buffer> <leader>f :call GoFmt()<CR>
 augroup end
 
 augroup python
     au!
-    au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
-    " au FileType python setlocal tabstop=2
-    " au FileType python setlocal shiftwidth=2
+    au FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
+    au FileType python nnoremap <buffer> <leader><s-r> :!xcwd && urxvt -e python3 -i %<CR>
 augroup end
