@@ -39,7 +39,7 @@ call neomake#configure#automake('nrwi', 500)
 
 let g:deoplete#enable_at_startup = 1
 
-luafile $HOME/.config/nvim/plugins.lua
+" luafile $HOME/.config/nvim/plugins.lua
 
 " Binds w/ Plugin Dependency
 xmap s <Plug>VSurround
