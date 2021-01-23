@@ -10,15 +10,15 @@ adduser <user-name> sudo
 ```
 re-log
 ```
-sudo apt install rxvt-unicode emacs i3 rofi neovim fish calibre rclone redshift-gtk curl tmux
+sudo apt install rxvt-unicode emacs i3 rofi neovim zsh calibre rclone redshift-gtk curl tmux xcwd
 ```
 on laptop also do
 ```
 apt install xbacklight
 ```
-make fish default shell
+make zsh default shell
 ```
-chsh -s /usr/bin/fish
+chsh -s /usr/bin/zsh
 ```
 hard link dotfiles
 rename appropriate i3 config file
