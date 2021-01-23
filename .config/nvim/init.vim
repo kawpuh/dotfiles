@@ -78,5 +78,5 @@ augroup end
 augroup python
     au!
     au FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
-    au FileType python nnoremap <buffer> <leader><s-r> :!xcwd && urxvt -e python3 -i %<CR>
+    au FileType python nnoremap <buffer> <leader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
 augroup end
