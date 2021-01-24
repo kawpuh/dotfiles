@@ -6,7 +6,3 @@ udiskie -s -2  &
 feh --bg-scale ~/Pictures/Pablo\ Garcia\ Saldana.jpg
 nm-applet &
 redshift-gtk -t 6500K:4000K &
-gdrive_sync.sh &
-rclone copy crimsondrive:Calibre\ Library ~/Calibre\ Library &
-
-
