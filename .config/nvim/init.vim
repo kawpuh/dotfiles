@@ -53,6 +53,11 @@ nnoremap <leader>bp :bp<CR>
 
 " :set filetype?
 "
+augroup shell
+    au!
+    au FileType sh nnoremap <buffer> <leader>r :!./%<CR>
+augroup end
+
 augroup vimscript
 	au!
     au FileType vim nnoremap <buffer> <leader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
