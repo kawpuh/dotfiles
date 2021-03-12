@@ -64,8 +64,8 @@ bindsym $mod+b exec "firefox"
 
 
 # multimedia keys
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec ~/bin/xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec ~/bin/xbacklight -inc 5
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%

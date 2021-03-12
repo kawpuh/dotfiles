@@ -10,7 +10,7 @@ adduser <user-name> sudo
 ```
 re-log
 ```
-sudo apt install rxvt-unicode emacs i3 rofi neovim zsh calibre rclone redshift-gtk curl tmux xcwd
+sudo apt install rxvt-unicode emacs i3 rofi neovim zsh calibre rclone redshift-gtk curl tmux xcwd pavucontrol
 ```
 on laptop also do
 ```
