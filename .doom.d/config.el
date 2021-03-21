@@ -1,9 +1,8 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
-;;
 (setq doom-theme 'gruvbox-dark-soft
-      doom-font (font-spec :family "Go Mono" :size 16))
+      doom-font (font-spec :family "Go Mono" :size 13))
 
 (map! :map org-mode-map
       :nv "j" #'evil-next-visual-line
