@@ -1,5 +1,5 @@
 ! URxvt.font: xft:Roboto Mono:size=12
-URxvt.font: xft:Go Mono:size=12
+URxvt.font: xft:Go Mono:size=13
 ! URxvt.font: xft:Noto Mono:size=13
 ! URxvt.font: xft:APL385 Unicode:size=14
 URxvt.scrollBar: false

@@ -64,7 +64,7 @@ bindsym button8 --whole-window focus output right
 
 
 # Startup Programs
-exec /home/ethan/.config/i3/autostart.sh
+exec /home/ethan/.config/i3/autostart-desktop.sh
 
 # bind print screen
 bindsym Print exec "flameshot gui"
