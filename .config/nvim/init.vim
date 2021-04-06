@@ -24,6 +24,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
+Plug 'lambdalisue/suda.vim'
 " Plug 'hkupty/iron.nvim'
 call plug#end()
 
