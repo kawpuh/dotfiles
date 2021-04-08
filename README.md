@@ -10,11 +10,7 @@ adduser <user-name> sudo
 ```
 re-log
 ```
-sudo apt install rxvt-unicode emacs i3 rofi neovim zsh calibre rclone redshift-gtk curl tmux xcwd fonts-go zsh-autosuggestions zsh-syntax-highlighting i3blocks feh sxiv autojump git
-```
-on laptop also do
-```
-apt install xbacklight
+sudo apt install rxvt-unicode emacs i3 rofi neovim zsh calibre rclone redshift-gtk curl tmux xcwd fonts-go zsh-autosuggestions zsh-syntax-highlighting i3blocks feh sxiv autojump git python3-jedi libxcb-render0-dev libffi-dev libcairo2 libpangocairo-1.0-0
 ```
 make zsh default shell
 ```
