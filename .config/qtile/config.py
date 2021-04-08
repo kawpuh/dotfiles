@@ -30,12 +30,13 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.widget import backlight
 
 import subprocess
 
 @hook.subscribe.startup_once
 def autostart():
-    subprocess.run("~/.config/i3/autostart-desktop.sh", shell=True)
+    subprocess.run("~/.config/i3/autostart-laptop.sh", shell=True)
 
 mod = "mod4"
 terminal = "urxvt"
@@ -88,6 +89,11 @@ keys = [
 
     # Some spawn commands
     Key([mod], "b", lazy.spawn("firefox"), desc="Launch web browser"),
+
+    # Backlight command
+    Key([], "XF86MonBrightnessUp", lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.UP)),
+    Key([], "XF86MonBrightnessDown", lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.DOWN)),
+
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.spawn("my-exit"), desc="Shutdown Qtile"),
@@ -150,20 +156,14 @@ screens = [
                 widget.Sep(),
                 widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
                 widget.Sep(),
-                widget.CPUGraph(),
+                widget.Battery(),
+                widget.Sep(),
+                widget.Backlight(
+                    brightness_file="/sys/class/backlight/intel_backlight/brightness",
+                    max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
+                ),
                 widget.Sep(),
                 widget.Systray(),
-                # widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                # widget.QuickExit(),
-            ],
-            24,
-        ),
-    ),
-    Screen(
-        bottom=bar.Bar(
-            [
-                widget.GroupBox(),
-                widget.WindowName()
             ],
             24,
         ),
