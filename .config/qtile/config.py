@@ -207,6 +207,35 @@ else if os.getenv('HOST') == 'trailer':
                 24,
             ),
         ]
+else if os.getenv('HOST') == 'camper':
+    screens = [
+        Screen(
+            bottom=bar.Bar(
+                [
+                    widget.CurrentLayout(),
+                    widget.GroupBox(),
+                    widget.Prompt(),
+                    widget.WindowName(),
+                    widget.OpenWeather(
+                        zip="35806", 
+                        metric=False, 
+                        format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
+                        ),
+                    widget.Sep(),
+                    widget.Battery(),
+                    widget.Sep(),
+                    widget.Backlight(),
+                    widget.Sep(),
+                    widget.CPUGraph(),
+                    widget.Sep(),
+                    widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
+                    widget.Sep(),
+                    widget.Systray(),
+                ],
+                24,
+            ),
+        ),
+    ]
 
 # Drag floating layouts.
 mouse = [

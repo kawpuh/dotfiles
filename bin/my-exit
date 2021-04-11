@@ -22,6 +22,7 @@ class exit_window:
         self.disable_buttons()
         self.status.set_label("Exiting i3, please standby...")
         os.system("i3-msg exit")
+        os.system("qtile shell -c 'shutdown()'")
 
     def lock_action(self,btn):
         self.disable_buttons()
