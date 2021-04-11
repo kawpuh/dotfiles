@@ -30,13 +30,14 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.widget import backlight
 
 import subprocess
 import os
 
 @hook.subscribe.startup_once
 def autostart():
-    if os.getenv('HOST') == 'trailer':
+    if os.getenv('HOST') == 'toaster':
         subprocess.run("~/.config/i3/autostart-desktop.sh", shell=True)
     else:
         subprocess.run("~/.config/i3/autostart-laptop.sh", shell=True)
@@ -93,6 +94,11 @@ keys = [
     # Some spawn commands
     Key([mod], "b", lazy.spawn("firefox"), desc="Launch web browser"),
 
+    # Backlight command
+    Key([], "XF86MonBrightnessUp", lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.UP)),
+    Key([], "XF86MonBrightnessDown", lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.DOWN)),
+
+
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.spawn("my-exit"), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawn("rofi -show combi"),
@@ -138,7 +144,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-if os.getenv('HOST') == 'trailer':
+if os.getenv('HOST') == 'toaster':
     screens = [
         Screen(
             bottom=bar.Bar(
@@ -172,6 +178,35 @@ if os.getenv('HOST') == 'trailer':
             ),
         ),
     ]
+else if os.getenv('HOST') == 'trailer':
+    screens = [
+        Screen(
+            bottom=bar.Bar(
+                [
+                    widget.CurrentLayout(),
+                    widget.GroupBox(),
+                    widget.Prompt(),
+                    widget.WindowName(),
+                    widget.OpenWeather(
+                        zip="35806", 
+                        metric=False, 
+                        format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
+                        ),
+                    widget.Sep(),
+                    widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
+                    widget.Sep(),
+                    widget.Battery(),
+                    widget.Sep(),
+                    widget.Backlight(
+                        brightness_file="/sys/class/backlight/intel_backlight/brightness",
+                        max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
+                    ),
+                    widget.Sep(),
+                    widget.Systray(),
+                ],
+                24,
+            ),
+        ]
 
 # Drag floating layouts.
 mouse = [
