@@ -25,6 +25,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
 Plug 'lambdalisue/suda.vim'
+Plug 'dense-analysis/ale'
 " Plug 'hkupty/iron.nvim'
 call plug#end()
 
@@ -39,6 +40,8 @@ let g:neomake_python_enabled_makers = ['pylint']
 call neomake#configure#automake('nrwi', 500)
 
 let g:deoplete#enable_at_startup = 1
+
+let g:ale_linters = {'clojure': ['clj-kondo']}
 
 " luafile $HOME/.config/nvim/plugins.lua
 
