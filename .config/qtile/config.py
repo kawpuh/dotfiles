@@ -32,10 +32,14 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 import subprocess
+import os
 
 @hook.subscribe.startup_once
 def autostart():
-    subprocess.run("~/.config/i3/autostart-desktop.sh", shell=True)
+    if os.getenv('HOST') == 'trailer':
+        subprocess.run("~/.config/i3/autostart-desktop.sh", shell=True)
+    else:
+        subprocess.run("~/.config/i3/autostart-laptop.sh", shell=True)
 
 mod = "mod4"
 terminal = "urxvt"
@@ -134,41 +138,40 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        bottom=bar.Bar(
-            [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.OpenWeather(
-                    zip="35806", 
-                    metric=False, 
-                    format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
-                    ),
-                widget.Sep(),
-                widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-                widget.Sep(),
-                widget.CPUGraph(),
-                widget.Sep(),
-                widget.Systray(),
-                # widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                # widget.QuickExit(),
-            ],
-            24,
+if os.getenv('HOST') == 'trailer':
+    screens = [
+        Screen(
+            bottom=bar.Bar(
+                [
+                    widget.CurrentLayout(),
+                    widget.GroupBox(),
+                    widget.Prompt(),
+                    widget.WindowName(),
+                    widget.OpenWeather(
+                        zip="35806", 
+                        metric=False, 
+                        format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
+                        ),
+                    widget.Sep(),
+                    widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
+                    widget.Sep(),
+                    widget.CPUGraph(),
+                    widget.Sep(),
+                    widget.Systray(),
+                ],
+                24,
+            ),
         ),
-    ),
-    Screen(
-        bottom=bar.Bar(
-            [
-                widget.GroupBox(),
-                widget.WindowName()
-            ],
-            24,
+        Screen(
+            bottom=bar.Bar(
+                [
+                    widget.GroupBox(),
+                    widget.WindowName()
+                ],
+                24,
+            ),
         ),
-    ),
-]
+    ]
 
 # Drag floating layouts.
 mouse = [
