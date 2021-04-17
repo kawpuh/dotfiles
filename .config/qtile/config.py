@@ -37,7 +37,7 @@ import os
 
 @hook.subscribe.startup_once
 def autostart():
-    if os.getenv('HOST') == 'toaster':
+    if os.uname()[1] == 'toaster':
         subprocess.run("~/.config/i3/autostart-desktop.sh", shell=True)
     else:
         subprocess.run("~/.config/i3/autostart-laptop.sh", shell=True)
