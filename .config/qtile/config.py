@@ -195,14 +195,14 @@ elif os.uname()[1] == 'trailer':
                             format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
                             ),
                         widget.Sep(),
-                        widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-                        widget.Sep(),
                         widget.Battery(),
                         widget.Sep(),
                         widget.Backlight(
                             brightness_file="/sys/class/backlight/intel_backlight/brightness",
                             max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
                             ),
+                        widget.Sep(),
+                        widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
                         widget.Sep(),
                         widget.Systray(),
                         ],
