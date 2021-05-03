@@ -100,6 +100,7 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 ]
 
+# setup hostname specific keys
 if os.uname()[1] == 'trailer':
     keys.extend([
         # Backlight command
@@ -107,6 +108,11 @@ if os.uname()[1] == 'trailer':
         Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 10%-"), desc="Brightness down"),
     ])
 
+if os.uname()[1] == 'camper':
+    keys.extend([
+        # Backlight command
+        Key([mod], "d", lazy.spawn("camper-displays-gui"), desc="GUI for setting up xrandr displays"),
+    ])
 groups = [Group(i) for i in "123456789"]
 
 for i in groups:
