@@ -19,19 +19,19 @@ class displays_window:
     def setup_dvimonitor_action(self,btn):
         self.disable_buttons()
         self.status.set_label("Suspending, please standby...")
-        os.system("xrandr --output HDMI-1 --auto; xrandr --output LVDS-1 --off")
+        os.system("xrandr --output HDMI-1 --auto; xrandr --output LVDS-1 --off; ~/.fehbg")
         gtk.main_quit()
 
     def setup_dpmonitor_action(self,btn):
         self.disable_buttons()
         self.status.set_label("Suspending, please standby...")
-        os.system("xrandr --output -DP-1 --auto; xrandr --output LVDS-1 --off")
+        os.system("xrandr --output -DP-1 --auto; xrandr --output LVDS-1 --off; ~/.fehbg")
         gtk.main_quit()
 
     def return_lvds_action(self,btn):
         self.disable_buttons()
         self.status.set_label("Suspending, please standby...")
-        os.system("xrandr --output HDMI-1 --off; xrandr --output -DP-1 --off; xrandr --output LVDS-1 --auto")
+        os.system("xrandr --output HDMI-1 --off; xrandr --output -DP-1 --off; xrandr --output LVDS-1 --auto; ~/.fehbg")
         gtk.main_quit()
 
     def create_window(self):
