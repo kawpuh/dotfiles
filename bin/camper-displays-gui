@@ -25,7 +25,7 @@ class displays_window:
     def setup_dpmonitor_action(self,btn):
         self.disable_buttons()
         self.status.set_label("Suspending, please standby...")
-        os.system("xrandr --output DP-1 --auto; xrandr --output LVDS-1 --off; ~/.fehbg")
+        os.system("xrandr --output DP-1 --mode 1920x1080 --rate 120; xrandr --output LVDS-1 --off; ~/.fehbg")
         gtk.main_quit()
 
     def return_lvds_action(self,btn):
