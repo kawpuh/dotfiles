@@ -82,7 +82,7 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "n", lambda: subprocess.run("cd `xcwd` && urxvt", shell=True), desc="Launch terminal in cwd"),
+    Key([mod, "shift"], "n", lazy.spawn("xcwd-term"), desc="Launch terminal in cwd"),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -248,9 +248,7 @@ elif os.uname()[1] == 'camper':
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    Drag([mod], "Button3", lazy.window.set_size(),
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
