@@ -43,7 +43,7 @@ def autostart():
         subprocess.run("~/.config/i3/autostart-laptop.sh", shell=True)
 
 mod = "mod4"
-terminal = "urxvt"
+terminal = "x-terminal-emulator"
 
 keys = [
     # Switch between windows
@@ -167,9 +167,12 @@ if os.uname()[1] == 'toaster':
                             format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
                             ),
                         widget.Sep(),
-                        widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-                        widget.Sep(),
+                        widget.TextBox("Net:"),
+                        widget.NetGraph(),
+                        widget.TextBox("CPU:"),
                         widget.CPUGraph(),
+                        widget.Sep(),
+                        widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
                         widget.Sep(),
                         widget.Systray(),
                         ],
