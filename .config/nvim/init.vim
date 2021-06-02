@@ -90,3 +90,9 @@ augroup python
     au FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
     au FileType python nnoremap <buffer> <leader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
 augroup end
+
+augroup rust
+    au!
+    au FileType rust nnoremap <buffer> <leader>r :!cargo run %<CR>
+    au FileType rust nnoremap <buffer> <leader>b :!cargo build &<CR>
+augroup end
