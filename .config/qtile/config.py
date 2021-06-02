@@ -162,7 +162,7 @@ if os.uname()[1] == 'toaster':
                         widget.Prompt(),
                         widget.WindowName(),
                         widget.OpenWeather(
-                            zip="35806", 
+                            zip="35114", 
                             metric=False, 
                             format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
                             ),
@@ -199,7 +199,7 @@ elif os.uname()[1] == 'trailer':
                         widget.Prompt(),
                         widget.WindowName(),
                         widget.OpenWeather(
-                            zip="35806", 
+                            zip="35114", 
                             metric=False, 
                             format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
                             ),
@@ -229,7 +229,7 @@ elif os.uname()[1] == 'camper':
                         widget.Prompt(),
                         widget.WindowName(),
                         widget.OpenWeather(
-                            zip="35806", 
+                            zip="35114", 
                             metric=False, 
                         format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
                         ),
