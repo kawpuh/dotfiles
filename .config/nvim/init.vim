@@ -104,6 +104,7 @@ augroup rust
     au!
     au FileType rust nnoremap <buffer> <leader>r :!cargo run %<CR>
     au FileType rust nnoremap <buffer> <leader>b :!cargo build &<CR>
+    au FileType rust nnoremap <buffer> <leader>c :!cargo check %<CR>
     au FileType rust nnoremap <buffer> <leader>f :!cargo fmt &<CR>
 	au FileType rust nmap <silent> gr <Plug>(lcn-rename)
 	au FileType rust nmap <F5> <Plug>(lcn-menu)
