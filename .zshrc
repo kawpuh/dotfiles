@@ -52,6 +52,11 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# plugins
+source /usr/local/share/zsh-antigen/antigen.zsh
+antigen bundle zsh-vi-more/evil-registers
+antigen apply
+
 # ssl conf
 export OPENSSL_CONF=/etc/ssl/
 

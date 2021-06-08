@@ -26,6 +26,15 @@ Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
 Plug 'lambdalisue/suda.vim'
 Plug 'dense-analysis/ale'
+Plug 'autozimu/LanguageClient-neovim', {
+			\ 'branch': 'next',
+			\ 'do': 'bash install.sh',
+			\ }
+let g:LanguageClient_serverCommands = {
+			\ 'rust': ['rust-analyzer'],
+			\ }
+Plug 'junegunn/fzf'
+Plug 'rust-lang/rust.vim'
 " Plug 'hkupty/iron.nvim'
 call plug#end()
 
@@ -95,4 +104,8 @@ augroup rust
     au!
     au FileType rust nnoremap <buffer> <leader>r :!cargo run %<CR>
     au FileType rust nnoremap <buffer> <leader>b :!cargo build &<CR>
+    au FileType rust nnoremap <buffer> <leader>f :!cargo fmt &<CR>
+	au FileType rust nmap <silent> gr <Plug>(lcn-rename)
+	au FileType rust nmap <F5> <Plug>(lcn-menu)
+	au FileType rust nmap gd <Plug>(lcn-definition)
 augroup end
