@@ -1,5 +1,6 @@
 set number
 let mapleader=" "
+let maplocalleader=","
 set tabstop=4
 set shiftwidth=4
 
@@ -68,43 +69,43 @@ nnoremap <leader>bp :bp<CR>
 "
 augroup shell
     au!
-    au FileType sh nnoremap <buffer> <leader>r :!./%<CR>
+    au FileType sh nnoremap <buffer> <localleader>r :!./%<CR>
 augroup end
 
 augroup vimscript
 	au!
-    au FileType vim nnoremap <buffer> <leader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
+    au FileType vim nnoremap <buffer> <localleader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
 augroup end
 
 augroup c++
     au!
-    au FileType cpp nnoremap <buffer> <leader>b :!g++ %<CR>
-    au FileType cpp nnoremap <buffer> <leader>r :!g++ % && ./a.exe<CR>
+    au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
+    au FileType cpp nnoremap <buffer> <localleader>r :!g++ % && ./a.exe<CR>
 augroup end
 
 augroup perl
     au!
-    au FileType perl nnoremap <buffer> <leader>r :!perl %<CR>
+    au FileType perl nnoremap <buffer> <localleader>r :!perl %<CR>
 augroup end
 
 augroup golang
     au!
-    au FileType go nnoremap <buffer> <leader>r :!go run %<CR>
-	au FileType go nnoremap <buffer> <leader>b :!go build %<CR>
-    au FileType go nnoremap <buffer> <leader>f :call GoFmt()<CR>
+    au FileType go nnoremap <buffer> <localleader>r :!go run %<CR>
+	au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
+    au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
 augroup end
 
 augroup python
     au!
-    au FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
-    au FileType python nnoremap <buffer> <leader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
+    au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
+    au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
 augroup end
 
 augroup rust
     au!
-    au FileType rust nnoremap <buffer> <leader>r :!cargo run %<CR>
-    au FileType rust nnoremap <buffer> <leader>b :!cargo build &<CR>
-    au FileType rust nnoremap <buffer> <leader>f :!cargo fmt &<CR>
+    au FileType rust nnoremap <buffer> <localleader>r :!cargo run %<CR>
+    au FileType rust nnoremap <buffer> <localleader>b :!cargo build &<CR>
+    au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
 	au FileType rust nmap <silent> gr <Plug>(lcn-rename)
 	au FileType rust nmap <F5> <Plug>(lcn-menu)
 	au FileType rust nmap gd <Plug>(lcn-definition)
