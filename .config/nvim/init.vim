@@ -36,6 +36,7 @@ let g:LanguageClient_serverCommands = {
 			\ }
 Plug 'junegunn/fzf'
 Plug 'rust-lang/rust.vim'
+Plug 'Olical/conjure'
 " Plug 'hkupty/iron.nvim'
 call plug#end()
 
