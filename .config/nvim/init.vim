@@ -104,7 +104,6 @@ augroup end
 
 augroup rust
     au!
-<<<<<<< HEAD
     au FileType rust nnoremap <buffer> <localleader>r :!cargo run %<CR>
     au FileType rust nnoremap <buffer> <localleader>b :!cargo build &<CR>
     au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
