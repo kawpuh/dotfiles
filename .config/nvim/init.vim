@@ -21,7 +21,6 @@ Plug 'davidhalter/jedi-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
@@ -104,10 +103,10 @@ augroup end
 
 augroup rust
     au!
-    au FileType rust nnoremap <buffer> <localleader>r :!cargo run<CR>
-    au FileType rust nnoremap <buffer> <localleader>b :!cargo build<CR>
+    au FileType rust nnoremap <buffer> <localleader>r :Cargo run<CR>
+    au FileType rust nnoremap <buffer> <localleader>b :Cargo build<CR>
     au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
-    au FileType rust nnoremap <buffer> <localleader>c :!cargo check<CR>
+    au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>
 	au FileType rust nmap <silent> gr <Plug>(lcn-rename)
 	au FileType rust nmap <F5> <Plug>(lcn-menu)
 	au FileType rust nmap gd <Plug>(lcn-definition)
