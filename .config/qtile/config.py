@@ -86,13 +86,14 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-
+    
     # Swap between monitors
     Key([mod], "o", lazy.next_screen()),
 
     # Some spawn commands
     Key([mod], "b", lazy.spawn("firefox"), desc="Launch web browser"),
+
+    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.spawn("my-exit"), desc="Shutdown Qtile"),
@@ -121,18 +122,14 @@ for i in groups:
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-        #     desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
+        # mod1 + shift + letter of group = move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
             desc="move focused window to group {}".format(i.name)),
     ])
 
 layouts = [
-    layout.Max(),
     layout.Columns(border_focus_stack='#d75f5f'),
+    layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Bsp(),
     # layout.Matrix(),
@@ -146,7 +143,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Noto Sans',
+    font='Roboto Sans',
     fontsize=12,
     padding=3,
 )
