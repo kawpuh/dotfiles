@@ -7,7 +7,6 @@ set shiftwidth=4
 " Binds
 nnoremap <leader>w :w<CR>
 
-
 " Plugin section
 call plug#begin()
 
@@ -36,6 +35,8 @@ let g:LanguageClient_serverCommands = {
 Plug 'junegunn/fzf'
 Plug 'rust-lang/rust.vim'
 Plug 'Olical/conjure'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Plug 'hkupty/iron.nvim'
 call plug#end()
 
