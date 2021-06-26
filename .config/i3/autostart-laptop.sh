@@ -6,4 +6,4 @@ no-accel
 ~/.fehbg
 udiskie -s -2  &
 nm-applet &
-redshift-gtk -t 6500K:2000K &
+redshift-gtk -t 6500K:3000K &

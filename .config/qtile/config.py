@@ -201,8 +201,14 @@ elif os.uname()[1] == 'trailer':
                             format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
                             ),
                         widget.Sep(),
+                        widget.TextBox("Net:"),
+                        widget.NetGraph(),
+                        widget.TextBox("CPU:"),
+                        widget.CPUGraph(),
+                        widget.Sep(),
                         widget.Battery(),
                         widget.Sep(),
+                        widget.TextBox("💡:"),
                         widget.Backlight(
                             brightness_file="/sys/class/backlight/intel_backlight/brightness",
                             max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"

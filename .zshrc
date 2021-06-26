@@ -1,6 +1,7 @@
 # Enable colors and change prompt:
 autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}
+$%b "
 
 # History in cache directory:
 HISTSIZE=10000
@@ -55,6 +56,7 @@ bindkey '^e' edit-command-line
 # plugins
 source /usr/local/share/zsh-antigen/antigen.zsh
 antigen bundle zsh-vi-more/evil-registers
+antigen bundle zsh-users/zsh-completions
 antigen apply
 
 # ssl conf
@@ -72,7 +74,17 @@ alias vi="nvim"
 alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 
-# Load zsh-syntax-highlighting; should be last.
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Setup for android development
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Load zsh-syntax-highlighting
+# Should be last!
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/autojump/autojump.zsh 2>/dev/null
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
