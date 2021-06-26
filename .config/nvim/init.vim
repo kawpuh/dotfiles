@@ -1,8 +1,10 @@
-set number
-let mapleader=" "
-let maplocalleader=","
+
+set mouse=a
 set tabstop=4
 set shiftwidth=4
+
+let mapleader=" "
+let maplocalleader=","
 
 " Binds
 nnoremap <leader>w :w<CR>
