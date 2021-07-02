@@ -1,4 +1,3 @@
-
 set mouse=a
 set tabstop=4
 set shiftwidth=4
@@ -14,10 +13,8 @@ call plug#begin()
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'jpalardy/vim-slime'
 Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
-Plug 'jremmen/vim-ripgrep'
 Plug 'davidhalter/jedi-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
@@ -39,7 +36,11 @@ Plug 'rust-lang/rust.vim'
 Plug 'Olical/conjure'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
-" Plug 'hkupty/iron.nvim'
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
+Plug 'clojure-vim/vim-jack-in'
+Plug 'ncm2/float-preview.nvim'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 colorscheme gruvbox
@@ -54,7 +55,7 @@ call neomake#configure#automake('nrwi', 500)
 
 let g:deoplete#enable_at_startup = 1
 
-let g:ale_linters = {'clojure': ['clj-kondo']}
+let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
 
 " luafile $HOME/.config/nvim/plugins.lua
 
