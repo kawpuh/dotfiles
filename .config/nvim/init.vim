@@ -129,6 +129,7 @@ nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>rg :Rg <C-R><C-W><CR>
 vnoremap <leader>rg y:Rg <C-R>"<CR>
+nnoremap <C-p> :Files<CR>
 
 " :set filetype?
 "
