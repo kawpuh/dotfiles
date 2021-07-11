@@ -64,6 +64,7 @@ export OPENSSL_CONF=/etc/ssl/
 
 path+=('/home/ethan/bin')
 path+=('/home/ethan/.emacs.d/bin')
+path+=('/home/ethan/.yarn/bin')
 
 # aliases
 alias ls="ls --color=auto"
