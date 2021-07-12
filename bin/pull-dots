@@ -1,0 +1,3 @@
+#!/bin/zsh
+cd $(autojump dotfiles)
+git pull
