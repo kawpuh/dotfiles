@@ -44,10 +44,15 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
 Plug 'ncm2/float-preview.nvim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'frazrepo/vim-rainbow'
+Plug 'simnalamburt/vim-mundo'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 colorscheme gruvbox
 let g:slime_target = "tmux"
+
+let g:rainbow_active = 1
 
 " we use deoplete
 let g:jedi#completions_enabled = 0
@@ -130,6 +135,7 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader>rg :Rg <C-R><C-W><CR>
 vnoremap <leader>rg y:Rg <C-R>"<CR>
 nnoremap <C-p> :Files<CR>
+nnoremap <F5> :MundoToggle<CR>
 
 " :set filetype?
 "
