@@ -44,7 +44,7 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
 Plug 'ncm2/float-preview.nvim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'frazrepo/vim-rainbow'
+Plug 'luochen1990/rainbow'
 Plug 'simnalamburt/vim-mundo'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
