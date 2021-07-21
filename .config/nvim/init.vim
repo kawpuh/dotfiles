@@ -65,6 +65,9 @@ let g:deoplete#enable_at_startup = 1
 
 let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
 
+" airline configuration
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
 " luafile $HOME/.config/nvim/plugins.lua
 
 " lsp setup
@@ -134,8 +137,11 @@ nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>rg :Rg <C-R><C-W><CR>
 vnoremap <leader>rg y:Rg <C-R>"<CR>
-nnoremap <C-p> :Files<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>/ :Rg<CR>
 nnoremap <F5> :MundoToggle<CR>
+nnoremap <C-j> i<CR><Esc>l
 
 " :set filetype?
 "
