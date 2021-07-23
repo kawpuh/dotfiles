@@ -108,12 +108,12 @@ if os.uname()[1] == 'trailer':
         Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +10%"), desc="Brightness up"),
         Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 10%-"), desc="Brightness down"),
     ])
-
-if os.uname()[1] == 'camper':
+elif os.uname()[1] == 'camper':
     keys.extend([
         # Backlight command
         Key([mod], "d", lazy.spawn("camper-displays-gui"), desc="GUI for setting up xrandr displays"),
     ])
+
 groups = [Group(i) for i in "123456789"]
 
 for i in groups:
@@ -128,7 +128,7 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='#fb4934'),
+    layout.MonadTall(border_focus='#fb4934', border_normal='#3c3836'),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Columns(border_focus_stack='#d75f5f'),
@@ -149,67 +149,41 @@ widget_defaults = dict(
     fontsize=12,
     padding=3,
     background="#282828",
-    foreground="#ebdbb2"
+    foreground="#ebdbb2",
 )
 
 extension_defaults = widget_defaults.copy()
 
+common_bar_prefix = [
+    widget.CurrentLayout(),
+    widget.GroupBox(active="ebdbb2", this_current_screen_border='689d6a'),
+    widget.Prompt(),
+    widget.WindowName(),
+    widget.OpenWeather(
+      zip="35114",
+      metric=False,
+      format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'),
+    widget.Sep(),
+    widget.Net(),
+    widget.Sep(),
+    widget.TextBox("CPU:"),
+    widget.CPUGraph(),
+    ]
+common_bar_suffix = [
+    widget.Sep(),
+    widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
+    widget.Sep(),
+    widget.Systray(),
+    ]
+
 if os.uname()[1] == 'toaster':
-    screens = [
-            Screen(
-                bottom=bar.Bar(
-                    [
-                        widget.CurrentLayout(),
-                        widget.GroupBox(),
-                        widget.Prompt(),
-                        widget.WindowName(),
-                        widget.OpenWeather(
-                            zip="35114", 
-                            metric=False, 
-                            format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
-                            ),
-                        widget.Sep(),
-                        widget.TextBox("Net:"),
-                        widget.NetGraph(),
-                        widget.TextBox("CPU:"),
-                        widget.CPUGraph(),
-                        widget.Sep(),
-                        widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-                        widget.Sep(),
-                        widget.Systray(),
-                        ],
-                    24,
-                    ),
-                ),
-            Screen(
-                bottom=bar.Bar(
-                    [
-                        widget.GroupBox(),
-                        widget.WindowName()
-                        ],
-                    24,
-                    ),
-                ),
-            ]
+    screens = [Screen(bottom=bar.Bar(common_bar_prefix + common_bar_suffix, 24))]
 elif os.uname()[1] == 'trailer':
     screens = [
             Screen(
                 bottom=bar.Bar(
-                    [
-                        widget.CurrentLayout(),
-                        widget.GroupBox(),
-                        widget.Prompt(),
-                        widget.WindowName(),
-                        widget.OpenWeather(
-                            zip="35114", 
-                            metric=False, 
-                            format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
-                            ),
-                        widget.Sep(),
-                        widget.TextBox("Net:"),
-                        widget.NetGraph(),
-                        widget.TextBox("CPU:"),
-                        widget.CPUGraph(),
+                  common_bar_prefix + \
+                  [
                         widget.Sep(),
                         widget.Battery(),
                         widget.Sep(),
@@ -217,12 +191,7 @@ elif os.uname()[1] == 'trailer':
                         widget.Backlight(
                             brightness_file="/sys/class/backlight/intel_backlight/brightness",
                             max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
-                            ),
-                        widget.Sep(),
-                        widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-                        widget.Sep(),
-                        widget.Systray(),
-                        ],
+                            ),] + common_bar_suffix,
                     24,
                     ),
                 ),
@@ -231,31 +200,17 @@ elif os.uname()[1] == 'camper':
     screens = [
             Screen(
                 bottom=bar.Bar(
+                  common_bar_prefix + \
                     [
-                        widget.CurrentLayout(),
-                        widget.GroupBox(),
-                        widget.Prompt(),
-                        widget.WindowName(),
-                        widget.OpenWeather(
-                            zip="35114", 
-                            metric=False, 
-                        format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'
-                        ),
-                    widget.Sep(),
-                    widget.Battery(),
-                    widget.Sep(),
-                    widget.Backlight(),
-                    widget.Sep(),
-                    widget.CPUGraph(),
-                    widget.Sep(),
-                    widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-                    widget.Sep(),
-                    widget.Systray(),
-                ],
-                24,
-            ),
-        ),
-    ]
+                      widget.Sep(),
+                      widget.Battery(),
+                      widget.Sep(),
+                      widget.Backlight(),
+                      ] + common_bar_suffix,
+                    24,
+                    ),
+                ),
+            ]
 
 # Drag floating layouts.
 mouse = [
