@@ -128,10 +128,10 @@ for i in groups:
     ])
 
 layouts = [
-    # layout.Columns(border_focus_stack='#d75f5f'),
-    layout.MonadTall(border_focus_stack='#d75f5f'),
+    layout.MonadTall(border_focus='#fb4934'),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
+    # layout.Columns(border_focus_stack='#d75f5f'),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadTall(),
@@ -141,7 +141,7 @@ layouts = [
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(margin=1),
-    layout.Max(),
+    # layout.Max(),
 ]
 
 widget_defaults = dict(
