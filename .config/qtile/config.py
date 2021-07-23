@@ -140,14 +140,18 @@ layouts = [
     # layout.Tile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
-    # layout.Zoomy(),
+    # layout.Zoomy(margin=1),
+    layout.Max(),
 ]
 
 widget_defaults = dict(
-    font='Roboto Sans',
+    font='Fira Code',
     fontsize=12,
     padding=3,
+    background="#282828",
+    foreground="#ebdbb2"
 )
+
 extension_defaults = widget_defaults.copy()
 
 if os.uname()[1] == 'toaster':
