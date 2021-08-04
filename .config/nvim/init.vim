@@ -2,6 +2,8 @@ set mouse=a
 set tabstop=4
 set shiftwidth=4
 set inccommand=nosplit
+set ignorecase
+set smartcase
 
 let mapleader=" "
 let maplocalleader=","
