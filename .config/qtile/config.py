@@ -123,7 +123,7 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='#fb4934', border_normal='#3c3836'),
+    layout.MonadTall(border_focus='#d3869b', border_normal='#3c3836'),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Columns(border_focus_stack='#d75f5f'),
@@ -214,6 +214,8 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
+focus_on_window_activation = "never"
+
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
@@ -230,7 +232,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='pinentry'),  # GPG key password entry
 ])
 auto_fullscreen = True
-focus_on_window_activation = "smart"
+# focus_on_window_activation = "smart"
 reconfigure_screens = True
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
