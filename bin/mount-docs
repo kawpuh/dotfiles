@@ -1,3 +1,0 @@
-#!/bin/bash
-
-rclone mount --vfs-cache-mode full crimsondrive:shared_docs ~/shared_docs
