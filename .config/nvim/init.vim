@@ -8,9 +8,6 @@ set smartcase
 let mapleader=" "
 let maplocalleader=","
 
-" Binds
-nnoremap <leader>w :w<CR>
-
 " Plugin section
 call plug#begin()
 
@@ -128,7 +125,7 @@ EOF
 
 
 
-" Binds w/ Plugin Dependency
+" Binds
 xmap s <Plug>VSurround
 nnoremap <leader>ft :NERDTreeToggle<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
@@ -145,8 +142,6 @@ nnoremap <leader>/ :Rg<CR>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <C-j> i<CR><Esc>l
 
-" :set filetype?
-"
 augroup shell
     au!
     au FileType sh nnoremap <buffer> <localleader>r :!./%<CR>
@@ -189,7 +184,4 @@ augroup rust
     au FileType rust nnoremap <buffer> <localleader>b :Cargo build<CR>
     au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
     au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>
-	" au FileType rust nmap <silent> gr <Plug>(lcn-rename)
-	" au FileType rust nmap <F5> <Plug>(lcn-menu)
-	" au FileType rust nmap gd <Plug>(lcn-definition)
 augroup end
