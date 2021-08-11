@@ -151,7 +151,11 @@ extension_defaults = widget_defaults.copy()
 
 common_bar_prefix = [
     widget.CurrentLayout(),
-    widget.GroupBox(active="ebdbb2", this_current_screen_border='689d6a'),
+    widget.GroupBox(active="ebdbb2",
+                    this_current_screen_border='689d6a',
+                    other_current_screen_border='b16286',
+                    other_screen_border='404040',
+                    this_screen_border='404040'),
     widget.Prompt(),
     widget.WindowName(),
     widget.OpenWeather(
@@ -172,7 +176,13 @@ common_bar_suffix = [
     ]
 
 if os.uname()[1] == 'toaster':
-    screens = [Screen(bottom=bar.Bar(common_bar_prefix + common_bar_suffix, 24))]
+    screens = [
+        Screen(bottom=bar.Bar(common_bar_prefix + common_bar_suffix, 24)),
+        # because of the way qtile works, the bar will be a duplicate which
+        # messes with groupbox widget in particular
+        # we ignore this by selecting good other_screen_border colors
+        Screen(bottom=bar.Bar(common_bar_prefix + common_bar_suffix[:-2], 24))
+    ]
 elif os.uname()[1] == 'trailer':
     screens = [
             Screen(
