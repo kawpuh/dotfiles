@@ -24,13 +24,6 @@ Plug 'sbdchd/neoformat'
 Plug 'neomake/neomake'
 Plug 'lambdalisue/suda.vim'
 Plug 'dense-analysis/ale'
-" Plug 'autozimu/LanguageClient-neovim', {
-" 			\ 'branch': 'next',
-" 			\ 'do': 'bash install.sh',
-" 			\ }
-" let g:LanguageClient_serverCommands = {
-" 			\ 'rust': ['rust-analyzer'],
-" 			\ }
 Plug 'neovim/nvim-lspconfig'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -45,7 +38,6 @@ Plug 'ncm2/float-preview.nvim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
 Plug 'simnalamburt/vim-mundo'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 colorscheme gruvbox
@@ -72,7 +64,7 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 " lsp setup
 lua << EOF
 require'lspconfig'.rust_analyzer.setup{}
-require'lspconfig'.pyright.setup{}
+require'lspconfig'.pylsp.setup{}
 require'lspconfig'.clojure_lsp.setup{}
 
 local nvim_lsp = require('lspconfig')
@@ -106,13 +98,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("n", "<space>=f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "rust_analyzer", "clojure_lsp" }
+local servers = { "pylsp", "rust_analyzer", "clojure_lsp" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
