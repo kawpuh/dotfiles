@@ -24,89 +24,70 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 from typing import List  # noqa: F401
-
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from libqtile.widget import backlight
 
-import subprocess
-import os
-
-@hook.subscribe.startup_once
-def autostart():
-    if os.uname()[1] == 'toaster':
-        subprocess.run("~/.config/i3/autostart-desktop.sh", shell=True)
-    else:
-        subprocess.run("~/.config/i3/autostart-laptop.sh", shell=True)
-
-mod = "mod4"
-terminal = "x-terminal-emulator"
+MOD = "mod4"
+TERM = "x-terminal-emulator"
 
 keys = [
     # Switch between windows
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(),
+    Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([MOD], "space", lazy.layout.next(),
         desc="Move window focus to other window"),
 
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
-        desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
-        desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
-        desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([MOD, "shift"], "h", lazy.layout.shuffle_left()),
+    Key([MOD, "shift"], "l", lazy.layout.shuffle_right()),
+    Key([MOD, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([MOD, "shift"], "k", lazy.layout.shuffle_up()),
 
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    Key([mod, "control"], "j", lazy.layout.shrink(), desc=""),
-    Key([mod, "control"], "k", lazy.layout.grow(), desc=""),
-    Key([mod, "control"], "n", lazy.layout.reset(), desc="Reset all window sizes"),
+    Key([MOD, "control"], "j", lazy.layout.shrink()),
+    Key([MOD, "control"], "k", lazy.layout.grow()),
+    Key([MOD, "control"], "n", lazy.layout.reset()),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
+    Key([MOD, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod, "shift"], "n", lazy.spawn("xcwd-term"), desc="Launch terminal in cwd"),
 
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    
+    Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
+    Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
+
+    Key([MOD], "Tab", lazy.next_layout()),
+
     # Swap between monitors
-    Key([mod], "o", lazy.next_screen()),
+    Key([MOD], "o", lazy.next_screen()),
 
     # Some spawn commands
-    Key([mod], "b", lazy.spawn("firefox"), desc="Launch web browser"),
+    Key([MOD], "b", lazy.spawn("firefox")),
 
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+    Key([MOD], "w", lazy.window.kill()),
 
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "q", lazy.spawn("my-exit"), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn("rofi -show combi"),
-        desc="Spawn a command using a prompt widget"),
+    Key([MOD, "control"], "r", lazy.restart()),
+    Key([MOD, "control"], "q", lazy.spawn("my-exit")),
+    Key([MOD], "r", lazy.spawn("rofi -show combi")),
 ]
 
 # setup hostname specific keys
 if os.uname()[1] == 'trailer':
     keys.extend([
-        # Backlight command
-        Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +10%"), desc="Brightness up"),
-        Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 10%-"), desc="Brightness down"),
+        Key([], "XF86MonBrightnessUp", lazy.spawn(
+            "brightnessctl s +10%"), desc="Brightness up"),
+        Key([], "XF86MonBrightnessDown", lazy.spawn(
+            "brightnessctl s 10%-"), desc="Brightness down"),
     ])
 elif os.uname()[1] == 'camper':
     keys.extend([
-        # Backlight command
-        Key([mod], "d", lazy.spawn("camper-displays-gui"), desc="GUI for setting up xrandr displays"),
+        Key([MOD], "d", lazy.spawn("camper-displays-gui"),
+            desc="GUI for setting up xrandr displays"),
     ])
 
 groups = [Group(i) for i in "123456789"]
@@ -114,29 +95,16 @@ groups = [Group(i) for i in "123456789"]
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
+        Key([MOD], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
-
         # mod1 + shift + letter of group = move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+        Key([MOD, "shift"], i.name, lazy.window.togroup(i.name),
             desc="move focused window to group {}".format(i.name)),
     ])
 
 layouts = [
     layout.MonadTall(border_focus='#d3869b', border_normal='#3c3836'),
     layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Columns(border_focus_stack='#d75f5f'),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(margin=1),
-    # layout.Max(),
 ]
 
 widget_defaults = dict(
@@ -159,21 +127,21 @@ common_bar_prefix = [
     widget.Prompt(),
     widget.WindowName(),
     widget.OpenWeather(
-      zip="35114",
-      metric=False,
-      format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'),
+        zip="35114",
+        metric=False,
+        format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'),
     widget.Sep(),
     widget.Net(),
     widget.Sep(),
     widget.TextBox("CPU:"),
     widget.CPUGraph(),
-    ]
+]
 common_bar_suffix = [
     widget.Sep(),
     widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
     widget.Sep(),
     widget.Systray(),
-    ]
+]
 
 if os.uname()[1] == 'toaster':
     screens = [
@@ -185,43 +153,43 @@ if os.uname()[1] == 'toaster':
     ]
 elif os.uname()[1] == 'trailer':
     screens = [
-            Screen(
-                bottom=bar.Bar(
-                  common_bar_prefix + \
-                  [
-                        widget.Sep(),
-                        widget.Battery(),
-                        widget.Sep(),
-                        widget.TextBox("💡:"),
-                        widget.Backlight(
-                            brightness_file="/sys/class/backlight/intel_backlight/brightness",
-                            max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
-                            ),] + common_bar_suffix,
-                    24,
-                    ),
-                ),
-            ]
+        Screen(
+            bottom=bar.Bar(
+                common_bar_prefix +
+                [
+                    widget.Sep(),
+                    widget.Battery(),
+                    widget.Sep(),
+                    widget.TextBox("💡:"),
+                    widget.Backlight(
+                        brightness_file="/sys/class/backlight/intel_backlight/brightness",
+                        max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
+                    ), ] + common_bar_suffix,
+                24,
+            ),
+        ),
+    ]
 elif os.uname()[1] == 'camper':
     screens = [
-            Screen(
-                bottom=bar.Bar(
-                  common_bar_prefix + \
-                    [
-                      widget.Sep(),
-                      widget.Battery(),
-                      widget.Sep(),
-                      widget.Backlight(),
-                      ] + common_bar_suffix,
-                    24,
-                    ),
-                ),
-            ]
+        Screen(
+            bottom=bar.Bar(
+                common_bar_prefix +
+                [
+                    widget.Sep(),
+                    widget.Battery(),
+                    widget.Sep(),
+                    widget.Backlight(),
+                ] + common_bar_suffix,
+                24,
+            ),
+        ),
+    ]
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button3", lazy.window.set_size(),
+    Drag([MOD], "Button3", lazy.window.set_size(),
          start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Click([MOD], "Button2", lazy.window.bring_to_front())
 ]
 
 focus_on_window_activation = "never"
