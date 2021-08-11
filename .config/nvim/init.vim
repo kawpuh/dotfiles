@@ -163,6 +163,10 @@ augroup c++
     au FileType cpp nnoremap <buffer> <localleader>r :!g++ % && ./a.exe<CR>
 augroup end
 
+augroup clojure
+	au FileType clojure let b:AutoPairs = {'(':')', '[':']', '{':'}', '"':'"'}
+augroup end
+
 augroup perl
     au!
     au FileType perl nnoremap <buffer> <localleader>r :!perl %<CR>
