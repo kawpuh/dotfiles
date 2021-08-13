@@ -78,6 +78,7 @@ alias em="emacs -nw"
 alias vi="nvim"
 alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
+alias sf="xboard -fcp stockfish -fUCI"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
