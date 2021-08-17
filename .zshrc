@@ -79,6 +79,7 @@ alias vi="nvim"
 alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
+alias cat="batcat"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

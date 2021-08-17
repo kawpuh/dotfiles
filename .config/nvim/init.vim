@@ -8,6 +8,7 @@ set smartcase
 let mapleader=" "
 let maplocalleader=","
 
+
 " Plugin section
 call plug#begin()
 
@@ -32,6 +33,7 @@ Plug 'Olical/conjure'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
 Plug 'ncm2/float-preview.nvim'
@@ -41,9 +43,11 @@ Plug 'simnalamburt/vim-mundo'
 call plug#end()
 
 colorscheme gruvbox
-let g:slime_target = "tmux"
-
 let g:rainbow_active = 1
+
+" Highlight trailing whitespace
+highlight TrailingWhitespace ctermbg=red guibg=red
+match TrailingWhitespace /\s\+$/
 
 " we use deoplete
 let g:jedi#completions_enabled = 0
@@ -181,3 +185,4 @@ augroup rust
     au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
     au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>
 augroup end
+
