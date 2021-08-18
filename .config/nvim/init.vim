@@ -5,25 +5,22 @@ set inccommand=nosplit
 set ignorecase
 set smartcase
 set termguicolors
+set background=light
+set completeopt=menuone,noinsert,noselect
+
+filetype plugin on
 
 let mapleader=" "
 let maplocalleader=","
 
-
 " Plugin section
 call plug#begin()
-
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug 'davidhalter/jedi-vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
 Plug 'vim-airline/vim-airline'
-Plug 'jiangmiao/auto-pairs'
-Plug 'sbdchd/neoformat'
-Plug 'neomake/neomake'
 Plug 'lambdalisue/suda.vim'
 Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lspconfig'
@@ -37,10 +34,9 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
-Plug 'ncm2/float-preview.nvim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
-Plug 'simnalamburt/vim-mundo'
+Plug 'nvim-lua/completion-nvim'
 call plug#end()
 
 colorscheme gruvbox
@@ -50,21 +46,16 @@ let g:rainbow_active = 1
 highlight TrailingWhitespace ctermbg=red guibg=red
 match TrailingWhitespace /\s\+$/
 
-" we use deoplete
 let g:jedi#completions_enabled = 0
 let g:jedi#use_splits_not_buffers = "right"
 
-let g:neomake_python_enabled_makers = ['pylint']
-call neomake#configure#automake('nrwi', 500)
-
-let g:deoplete#enable_at_startup = 1
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
 
 let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
 
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-
-" luafile $HOME/.config/nvim/plugins.lua
 
 " lsp setup
 lua << EOF
@@ -119,8 +110,6 @@ for _, lsp in ipairs(servers) do
   }
 end
 EOF
-
-
 
 " Binds
 xmap s <Plug>VSurround
