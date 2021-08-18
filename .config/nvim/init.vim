@@ -4,6 +4,7 @@ set shiftwidth=4
 set inccommand=nosplit
 set ignorecase
 set smartcase
+set termguicolors
 
 let mapleader=" "
 let maplocalleader=","
