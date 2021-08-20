@@ -103,8 +103,6 @@ alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
 alias cat="batcat"
-# alias setdark="touch ~/.dark; source ~/.zshrc"
-# alias setlight="rm ~/.dark; source ~/.zshrc"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
