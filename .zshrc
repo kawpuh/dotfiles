@@ -64,16 +64,25 @@ antigen bundle zsh-users/zsh-completions
 antigen apply
 
 # manage dark mode / light mode
-if [[ -f "/home/ethan/.dark" ]]; then
+
+setdark() {
 	export COLORMODE="dark"
 	if [[ $TERM == "xterm-kitty" ]]; then
 		kitty @ set-colors .config/kitty/gruvbox_dark.conf
 	fi
-else
+}
+
+setlight() {
 	export COLORMODE="light"
 	if [[ $TERM == "xterm-kitty" ]]; then
 		kitty @ set-colors .config/kitty/gruvbox_light.conf
 	fi
+}
+
+if [[ -f "/home/ethan/.dark" ]]; then
+	setdark
+else
+	setlight
 fi
 
 
@@ -94,8 +103,8 @@ alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
 alias cat="batcat"
-alias setdark="touch ~/.dark"
-alias setlight="rm ~/.dark"
+# alias setdark="touch ~/.dark; source ~/.zshrc"
+# alias setlight="rm ~/.dark; source ~/.zshrc"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
