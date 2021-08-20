@@ -5,8 +5,13 @@ set inccommand=nosplit
 set ignorecase
 set smartcase
 set termguicolors
-set background=light
 set completeopt=menuone,noinsert,noselect
+
+if $COLORMODE == "dark"
+	set background=dark
+else
+	set background=light
+endif
 
 filetype plugin on
 
@@ -123,7 +128,7 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader>rg :Rg <C-R><C-W><CR>
 vnoremap <leader>rg y:Rg <C-R>"<CR>
 nnoremap <leader>ff :Files<CR>
-nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>bb :Buffers<CR>
 nnoremap <leader>/ :Rg<CR>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <C-j> i<CR><Esc>l

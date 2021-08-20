@@ -63,6 +63,20 @@ antigen bundle zsh-vi-more/evil-registers
 antigen bundle zsh-users/zsh-completions
 antigen apply
 
+# manage dark mode / light mode
+if [[ -f "/home/ethan/.dark" ]]; then
+	export COLORMODE="dark"
+	if [[ $TERM == "xterm-kitty" ]]; then
+		kitty @ set-colors .config/kitty/gruvbox_dark.conf
+	fi
+else
+	export COLORMODE="light"
+	if [[ $TERM == "xterm-kitty" ]]; then
+		kitty @ set-colors .config/kitty/gruvbox_light.conf
+	fi
+fi
+
+
 # ssl conf
 export OPENSSL_CONF=/etc/ssl/
 
@@ -80,6 +94,8 @@ alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
 alias cat="batcat"
+alias setdark="touch ~/.dark"
+alias setlight="rm ~/.dark"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
