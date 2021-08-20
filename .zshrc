@@ -68,15 +68,17 @@ antigen apply
 setdark() {
 	export COLORMODE="dark"
 	if [[ $TERM == "xterm-kitty" ]]; then
-		kitty @ set-colors .config/kitty/gruvbox_dark.conf
+		kitty @ set-colors ~/.config/kitty/gruvbox_dark.conf
 	fi
+	touch ~/.dark
 }
 
 setlight() {
 	export COLORMODE="light"
 	if [[ $TERM == "xterm-kitty" ]]; then
-		kitty @ set-colors .config/kitty/gruvbox_light.conf
+		kitty @ set-colors ~/.config/kitty/gruvbox_light.conf
 	fi
+	rm -f ~/.dark
 }
 
 if [[ -f "/home/ethan/.dark" ]]; then
