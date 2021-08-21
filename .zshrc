@@ -70,6 +70,7 @@ setdark() {
 	if [[ $TERM == "xterm-kitty" ]]; then
 		kitty @ set-colors ~/.config/kitty/gruvbox_dark.conf
 	fi
+	export BAT_THEME="OneHalfDark"
 	touch ~/.dark
 }
 
@@ -78,6 +79,7 @@ setlight() {
 	if [[ $TERM == "xterm-kitty" ]]; then
 		kitty @ set-colors ~/.config/kitty/gruvbox_light.conf
 	fi
+	export BAT_THEME="OneHalfLight"
 	rm -f ~/.dark
 }
 
@@ -104,7 +106,7 @@ alias vi="nvim"
 alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
-alias cat="batcat"
+alias bat="batcat"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
