@@ -41,15 +41,15 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
 Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
+Plug 'tpope/vim-repeat'
 Plug 'nvim-lua/completion-nvim'
 call plug#end()
 
 colorscheme gruvbox
 let g:rainbow_active = 1
 
-" Highlight trailing whitespace
-highlight TrailingWhitespace ctermbg=red guibg=red
-match TrailingWhitespace /\s\+$/
+" Cleanup trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 let g:jedi#completions_enabled = 0
 let g:jedi#use_splits_not_buffers = "right"
