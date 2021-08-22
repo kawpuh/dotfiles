@@ -107,6 +107,11 @@ alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
 alias bat="batcat"
+alias gs="git status"
+alias gl="git log"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
