@@ -1,0 +1,3 @@
+#!/bin/env bash
+
+kitty nvim scp://root@thetome.xyz/agenda.md && exit

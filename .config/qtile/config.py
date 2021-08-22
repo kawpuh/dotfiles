@@ -39,6 +39,10 @@ keys = [
     Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
+
+    Key([MOD], "a", lazy.spawn("/home/ethan/bin/agenda")),
+    Key([MOD], "n", lazy.spawn("/home/ethan/bin/notes")),
+
     Key([MOD], "space", lazy.layout.next(),
         desc="Move window focus to other window"),
 
@@ -49,7 +53,7 @@ keys = [
 
     Key([MOD, "control"], "j", lazy.layout.shrink()),
     Key([MOD, "control"], "k", lazy.layout.grow()),
-    Key([MOD, "control"], "n", lazy.layout.reset()),
+    Key([MOD, "control"], "s", lazy.layout.reset()),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
