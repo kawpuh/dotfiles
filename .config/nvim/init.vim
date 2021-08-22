@@ -7,7 +7,7 @@ set smartcase
 set termguicolors
 set completeopt=menuone,noinsert,noselect
 
-if $COLORMODE == "dark"
+if filereadable("/home/ethan/.dark")
 	set background=dark
 else
 	set background=light

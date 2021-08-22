@@ -107,7 +107,8 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='#d3869b', border_normal='#3c3836'),
+    layout.MonadTall(border_focus='#b16286', border_normal='#3c3836',
+                     border_width=3),
     layout.Max(),
 ]
 
@@ -155,15 +156,15 @@ if os.uname()[1] == 'toaster':
         Screen(bottom=bar.Bar([
             widget.CurrentLayout(),
             widget.GroupBox(active="ebdbb2",
-                            this_current_screen_border='b16286',
-                            this_screen_border='b16286',
+                            this_current_screen_border='689d6a',
+                            this_screen_border='689d6a',
                             other_current_screen_border='404040',
                             other_screen_border='404040'),
             widget.Prompt(),
             widget.WindowName(),
             widget.Sep(),
             widget.Clock(format='%a %m/%d/%Y %H:%M:%S')], 24))
-        ]
+    ]
 elif os.uname()[1] == 'trailer':
     screens = [
         Screen(

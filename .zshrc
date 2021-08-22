@@ -66,7 +66,6 @@ antigen apply
 # manage dark mode / light mode
 
 setdark() {
-	export COLORMODE="dark"
 	if [[ $TERM == "xterm-kitty" ]]; then
 		kitty @ set-colors ~/.config/kitty/gruvbox_dark.conf
 	fi
@@ -75,7 +74,6 @@ setdark() {
 }
 
 setlight() {
-	export COLORMODE="light"
 	if [[ $TERM == "xterm-kitty" ]]; then
 		kitty @ set-colors ~/.config/kitty/gruvbox_light.conf
 	fi
