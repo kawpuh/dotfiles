@@ -5,6 +5,7 @@ set inccommand=nosplit
 set ignorecase
 set smartcase
 set termguicolors
+set hidden
 set completeopt=menuone,noinsert,noselect
 
 if filereadable("/home/ethan/.dark")
@@ -125,6 +126,7 @@ nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
+nnoremap <leader><tab> :e#<CR>
 nnoremap <leader>rg :Rg <C-R><C-W><CR>
 vnoremap <leader>rg y:Rg <C-R>"<CR>
 nnoremap <leader>ff :Files<CR>
