@@ -6,7 +6,7 @@ if [[ $HOSTNAME == "toaster" ]]; then
 fi
 
 xrdb ~/.Xresources
-xset r rate 250 50
+xset r rate 250 60
 xset -b
 no-accel
 ~/.fehbg
