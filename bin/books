@@ -1,24 +1,21 @@
 #!/bin/env bb
 (require '[clojure.java.shell :refer [sh]])
 
+(defn rofi-select-and-exec [tasks]
+  (let [tasks (map (fn [task] (update task :name #(str % "\n"))) tasks)
+        names (->> tasks (map :name) (apply str))
+        task (:out (sh "rofi" "-dmenu" :in names))
+        command (:command (first (filter #(= task (:name %)) tasks)))]
+    (apply sh command)))
+
 (def tasks
   [{:name "Category Theory for Programmers"
-    :command (list "zathura" "~/papers-textbooks/papers-textbooks/category-theory-for-programmers.pdf")}
+    :command '("zathura" "~/papers-textbooks/papers-textbooks/category-theory-for-programmers.pdf")}
    {:name "Applied Category Theory"
-    :command (list "zathura" "~/papers-textbooks/papers-textbooks/7sketches-applied-category-theory.pdf")}
+    :command '("zathura" "~/papers-textbooks/papers-textbooks/7sketches-applied-category-theory.pdf")}
    {:name "Deep Learning"
-    :command (list "zathura" "~/papers-textbooks/deep-learning.pdf")}
+    :command '("zathura" "~/papers-textbooks/deep-learning.pdf")}
    {:name "Geometric Methods of Mathematical Physics"
-    :command (list "zathura" "~/papers-textbooks/geometrical-methods-of-mathematical-physics.pdf")}])
+    :command '("zathura" "~/papers-textbooks/geometrical-methods-of-mathematical-physics.pdf")}])
 
-(def tasks
-  (map (fn [task] (update task :name #(str % "\n"))) tasks))
-
-(def names
-  (->> tasks
-       (map :name)
-       (apply str)))
-
-(let [task (:out (sh "rofi" "-dmenu" :in names))
-      command (:command (first (filter #(= task (:name %)) tasks)))]
-  (apply sh command))
+(rofi-select-and-exec tasks)
