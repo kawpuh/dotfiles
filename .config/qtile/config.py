@@ -43,8 +43,7 @@ keys = [
     Key([MOD], "a", lazy.spawn("/home/ethan/bin/agenda")),
     Key([MOD], "n", lazy.spawn("/home/ethan/bin/notes")),
 
-    Key([MOD], "space", lazy.layout.next(),
-        desc="Move window focus to other window"),
+    Key([MOD], "space", lazy.screen.togglegroup()),
 
     Key([MOD, "shift"], "h", lazy.layout.shuffle_left()),
     Key([MOD, "shift"], "l", lazy.layout.shuffle_right()),
@@ -134,7 +133,7 @@ common_bar_prefix = [
     widget.OpenWeather(
         zip="35114",
         metric=False,
-        format='{location_city}: {main_temp} °{units_temperature} {humidity}% {weather_details}'),
+        format='⛅: {main_temp} °{units_temperature} {humidity}% {weather_details}'),
     widget.Sep(),
     widget.Net(),
     widget.Sep(),
