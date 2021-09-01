@@ -110,6 +110,7 @@ alias gl="git log"
 alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
+alias gd="git diff"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

@@ -16,6 +16,8 @@
    {:name "Deep Learning"
     :command '("zathura" "~/papers-textbooks/deep-learning.pdf")}
    {:name "Geometric Methods of Mathematical Physics"
-    :command '("zathura" "~/papers-textbooks/geometrical-methods-of-mathematical-physics.pdf")}])
+    :command '("zathura" "~/papers-textbooks/geometrical-methods-of-mathematical-physics.pdf")}
+   {:name "Dream Machine"
+    :command '("zathura" "~/papers-textbooks/the-dream-machine.pdf")}])
 
 (rofi-select-and-exec tasks)
