@@ -6,6 +6,7 @@ set ignorecase
 set smartcase
 set termguicolors
 set hidden
+set expandtab
 set completeopt=menuone,noinsert,noselect
 
 if filereadable("/home/ethan/.dark")
@@ -63,11 +64,13 @@ let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
-" lsp setup
+" lua lsp setup ---------------------------------------------------------------
 lua << EOF
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.clojure_lsp.setup{}
+require'lspconfig'.clangd.setup{}
+require'lspconfig'.hls.setup{}
 
 local nvim_lsp = require('lspconfig')
 
@@ -106,7 +109,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "clojure_lsp" }
+local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -119,6 +122,7 @@ EOF
 
 " Binds
 xmap s <Plug>VSurround
+nnoremap <leader>! :!!<CR>
 nnoremap <leader>ft :NERDTreeToggle<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
@@ -171,8 +175,8 @@ augroup python
     au!
     au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
 	au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
-	au FileType python set tabstop=2
-	au FileType python set shiftwidth=2
+	" au FileType python set tabstop=2
+	" au FileType python set shiftwidth=2
 augroup end
 
 augroup rust
