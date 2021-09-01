@@ -10,9 +10,9 @@
 
 (def tasks
   [{:name "Category Theory for Programmers"
-    :command '("zathura" "~/papers-textbooks/papers-textbooks/category-theory-for-programmers.pdf")}
+    :command '("zathura" "~/papers-textbooks/category-theory-for-programmers.pdf")}
    {:name "Applied Category Theory"
-    :command '("zathura" "~/papers-textbooks/papers-textbooks/7sketches-applied-category-theory.pdf")}
+    :command '("zathura" "~/papers-textbooks/7sketches-applied-category-theory.pdf")}
    {:name "Deep Learning"
     :command '("zathura" "~/papers-textbooks/deep-learning.pdf")}
    {:name "Geometric Methods of Mathematical Physics"
