@@ -50,6 +50,8 @@ call plug#end()
 colorscheme gruvbox
 let g:rainbow_active = 1
 
+let g:AutoPairsMapSpace = 0
+
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
