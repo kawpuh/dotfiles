@@ -1,0 +1,24 @@
+#!/bin/env python3
+import sys
+import subprocess
+import webbrowser
+import time
+
+def main():
+    if sys.argv[1] is None:
+        print("Pass name of markdown file as argument")
+        sys.exit(1)
+
+    md_fname = sys.argv[1]
+    html_fname = sys.argv[1].split('.')[0] + ".html"
+    header_path = "/home/ethan/.config/header.html"
+    _serve = subprocess.Popen(["python3", "-m", "http.server", "8000"])
+    fname_pipe = subprocess.Popen(["echo", sys.argv[1]], stdout=subprocess.PIPE)
+    _reload = subprocess.Popen(["entr", "pandoc", "-s", "--mathml", "-H", header_path, "-o", html_fname,  md_fname], stdin=fname_pipe.stdout)
+    webbrowser.open("http://localhost:8000/" + html_fname)
+
+    while True:
+        time.sleep(100)
+
+if __name__ == "__main__":
+    main()
