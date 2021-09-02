@@ -18,6 +18,8 @@
    {:name "Geometric Methods of Mathematical Physics"
     :command '("zathura" "~/papers-textbooks/geometrical-methods-of-mathematical-physics.pdf")}
    {:name "Dream Machine"
-    :command '("zathura" "~/papers-textbooks/the-dream-machine.pdf")}])
+    :command '("zathura" "~/papers-textbooks/the-dream-machine.pdf")}
+   {:name "Book of Life"
+    :command '("zathura" "~/papers-textbooks/book-of-life.pdf")}])
 
 (rofi-select-and-exec tasks)
