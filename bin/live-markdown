@@ -1,24 +1,33 @@
 #!/bin/env python3
+import os
 import sys
 import subprocess
 import webbrowser
 import time
 
 def main():
-    if sys.argv[1] is None:
-        print("Pass name of markdown file as argument")
+    if len(sys.argv) <= 1:
+        print(len(sys.argv))
+        print("Error: {} requires name of markdown file as argument".format(sys.argv[0]))
         sys.exit(1)
 
     md_fname = sys.argv[1]
     html_fname = sys.argv[1].split('.')[0] + ".html"
     header_path = "/home/ethan/.config/header.html"
-    _serve = subprocess.Popen(["python3", "-m", "http.server", "8000"])
-    fname_pipe = subprocess.Popen(["echo", sys.argv[1]], stdout=subprocess.PIPE)
-    _reload = subprocess.Popen(["entr", "pandoc", "-s", "--mathml", "-H", header_path, "-o", html_fname,  md_fname], stdin=fname_pipe.stdout)
-    webbrowser.open("http://localhost:8000/" + html_fname)
+    try:
+        fname_pipe = subprocess.Popen(["echo", sys.argv[1]], stdout=subprocess.PIPE)
+        _reload = subprocess.Popen(["entr", "pandoc", "-s", "--mathml", "-H", header_path, "-o", html_fname,  md_fname], stdin=fname_pipe.stdout)
+        _serve = subprocess.Popen(["python3", "-m", "http.server", "8000"])
+        webbrowser.open("http://localhost:8000/" + html_fname)
 
-    while True:
-        time.sleep(100)
+        while True:
+            time.sleep(100)
+
+    except:
+        _reload.terminate()
+        _serve.terminate()
+        os.remove(html_fname)
+
 
 if __name__ == "__main__":
     main()
