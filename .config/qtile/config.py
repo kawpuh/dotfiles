@@ -43,7 +43,7 @@ keys = [
     Key([MOD], "a", lazy.spawn("/home/ethan/bin/agenda")),
     Key([MOD], "n", lazy.spawn("/home/ethan/bin/notes")),
 
-    Key([MOD], "space", lazy.screen.togglegroup()),
+    Key([MOD], "Tab", lazy.screen.togglegroup()),
 
     Key([MOD, "shift"], "h", lazy.layout.shuffle_left()),
     Key([MOD, "shift"], "l", lazy.layout.shuffle_right()),
@@ -64,7 +64,7 @@ keys = [
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
 
-    Key([MOD], "Tab", lazy.next_layout()),
+    Key([MOD], "f", lazy.next_layout()),
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
