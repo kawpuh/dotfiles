@@ -114,6 +114,8 @@ alias gd="git diff"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
+
 # Setup for android development
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
