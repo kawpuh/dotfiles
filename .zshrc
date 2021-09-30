@@ -7,9 +7,12 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000000000
+SAVEHIST=1000000000
 HISTFILE=~/.cache/zsh/history
+setopt INC_APPEND_HISTORY
+export HISTTIMEFORMAT="[%F %T] "
+setopt EXTENDED_HISTORY
 
 # Basic auto/tab complete:
 autoload -U compinit
