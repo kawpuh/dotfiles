@@ -90,6 +90,8 @@ else
 	setlight
 fi
 
+export PAGER=/usr/local/bin/vimpager
+
 
 # ssl conf
 export OPENSSL_CONF=/etc/ssl/
