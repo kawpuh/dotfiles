@@ -98,7 +98,7 @@ groups = [Group(i) for i in "123456789"]
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
-        Key([MOD], i.name, lazy.group[i.name].toscreen(),
+        Key([MOD], i.name, lazy.group[i.name].toscreen(toggle=False),
             desc="Switch to group {}".format(i.name)),
         # mod1 + shift + letter of group = move focused window to group
         Key([MOD, "shift"], i.name, lazy.window.togroup(i.name),
