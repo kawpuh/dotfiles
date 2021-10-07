@@ -112,8 +112,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Fira Code',
-    fontsize=12,
+    font='Iosevka SS09',
+    fontsize=14,
     padding=3,
     background="#282828",
     foreground="#ebdbb2",
@@ -124,26 +124,28 @@ extension_defaults = widget_defaults.copy()
 common_bar_prefix = [
     widget.CurrentLayout(),
     widget.GroupBox(active="ebdbb2",
+                    disable_drag=True,
+                    highlight_method="block",
                     this_current_screen_border='689d6a',
                     this_screen_border='689d6a',
-                    other_current_screen_border='404040',
-                    other_screen_border='404040'),
+                    other_current_screen_border='3c3836',
+                    other_screen_border='3c3836'),
     widget.Prompt(),
-    widget.WindowName(),
+    widget.WindowName(background="3c3836"),
     widget.OpenWeather(
         zip="35114",
         metric=False,
         format='⛅: {main_temp} °{units_temperature} {humidity}% {weather_details}'),
-    widget.Sep(),
+    widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Net(),
-    widget.Sep(),
+    widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.TextBox("CPU:"),
     widget.CPUGraph(),
 ]
 common_bar_suffix = [
-    widget.Sep(),
+    widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-    widget.Sep(),
+    widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Systray(),
 ]
 
@@ -155,13 +157,13 @@ if os.uname()[1] == 'toaster':
         Screen(bottom=bar.Bar([
             widget.CurrentLayout(),
             widget.GroupBox(active="ebdbb2",
+                            disable_drag=True,
+                            highlight_method="block",
                             this_current_screen_border='689d6a',
                             this_screen_border='689d6a',
-                            other_current_screen_border='404040',
-                            other_screen_border='404040'),
-            widget.Prompt(),
-            widget.WindowName(),
-            widget.Sep(),
+                            other_current_screen_border='3c3836',
+                            other_screen_border='3c3836'),
+            widget.WindowName(background="3c3836"),
             widget.Clock(format='%a %m/%d/%Y %H:%M:%S')], 24))
     ]
 elif os.uname()[1] == 'trailer':
@@ -170,9 +172,11 @@ elif os.uname()[1] == 'trailer':
             bottom=bar.Bar(
                 common_bar_prefix +
                 [
-                    widget.Sep(),
+                    widget.Sep(padding=12, size_percent=80,
+                               foreground="504945"),
                     widget.Battery(),
-                    widget.Sep(),
+                    widget.Sep(padding=12, size_percent=80,
+                               foreground="504945"),
                     widget.TextBox("💡:"),
                     widget.Backlight(
                         brightness_file="/sys/class/backlight/intel_backlight/brightness",
@@ -224,7 +228,7 @@ floating_layout = layout.Floating(float_rules=[
 ])
 auto_fullscreen = True
 # focus_on_window_activation = "smart"
-reconfigure_screens = True
+reconfigure_screens = False
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
