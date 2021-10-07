@@ -106,7 +106,7 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='689d6a', border_normal='282828',
+    layout.MonadTall(border_focus='689d6a', border_normal='3c3836',
                      border_width=3),
     layout.Max(),
 ]
