@@ -106,8 +106,8 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='689d6a', border_normal='3c3836',
-                     border_width=3),
+    layout.MonadTall(border_focus='928374', border_normal='3c3836',
+                     border_width=2),
     layout.Max(),
 ]
 
@@ -126,8 +126,8 @@ common_bar_prefix = [
     widget.GroupBox(active="ebdbb2",
                     disable_drag=True,
                     highlight_method="block",
-                    this_current_screen_border='689d6a',
-                    this_screen_border='689d6a',
+                    this_current_screen_border='928374',
+                    this_screen_border='928374',
                     other_current_screen_border='3c3836',
                     other_screen_border='3c3836'),
     widget.Prompt(),
@@ -159,8 +159,8 @@ if os.uname()[1] == 'toaster':
             widget.GroupBox(active="ebdbb2",
                             disable_drag=True,
                             highlight_method="block",
-                            this_current_screen_border='689d6a',
-                            this_screen_border='689d6a',
+                            this_current_screen_border='928374',
+                            this_screen_border='928374',
                             other_current_screen_border='3c3836',
                             other_screen_border='3c3836'),
             widget.WindowName(background="3c3836"),
