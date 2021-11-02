@@ -174,7 +174,7 @@ elif os.uname()[1] == 'trailer':
                 [
                     widget.Sep(padding=12, size_percent=80,
                                foreground="504945"),
-                    widget.Battery(),
+                    widget.Battery(format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
                     widget.Sep(padding=12, size_percent=80,
                                foreground="504945"),
                     widget.TextBox("💡:"),
@@ -192,9 +192,9 @@ elif os.uname()[1] == 'camper':
             bottom=bar.Bar(
                 common_bar_prefix +
                 [
-                    widget.Sep(),
-                    widget.Battery(),
-                    widget.Sep(),
+                    widget.Sep(padding=12, size_percent=80, foreground="504945"),
+                    widget.Battery(format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
+                    widget.Sep(padding=12, size_percent=80, foreground="504945"),
                     widget.Backlight(),
                 ] + common_bar_suffix,
                 24,
