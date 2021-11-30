@@ -3,8 +3,10 @@
          '[clojure.string :as s])
 
 (def tasks
-  {"Main" '("kitty" "nvim" "scp://root@thetome.xyz/notes.md")
-   "Agenda" '("kitty" "nvim" "scp://root@thetome.xyz/agenda.md")})
+  {"Scratch" '("kitty" "nvim" "scp://root@thetome.xyz/notes.md")
+   "TF" '("kitty" "nvim" "scp://root@thetome.xyz/tf.md")
+   "Agenda" '("kitty" "nvim" "scp://root@thetome.xyz/agenda.md")
+   "FeedMark" '("kitty" "nvim" "scp://root@thetome.xyz/feedmark.md")})
 
 (defn rofi-select-and-exec [tasks]
   (let [names (s/join "\n" (keys tasks))
