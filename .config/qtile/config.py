@@ -33,6 +33,27 @@ from libqtile.lazy import lazy
 MOD = "mod4"
 TERM = "x-terminal-emulator"
 
+
+def toggle_maximized_tiled(qtile):
+    idx = qtile.current_group.current_layout
+    if idx == 1:
+        qtile.cmd_to_layout_index(0)
+    else:
+        qtile.cmd_to_layout_index(1)
+
+
+def toggle_tabbed_tiled(qtile):
+    idx = qtile.current_group.current_layout
+    if idx == 2:
+        qtile.cmd_to_layout_index(0)
+    else:
+        qtile.cmd_to_layout_index(2)
+
+
+# def goto_next_empty_group(qtile):
+#     qtile.c
+
+
 keys = [
     # Switch between windows
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -64,7 +85,9 @@ keys = [
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
 
-    Key([MOD], "f", lazy.next_layout()),
+    Key([MOD], "f", lazy.function(toggle_maximized_tiled)),
+    Key([MOD], "g", lazy.function(toggle_tabbed_tiled)),
+    # Key([MOD], "g", lazy.next_layout()),
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
@@ -93,7 +116,17 @@ elif os.uname()[1] == 'camper':
             desc="GUI for setting up xrandr displays"),
     ])
 
-groups = [Group(i) for i in "123456789"]
+groups = [
+    Group("1"),
+    Group("2"),
+    Group("3"),
+    Group("4"),
+    Group("5"),
+    Group("6", layout="treetab"),
+    Group("7", layout="treetab"),
+    Group("8", layout="treetab"),
+    Group("9", layout="treetab")
+]
 
 for i in groups:
     keys.extend([
@@ -102,13 +135,21 @@ for i in groups:
             desc="Switch to group {}".format(i.name)),
         # mod1 + shift + letter of group = move focused window to group
         Key([MOD, "shift"], i.name, lazy.window.togroup(i.name),
-            desc="move focused window to group {}".format(i.name)),
+            desc="move focused window to group  {}".format(i.name)),
     ])
 
 layouts = [
     layout.MonadTall(border_focus='928374', border_normal='3c3836',
                      border_width=2),
     layout.Max(),
+    layout.TreeTab(
+        active_bg='665c54',
+        inactive_bg='3c3836',
+        bg_color='1d2021',
+        font='Iosevka SS09',
+        fontsize=14,
+        padding_x=3,
+        level_shift=0)
 ]
 
 widget_defaults = dict(
@@ -174,7 +215,8 @@ elif os.uname()[1] == 'trailer':
                 [
                     widget.Sep(padding=12, size_percent=80,
                                foreground="504945"),
-                    widget.Battery(format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
+                    widget.Battery(
+                        format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
                     widget.Sep(padding=12, size_percent=80,
                                foreground="504945"),
                     widget.TextBox("💡:"),
@@ -192,9 +234,12 @@ elif os.uname()[1] == 'camper':
             bottom=bar.Bar(
                 common_bar_prefix +
                 [
-                    widget.Sep(padding=12, size_percent=80, foreground="504945"),
-                    widget.Battery(format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
-                    widget.Sep(padding=12, size_percent=80, foreground="504945"),
+                    widget.Sep(padding=12, size_percent=80,
+                               foreground="504945"),
+                    widget.Battery(
+                        format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
+                    widget.Sep(padding=12, size_percent=80,
+                               foreground="504945"),
                     widget.Backlight(),
                 ] + common_bar_suffix,
                 24,
