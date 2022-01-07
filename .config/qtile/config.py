@@ -122,9 +122,9 @@ groups = [
     Group("3"),
     Group("4"),
     Group("5"),
-    Group("6", layout="treetab"),
-    Group("7", layout="treetab"),
-    Group("8", layout="treetab"),
+    Group("6"),
+    Group("7"),
+    Group("8"),
     Group("9", layout="treetab")
 ]
 
@@ -251,7 +251,8 @@ elif os.uname()[1] == 'camper':
 mouse = [
     Drag([MOD], "Button3", lazy.window.set_size(),
          start=lazy.window.get_size()),
-    Click([MOD], "Button2", lazy.window.bring_to_front())
+    Click([MOD], "Button2", lazy.window.bring_to_front()),
+    Click([], "Button8", lazy.next_screen())
 ]
 
 focus_on_window_activation = "never"
