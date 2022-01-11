@@ -17,6 +17,7 @@ setopt EXTENDED_HISTORY
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*:*:make:*' tag-order 'targets'
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
