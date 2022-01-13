@@ -26,15 +26,18 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
-Plug 'davidhalter/jedi-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'lambdalisue/suda.vim'
 Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lspconfig'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'davidhalter/jedi-vim'
+
 Plug 'rust-lang/rust.vim'
 Plug 'Olical/conjure'
+Plug 'hylang/vim-hy'
+
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'tpope/vim-dispatch'
@@ -46,6 +49,9 @@ Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
 Plug 'nvim-lua/completion-nvim'
 call plug#end()
+
+" enable vim-sexp for hy
+let g:sexp_filetypes = "clojure,scheme,lisp,hy"
 
 colorscheme gruvbox
 let g:rainbow_active = 1
