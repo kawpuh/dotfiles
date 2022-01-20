@@ -50,10 +50,6 @@ def toggle_tabbed_tiled(qtile):
         qtile.cmd_to_layout_index(2)
 
 
-# def goto_next_empty_group(qtile):
-#     qtile.c
-
-
 keys = [
     # Switch between windows
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -87,7 +83,7 @@ keys = [
 
     Key([MOD], "f", lazy.function(toggle_maximized_tiled)),
     Key([MOD], "g", lazy.function(toggle_tabbed_tiled)),
-    # Key([MOD], "g", lazy.next_layout()),
+    Key([MOD], "s", lazy.function(lambda qtile: qtile.cmd_to_layout_index(0))),
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
