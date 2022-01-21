@@ -79,6 +79,7 @@ require'lspconfig'.pylsp.setup{}
 require'lspconfig'.clojure_lsp.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.hls.setup{}
+require'lspconfig'.racket_langserver.setup{}
 
 local nvim_lsp = require('lspconfig')
 
@@ -117,7 +118,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls" }
+local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "racket_langserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
