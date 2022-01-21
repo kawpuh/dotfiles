@@ -117,6 +117,7 @@ alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
 alias gd="git diff"
+alias inst="sudo pacman -Syu"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
