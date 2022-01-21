@@ -61,7 +61,7 @@ keys = [
     Key([MOD], "a", lazy.spawn("agenda")),
     Key([MOD], "n", lazy.spawn("notes")),
 
-    Key([MOD], "Tab", lazy.screen.togglegroup()),
+    Key([MOD], "Tab", lazy.screen.toggle_group()),
 
     Key([MOD, "shift"], "h", lazy.layout.shuffle_left()),
     Key([MOD, "shift"], "l", lazy.layout.shuffle_right()),
@@ -122,7 +122,8 @@ groups = [
     Group("6"),
     Group("7"),
     Group("8"),
-    Group("9", layout="treetab")
+    Group("9", layout="treetab"),
+    Group("0", layout="treetab")
 ]
 
 for i in groups:
