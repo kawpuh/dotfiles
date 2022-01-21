@@ -1,3 +1,2 @@
 #!/bin/bash
-# kitty -d $(xcwd)
-(cd $(xcwd); x-terminal-emulator)
+(cd $(xcwd); kitty)

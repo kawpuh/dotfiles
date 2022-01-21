@@ -62,7 +62,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # plugins
-source /usr/local/share/zsh-antigen/antigen.zsh
+source ~/.config/zsh/antigen.zsh
 antigen bundle zsh-vi-more/evil-registers
 antigen bundle zsh-users/zsh-completions
 antigen apply
@@ -131,6 +131,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Load zsh-syntax-highlighting
 # Should be last!
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/autojump/autojump.zsh 2>/dev/null
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/ethan/.autojump/etc/profile.d/autojump.sh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null

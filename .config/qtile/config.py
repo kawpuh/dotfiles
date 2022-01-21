@@ -29,9 +29,10 @@ from typing import List  # noqa: F401
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 
 MOD = "mod4"
-TERM = "x-terminal-emulator"
+TERM = guess_terminal()
 
 
 def toggle_maximized_tiled(qtile):
@@ -57,8 +58,8 @@ keys = [
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
 
-    Key([MOD], "a", lazy.spawn("/home/ethan/bin/agenda")),
-    Key([MOD], "n", lazy.spawn("/home/ethan/bin/notes")),
+    Key([MOD], "a", lazy.spawn("agenda")),
+    Key([MOD], "n", lazy.spawn("notes")),
 
     Key([MOD], "Tab", lazy.screen.togglegroup()),
 
