@@ -91,8 +91,6 @@ else
 	setlight
 fi
 
-export PAGER=/usr/local/bin/vimpager
-
 
 # ssl conf
 export OPENSSL_CONF=/etc/ssl/
@@ -124,7 +122,8 @@ alias inst="sudo pacman -Syu"
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 
 # Setup for android development
-export ANDROID_HOME=$HOME/Android/Sdk
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export ANDROID_HOME=$HOME/sandbox/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
