@@ -61,6 +61,8 @@ keys = [
     Key([MOD], "a", lazy.spawn("agenda")),
     Key([MOD], "n", lazy.spawn("notes")),
 
+    Key([MOD], "p", lazy.spawn("flameshot gui")),
+
     Key([MOD], "Tab", lazy.screen.toggle_group()),
 
     Key([MOD, "shift"], "h", lazy.layout.shuffle_left()),
