@@ -139,8 +139,8 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='928374', border_normal='3c3836',
-                     border_width=2),
+    layout.MonadTall(border_focus='928374', border_normal='3c3836', margin=25,
+                     border_width=2, single_margin=50),
     layout.Max(),
     layout.TreeTab(
         active_bg='665c54',
