@@ -50,6 +50,9 @@ def toggle_tabbed_tiled(qtile):
     else:
         qtile.cmd_to_layout_index(2)
 
+def send_to_other_screen(qtile):
+    to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
+    qtile.current_window.cmd_toscreen(to_idx)
 
 keys = [
     # Switch between windows
@@ -90,6 +93,7 @@ keys = [
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
+    Key([MOD, "shift"], "o", lazy.function(send_to_other_screen)),
 
     # Some spawn commands
     Key([MOD], "b", lazy.spawn("firefox")),
