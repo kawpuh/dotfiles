@@ -42,7 +42,6 @@ def toggle_maximized_tiled(qtile):
     else:
         qtile.cmd_to_layout_index(1)
 
-
 def toggle_tabbed_tiled(qtile):
     idx = qtile.current_group.current_layout
     if idx == 2:
@@ -53,6 +52,12 @@ def toggle_tabbed_tiled(qtile):
 def send_to_other_screen(qtile):
     to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
     qtile.current_window.cmd_toscreen(to_idx)
+
+def goto_next_empty_group(qtile):
+    for group in qtile.groups:
+        if len(group.windows) == 0:
+            qtile.current_screen.set_group(group)
+            return
 
 keys = [
     # Switch between windows
@@ -90,6 +95,7 @@ keys = [
     Key([MOD], "f", lazy.function(toggle_maximized_tiled)),
     Key([MOD], "g", lazy.function(toggle_tabbed_tiled)),
     Key([MOD], "s", lazy.function(lambda qtile: qtile.cmd_to_layout_index(0))),
+    Key([MOD], "t", lazy.function(goto_next_empty_group)),
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
