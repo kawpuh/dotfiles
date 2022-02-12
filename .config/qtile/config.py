@@ -134,8 +134,8 @@ groups = [
     Group("6"),
     Group("7"),
     Group("8"),
-    Group("9", layout="treetab"),
-    Group("0", layout="treetab")
+    Group("9"),
+    Group("0")
 ]
 
 for i in groups:
@@ -152,14 +152,6 @@ layouts = [
     layout.MonadTall(border_focus='fbf1c7', border_normal='3c3836', margin=25,
                      border_width=2, single_margin=50),
     layout.Max(),
-    layout.TreeTab(
-        active_bg='665c54',
-        inactive_bg='3c3836',
-        bg_color='1d2021',
-        font='Iosevka SS09',
-        fontsize=14,
-        padding_x=3,
-        level_shift=0)
 ]
 
 widget_defaults = dict(
