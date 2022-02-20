@@ -34,7 +34,6 @@ from libqtile.utils import guess_terminal
 MOD = "mod4"
 TERM = guess_terminal()
 
-
 def toggle_maximized_tiled(qtile):
     idx = qtile.current_group.current_layout
     if idx == 1:
@@ -58,6 +57,9 @@ def goto_next_empty_group(qtile):
         if len(group.windows) == 0:
             qtile.current_screen.set_group(group)
             return
+
+def swap_screens(qtile):
+    qtile.screens[0].toggle_group(qtile.screens[1].group)
 
 keys = [
     # Switch between windows
@@ -96,6 +98,7 @@ keys = [
     Key([MOD], "g", lazy.function(toggle_tabbed_tiled)),
     Key([MOD], "s", lazy.function(lambda qtile: qtile.cmd_to_layout_index(0))),
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
+    Key([MOD], "space", lazy.function(swap_screens)),
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
@@ -275,8 +278,8 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='pinentry'),  # GPG key password entry
 ])
 auto_fullscreen = True
-# focus_on_window_activation = "smart"
-reconfigure_screens = False
+focus_on_window_activation = "smart"
+reconfigure_screens = True
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
