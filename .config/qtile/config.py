@@ -58,6 +58,14 @@ def goto_next_empty_group(qtile):
             qtile.current_screen.set_group(group)
             return
 
+def followto_next_empty_group(qtile):
+    "send and follow the selected window to a new group"
+    for group in qtile.groups:
+        if len(group.windows) == 0:
+            qtile.current_window.cmd_togroup(group.name)
+            qtile.current_screen.set_group(group)
+            return
+
 def swap_screens(qtile):
     qtile.screens[0].toggle_group(qtile.screens[1].group)
 
@@ -98,6 +106,7 @@ keys = [
     Key([MOD], "g", lazy.function(toggle_tabbed_tiled)),
     Key([MOD], "s", lazy.function(lambda qtile: qtile.cmd_to_layout_index(0))),
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
+    Key([MOD, "shift"], "t", lazy.function(followto_next_empty_group)),
     Key([MOD], "space", lazy.function(swap_screens)),
 
     # Swap between monitors
