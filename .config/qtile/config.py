@@ -266,7 +266,6 @@ mouse = [
     Drag([MOD], "Button3", lazy.window.set_size(),
          start=lazy.window.get_size()),
     Click([MOD], "Button2", lazy.window.bring_to_front()),
-    Click([], "Button8", lazy.next_screen())
 ]
 
 focus_on_window_activation = "never"
