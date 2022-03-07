@@ -34,21 +34,7 @@ from libqtile.utils import guess_terminal
 MOD = "mod4"
 TERM = guess_terminal()
 
-def toggle_maximized_tiled(qtile):
-    idx = qtile.current_group.current_layout
-    if idx == 1:
-        qtile.cmd_to_layout_index(0)
-    else:
-        qtile.cmd_to_layout_index(1)
-
-def toggle_tabbed_tiled(qtile):
-    idx = qtile.current_group.current_layout
-    if idx == 2:
-        qtile.cmd_to_layout_index(0)
-    else:
-        qtile.cmd_to_layout_index(2)
-
-def send_to_other_screen(qtile):
+def send_to_next_screen(qtile):
     to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
     qtile.current_window.cmd_toscreen(to_idx)
 
@@ -102,8 +88,7 @@ keys = [
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
 
-    Key([MOD], "f", lazy.function(toggle_maximized_tiled)),
-    Key([MOD], "g", lazy.function(toggle_tabbed_tiled)),
+    Key([MOD], "f", lazy.next_layout()),
     Key([MOD], "s", lazy.function(lambda qtile: qtile.cmd_to_layout_index(0))),
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
     Key([MOD, "shift"], "t", lazy.function(followto_next_empty_group)),
@@ -111,7 +96,7 @@ keys = [
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
-    Key([MOD, "shift"], "o", lazy.function(send_to_other_screen)),
+    Key([MOD, "shift"], "o", lazy.function(send_to_next_screen)),
 
     # Some spawn commands
     Key([MOD], "b", lazy.spawn("firefox")),
