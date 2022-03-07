@@ -146,7 +146,7 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='fbf1c7', border_normal='3c3836', margin=25,
+    layout.MonadTall(border_focus='fbf1c7', border_normal='3c3836', margin=20,
                      border_width=2, single_margin=50),
     layout.Max(),
 ]
@@ -175,7 +175,7 @@ common_bar_prefix = [
     widget.OpenWeather(
         zip="35114",
         metric=False,
-        format='⛅: {main_temp} °{units_temperature} {humidity}% {weather_details}'),
+        format='⛅ {main_temp} °{units_temperature} {humidity}% {weather_details}'),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Net(format="{down} ↓↑ {up}"),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
@@ -189,9 +189,14 @@ common_bar_suffix = [
     widget.Systray(),
 ]
 
+bar_settings = {
+        "border_width": 5,
+        "border_color": "#1d2021",
+        }
+
 if os.uname()[1] == 'toaster':
     screens = [
-        Screen(bottom=bar.Bar(common_bar_prefix + common_bar_suffix, 24)),
+        Screen(bottom=bar.Bar(common_bar_prefix + common_bar_suffix, 24, **bar_settings)),
         # because of the way qtile works, we have to redefine our bar
         # rather than using the above array.
         Screen(bottom=bar.Bar([
