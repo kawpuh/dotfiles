@@ -116,8 +116,6 @@ alias gp="git push"
 alias gd="git diff"
 alias inst="sudo pacman -Syu"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 
 # Setup for android development
@@ -128,8 +126,10 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# Load zsh-syntax-highlighting
-# Should be last!
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/ethan/.autojump/etc/profile.d/autojump.sh
+# Load zsh-syntax-highlighting
+# Should be last!
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
