@@ -105,7 +105,7 @@ keys = [
 
     Key([MOD, "control"], "r", lazy.restart()),
     Key([MOD, "control"], "q", lazy.spawn("my-exit")),
-    Key([MOD], "r", lazy.spawn("rofi -show combi")),
+    Key([MOD], "r", lazy.spawn("rofi -show run")),
 ]
 
 # setup hostname specific keys
@@ -173,7 +173,7 @@ common_bar_prefix = [
     widget.Prompt(),
     widget.WindowName(background="3c3836"),
     widget.OpenWeather(
-        zip="35114",
+        zip="35805",
         metric=False,
         format='⛅ {main_temp} °{units_temperature} {humidity}% {weather_details}'),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
@@ -209,7 +209,9 @@ if os.uname()[1] == 'toaster':
                             other_current_screen_border='3c3836',
                             other_screen_border='3c3836'),
             widget.WindowName(background="3c3836"),
-            widget.Clock(format='%a %m/%d/%Y %H:%M:%S')], 24))
+            widget.Clock(format='%a %m/%d/%Y %H:%M:%S')],
+            24,
+            **bar_settings))
     ]
 elif os.uname()[1] == 'trailer':
     screens = [
@@ -264,7 +266,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
@@ -272,12 +274,14 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
     Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(wm_class='steam_app_1172470'), Match(wm_class='Wine'),  # apex
+    Match(wm_type='splash'),
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
 ])
 auto_fullscreen = True
-focus_on_window_activation = "smart"
-reconfigure_screens = True
+focus_on_window_activation = "never"
+reconfigure_screens = False
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
