@@ -249,6 +249,7 @@ elif os.uname()[1] == 'camper':
                     widget.Backlight(),
                 ] + common_bar_suffix,
                 24,
+                **bar_settings
             ),
         ),
     ]
