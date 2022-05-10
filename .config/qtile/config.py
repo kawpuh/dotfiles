@@ -231,6 +231,7 @@ elif os.uname()[1] == 'trailer':
                         max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
                     ), ] + common_bar_suffix,
                 24,
+                **bar_settings
             ),
         ),
     ]
