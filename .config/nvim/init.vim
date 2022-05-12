@@ -32,12 +32,11 @@ Plug 'dense-analysis/ale'
 Plug 'neovim/nvim-lspconfig'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'davidhalter/jedi-vim'
-
 Plug 'rust-lang/rust.vim'
 Plug 'Olical/conjure'
 Plug 'hylang/vim-hy'
-
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'tpope/vim-dispatch'
@@ -52,6 +51,9 @@ call plug#end()
 
 " enable vim-sexp for hy
 let g:sexp_filetypes = "clojure,scheme,lisp,hy"
+
+" fzf prefix
+let g:fzf_command_prefix = 'Fzf'
 
 colorscheme gruvbox
 let g:rainbow_active = 1
@@ -142,9 +144,9 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader><tab> :e#<CR>
 nnoremap <leader>rg :Rg <C-R><C-W><CR>
 vnoremap <leader>rg y:Rg <C-R>"<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>bb :Buffers<CR>
-nnoremap <leader>/ :Rg<CR>
+nnoremap <leader>ff :FzfFiles<CR>
+nnoremap <leader>bb :FzfBuffers<CR>
+nnoremap <leader>/ :Rg<space>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <C-j> i<CR><Esc>l
 
