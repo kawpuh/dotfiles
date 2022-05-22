@@ -113,7 +113,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
+  buf_set_keymap('n', '<space>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap("n", "<space>=f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 end
@@ -149,6 +150,10 @@ nnoremap <leader>bb :FzfBuffers<CR>
 nnoremap <leader>/ :Rg<space>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <C-j> i<CR><Esc>l
+nnoremap ]q :cn<CR>
+nnoremap [q :cp<CR>
+nnoremap ]l :lne<CR>
+nnoremap [l :lp<CR>
 
 augroup shell
     au!
