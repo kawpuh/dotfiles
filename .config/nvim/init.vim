@@ -8,6 +8,7 @@ set termguicolors
 set hidden
 set expandtab
 set completeopt=menuone,noinsert,noselect
+set showbreak=↪\ "comment so we don't format out the trailing space
 
 if filereadable("/home/ethan/.dark")
 	set background=dark
@@ -191,8 +192,6 @@ augroup python
     au!
     au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
 	au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
-	" au FileType python set tabstop=2
-	" au FileType python set shiftwidth=2
 augroup end
 
 augroup rust
