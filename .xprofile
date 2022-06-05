@@ -11,4 +11,3 @@ xset -b
 no-accel
 ~/.fehbg
 flameshot &
-nm-applet &
