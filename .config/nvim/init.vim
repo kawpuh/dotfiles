@@ -48,6 +48,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-repeat'
 Plug 'nvim-lua/completion-nvim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " enable vim-sexp for hy
