@@ -115,6 +115,7 @@ alias gc="git commit"
 alias gp="git push"
 alias gd="git diff"
 alias inst="sudo pacman -Syu"
+alias uninst="sudo pacman -R"
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 

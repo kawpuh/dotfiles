@@ -63,7 +63,7 @@ keys = [
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
 
     Key([MOD], "a", lazy.spawn("agenda")),
-    Key([MOD], "n", lazy.spawn("notes")),
+    Key([MOD], "n", lazy.spawn("obsidian")),
 
     Key([MOD], "p", lazy.spawn("flameshot gui")),
 
