@@ -91,6 +91,11 @@ else
 	setlight
 fi
 
+# nnn cd on exit
+if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
+        source /usr/share/nnn/quitcd/quitcd.bash_zsh
+fi
+
 
 # ssl conf
 export OPENSSL_CONF=/etc/ssl/
@@ -116,6 +121,7 @@ alias gp="git push"
 alias gd="git diff"
 alias inst="sudo pacman -Syu"
 alias uninst="sudo pacman -R"
+alias n="n -C"
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 
