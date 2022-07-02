@@ -1,0 +1,6 @@
+set editing-mode vi
+set blink-matching-paren on
+set show-mode-in-prompt on
+set vi-cmd-mode-string N-
+set vi-ins-mode-string I-
+set enable-bracketed-paste on
