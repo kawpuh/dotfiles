@@ -40,7 +40,7 @@ def send_to_next_screen(qtile):
 
 def goto_next_empty_group(qtile):
     for group in qtile.groups:
-        if len(group.windows) == 0:
+        if not group.windows and not group.screen:
             qtile.current_screen.set_group(group)
             return
 
