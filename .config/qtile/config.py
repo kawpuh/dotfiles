@@ -74,9 +74,8 @@ keys = [
     Key([MOD, "shift"], "j", lazy.layout.shuffle_down()),
     Key([MOD, "shift"], "k", lazy.layout.shuffle_up()),
 
-    Key([MOD, "mod1"], "j", lazy.screen.next_group(True)),
-    Key([MOD, "mod1"], "k", lazy.screen.prev_group(True)),
-    Key([MOD, "mod1"], "space", lazy.screen.next_group(True)),
+    Key([MOD], "space", lazy.screen.next_group(True)),
+    Key([MOD, "shift"], "space", lazy.screen.prev_group(True)),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -89,10 +88,9 @@ keys = [
     Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
 
     Key([MOD], "f", lazy.next_layout()),
-    Key([MOD], "s", lazy.function(lambda qtile: qtile.cmd_to_layout_index(0))),
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
     Key([MOD, "shift"], "t", lazy.function(followto_next_empty_group)),
-    Key([MOD], "space", lazy.function(swap_screens)),
+    Key([MOD], "s", lazy.function(swap_screens)),
 
     # Swap between monitors
     Key([MOD], "o", lazy.next_screen()),
