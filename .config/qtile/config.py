@@ -74,8 +74,8 @@ keys = [
     Key([MOD, "shift"], "j", lazy.layout.shuffle_down()),
     Key([MOD, "shift"], "k", lazy.layout.shuffle_up()),
 
-    Key([MOD], "space", lazy.screen.next_group(True)),
-    Key([MOD, "shift"], "space", lazy.screen.prev_group(True)),
+    Key([MOD], "space", lazy.screen.next_group(True, True)),
+    Key([MOD, "shift"], "space", lazy.screen.prev_group(True, True)),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
