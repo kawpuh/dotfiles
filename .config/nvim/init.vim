@@ -9,6 +9,8 @@ set hidden
 set expandtab
 set completeopt=menuone,noinsert,noselect
 set showbreak=↪\ "comment so we don't format out the trailing space
+syntax on
+filetype plugin indent on
 
 if filereadable("/home/ethan/.dark")
 	set background=dark
@@ -16,62 +18,57 @@ else
 	set background=light
 endif
 
-filetype plugin on
 
 let mapleader=" "
 let maplocalleader=","
 
 " Plugin section
 call plug#begin()
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-Plug 'lambdalisue/suda.vim'
-Plug 'dense-analysis/ale'
+
 Plug 'neovim/nvim-lspconfig'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'lambdalisue/suda.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'luochen1990/rainbow'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
-Plug 'davidhalter/jedi-vim'
+
 Plug 'rust-lang/rust.vim'
 Plug 'Olical/conjure'
 Plug 'hylang/vim-hy'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'clojure-vim/vim-jack-in'
-Plug 'jiangmiao/auto-pairs'
-Plug 'luochen1990/rainbow'
-Plug 'tpope/vim-repeat'
-Plug 'nvim-lua/completion-nvim'
-Plug 'airblade/vim-gitgutter'
+Plug 'clojure-vim/clojure.vim'
 call plug#end()
 
-" enable vim-sexp for hy
+colorscheme gruvbox
+
+" enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy"
 
 " fzf prefix
 let g:fzf_command_prefix = 'Fzf'
 
-colorscheme gruvbox
 let g:rainbow_active = 1
-
 let g:AutoPairsMapSpace = 0
+let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
 
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-let g:jedi#completions_enabled = 0
-let g:jedi#use_splits_not_buffers = "right"
-
-" Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
-
-let g:ale_linters = {'clojure': ['clj-kondo', 'joker']}
+" completion settings
+autocmd BufEnter * COQnow -s
+let g:coq_settings = { 'display.icons.mode': 'none' }
 
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
