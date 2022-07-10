@@ -9,6 +9,7 @@ set hidden
 set expandtab
 set completeopt=menuone,noinsert,noselect
 set showbreak=↪\ "comment so we don't format out the trailing space
+set guifont=Noto\ Sans\ Mono:h11
 syntax on
 filetype plugin indent on
 
@@ -18,6 +19,12 @@ else
 	set background=light
 endif
 
+if exists("g:neovide")
+    let g:neovide_cursor_vfx_mode = "ripple"
+    let g:neovide_cursor_trail_length=0
+    let g:neovide_cursor_trail_length=0
+    let g:neovide_cursor_animation_length=0.03
+endif
 
 let mapleader=" "
 let maplocalleader=","
