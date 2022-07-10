@@ -20,11 +20,14 @@ else
 endif
 
 if exists("g:neovide")
-    let g:neovide_cursor_vfx_mode = "ripple"
     let g:neovide_cursor_trail_length=0
     let g:neovide_cursor_trail_length=0
     let g:neovide_cursor_animation_length=0.03
 endif
+
+" Netrw config
+let g:netrw_banner=0
+let g:netrw_liststyle=3
 
 let mapleader=" "
 let maplocalleader=","
@@ -141,7 +144,7 @@ EOF
 " Binds
 xmap s <Plug>VSurround
 nnoremap <leader>! :!!<CR>
-nnoremap <leader>ft :NERDTreeToggle<CR>
+nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
