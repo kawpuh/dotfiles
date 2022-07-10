@@ -9,6 +9,7 @@ set hidden
 set expandtab
 set completeopt=menuone,noinsert,noselect
 set showbreak=↪\ "comment so we don't format out the trailing space
+set guifont=Noto\ Sans\ Mono:h11
 syntax on
 filetype plugin indent on
 
@@ -18,6 +19,15 @@ else
 	set background=light
 endif
 
+if exists("g:neovide")
+    let g:neovide_cursor_trail_length=0
+    let g:neovide_cursor_trail_length=0
+    let g:neovide_cursor_animation_length=0.03
+endif
+
+" Netrw config
+let g:netrw_banner=0
+let g:netrw_liststyle=3
 
 let mapleader=" "
 let maplocalleader=","
@@ -140,7 +150,7 @@ EOF
 " Binds
 xmap s <Plug>VSurround
 nnoremap <leader>! :!!<CR>
-nnoremap <leader>ft :NERDTreeToggle<CR>
+nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
