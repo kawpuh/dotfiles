@@ -46,8 +46,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 
 Plug 'rust-lang/rust.vim'
-Plug 'Olical/conjure'
 Plug 'hylang/vim-hy'
+
+" Needed for conjure
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
+Plug 'clojure-vim/vim-jack-in'
+
+Plug 'Olical/conjure'
 Plug 'clojure-vim/clojure.vim'
 call plug#end()
 
