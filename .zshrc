@@ -6,6 +6,8 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+setopt autocd
+
 # History in cache directory:
 HISTSIZE=1000000000
 SAVEHIST=1000000000
@@ -122,6 +124,10 @@ alias gd="git diff"
 alias inst="sudo pacman -Syu"
 alias uninst="sudo pacman -R"
 alias n="n -C"
+alias -g ..2='../..'
+alias -g ..3='../../..'
+alias -g ..4='../../../..'
+alias -g ..5='../../../../..'
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 
