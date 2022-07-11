@@ -1,17 +1,3 @@
-#!/bin/env bb
-(require '[clojure.java.shell :refer [sh]]
-         '[clojure.string :as s])
+#!/bin/env bash
 
-(def tasks
-  {"Scratch" '("kitty" "nvim" "scp://root@thetome.xyz/notes.md")
-   "TF" '("kitty" "nvim" "scp://root@thetome.xyz/tf.md")
-   "Agenda" '("kitty" "nvim" "scp://root@thetome.xyz/agenda.md")
-   "FeedMark" '("kitty" "nvim" "scp://root@thetome.xyz/feedmark.md")})
-
-(defn rofi-select-and-exec [tasks]
-  (let [names (s/join "\n" (keys tasks))
-        task (:out (sh "rofi" "-dmenu" :in names))
-        command (get tasks (s/trim task))]
-    (apply sh command)))
-
-(rofi-select-and-exec tasks)
+kitty nvim ~/Sync/notes/

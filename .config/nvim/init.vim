@@ -27,7 +27,7 @@ endif
 
 " Netrw config
 let g:netrw_banner=0
-let g:netrw_liststyle=3
+let g:netrw_keepdir=0
 
 let mapleader=" "
 let maplocalleader=","
@@ -169,6 +169,16 @@ nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
+
+augroup netrw_mapping
+    au FileType netrw nmap <buffer> H u
+    au FileType netrw nmap <buffer> h -
+    au FileType netrw nmap <buffer> l <CR>
+augroup end
+
+augroup markdown
+    au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
+augroup end
 
 augroup shell
     au!
