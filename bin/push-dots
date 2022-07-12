@@ -1,5 +1,0 @@
-#!/bin/zsh
-cd $(autojump dotfiles)
-git add -i
-git commit -e
-git push

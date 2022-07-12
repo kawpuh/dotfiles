@@ -1,3 +1,0 @@
-#!/bin/bash
-
-rclone copy ~/Calibre\ Library crimsondrive:Calibre\ Library;
