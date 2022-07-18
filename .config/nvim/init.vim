@@ -38,6 +38,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'chentoast/live.nvim',
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -59,6 +60,8 @@ colorscheme gruvbox
 
 " enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy"
+
+lua require'live'.setup()
 
 " fzf prefix
 let g:fzf_command_prefix = 'Fzf'
