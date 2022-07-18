@@ -9,21 +9,9 @@ set hidden
 set expandtab
 set completeopt=menuone,noinsert,noselect
 set showbreak=↪\ "comment so we don't format out the trailing space
-set guifont=Noto\ Sans\ Mono:h11
+set spr
 syntax on
 filetype plugin indent on
-
-if filereadable("/home/ethan/.dark")
-	set background=dark
-else
-	set background=light
-endif
-
-if exists("g:neovide")
-    let g:neovide_cursor_trail_length=0
-    let g:neovide_cursor_trail_length=0
-    let g:neovide_cursor_animation_length=0.03
-endif
 
 " Netrw config
 let g:netrw_banner=0
