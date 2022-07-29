@@ -1,10 +1,14 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Enable colors and change prompt:
 autoload -U colors && colors
-fpath+=$HOME/.zsh/pure
-# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}
-# $%b "
 autoload -U promptinit; promptinit
-prompt pure
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 setopt autocd
 
@@ -28,13 +32,6 @@ _comp_options+=(globdots)		# Include hidden files.
 bindkey -v
 export KEYTIMEOUT=1
 export VISUAL=nvim
-
-# Use vim keys in tab complete menu:
-# bindkey -M menuselect 'h' vi-backward-char
-# bindkey -M menuselect 'k' vi-up-line-or-history
-# bindkey -M menuselect 'l' vi-forward-char
-# bindkey -M menuselect 'j' vi-down-line-or-history
-# bindkey -v '^?' backward-delete-char
 
 bindkey -M main '^L' forward-char
 
@@ -69,35 +66,10 @@ antigen bundle zsh-vi-more/evil-registers
 antigen bundle zsh-users/zsh-completions
 antigen apply
 
-# manage dark mode / light mode
-
-setdark() {
-	if [[ $TERM == "xterm-kitty" ]]; then
-		kitty @ set-colors ~/.config/kitty/gruvbox_dark.conf
-	fi
-	export BAT_THEME="OneHalfDark"
-	touch ~/.dark
-}
-
-setlight() {
-	if [[ $TERM == "xterm-kitty" ]]; then
-		kitty @ set-colors ~/.config/kitty/gruvbox_light.conf
-	fi
-	export BAT_THEME="OneHalfLight"
-	rm -f ~/.dark
-}
-
-if [[ -f "/home/ethan/.dark" ]]; then
-	setdark
-else
-	setlight
-fi
-
 # nnn cd on exit
 if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
         source /usr/share/nnn/quitcd/quitcd.bash_zsh
 fi
-
 
 # ssl conf
 export OPENSSL_CONF=/etc/ssl/
@@ -142,7 +114,11 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /home/ethan/.autojump/etc/profile.d/autojump.sh
+source /etc/profile.d/autojump.sh
+#
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # Load zsh-syntax-highlighting
 # Should be last!
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
