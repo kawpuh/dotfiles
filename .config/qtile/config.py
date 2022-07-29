@@ -109,9 +109,13 @@ keys = [
 if os.uname()[1] == 'trailer':
     keys.extend([
         Key([], "XF86MonBrightnessUp", lazy.spawn(
-            "brightnessctl s +10%"), desc="Brightness up"),
+            "xbacklight -inc 10"), desc="Coarse Brightness up"),
         Key([], "XF86MonBrightnessDown", lazy.spawn(
-            "brightnessctl s 10%-"), desc="Brightness down"),
+            "xbacklight -dec 10"), desc="Coarse Brightness down"),
+        Key(["shift"], "XF86MonBrightnessUp", lazy.spawn(
+            "xbacklight -inc 5"), desc="Fine Brightness up"),
+        Key(["shift"], "XF86MonBrightnessDown", lazy.spawn(
+            "xbacklight -dec 5"), desc="Fine Brightness down"),
     ])
 elif os.uname()[1] == 'camper':
     keys.extend([
