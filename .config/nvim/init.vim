@@ -56,6 +56,7 @@ Plug 'Olical/conjure'
 Plug 'clojure-vim/clojure.vim'
 call plug#end()
 
+let g:gruvbox_contrast_dark="medium"
 colorscheme gruvbox
 
 " enable vim-sexp
@@ -207,6 +208,8 @@ augroup python
     au!
     au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
 	au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
+    au FileType python set shiftwidth=2
+    au FileType python set tabstop=2
 augroup end
 
 augroup rust
