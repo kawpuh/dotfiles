@@ -1,0 +1,9 @@
+let mapleader=" "
+set commentary
+set surround
+set incsearch
+
+map <leader>rn <Action>(RenameElement)
+map <leader>gr <Action>(FindUsages)
+map <C-k> <Action>(QuickDocumentation)
+map s S
