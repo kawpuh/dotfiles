@@ -22,10 +22,11 @@ let maplocalleader=","
 
 " Plugin section
 call plug#begin()
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter'
+
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-
-Plug 'neovim/nvim-lspconfig'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -81,6 +82,26 @@ let g:coq_settings = { 'display.icons.mode': 'none' }
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
+" treesitter setup ---------------------------------------------------------------
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
+  highlight = {
+    enable = true,
+    -- disable = { "c", "rust" },
+  },
+
+}
+
+EOF
+
 " lua lsp setup ---------------------------------------------------------------
 lua << EOF
 require'lspconfig'.rust_analyzer.setup{}
@@ -123,7 +144,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
   buf_set_keymap('n', '<space>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap("n", "<space>=f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
