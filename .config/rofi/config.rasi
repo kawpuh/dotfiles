@@ -1,5 +1,5 @@
 configuration {
-	modi: "window,run,ssh,combi";
+/*	modes: "window,run,ssh,combi";*/
 	font: "Noto Sans Medium 14";
 /*	location: 0;*/
 /*	yoffset: 0;*/
@@ -32,7 +32,7 @@ configuration {
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-/*	combi-modi: "window,run";*/
+/*	combi-modes: "window,run";*/
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
@@ -44,6 +44,7 @@ configuration {
 /*	click-to-exit: true;*/
 /*	max-history-size: 25;*/
 /*	combi-hide-mode-prefix: false;*/
+/*	combi-display-format: "{mode} {text}";*/
 /*	matching-negate-char: '-' /* unsupported */;*/
 /*	cache-dir: ;*/
 /*	window-thumbnail: false;*/
@@ -52,6 +53,8 @@ configuration {
 /*	normalize-match: false;*/
 /*	steal-focus: false;*/
 /*	application-fallback-icon: ;*/
+/*	refilter-timeout-limit: 8192;*/
+/*	xserver-i300-workaround: false;*/
 /*	pid: "/run/user/1000/rofi.pid";*/
 /*	display-window: ;*/
 /*	display-windowcd: ;*/
@@ -82,13 +85,15 @@ configuration {
 /*	kb-accept-alt: "Shift+Return";*/
 /*	kb-delete-entry: "Shift+Delete";*/
 /*	kb-mode-next: "Shift+Right,Control+Tab";*/
-/*	kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab";*/
+	kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab";
 /*	kb-mode-complete: "Control+l";*/
 /*	kb-row-left: "Control+Page_Up";*/
 /*	kb-row-right: "Control+Page_Down";*/
-	kb-row-up: "Up,Control+k,ISO_Left_Tab";
-	kb-row-down: "Down,Control+j,Control+n";
-/*	kb-row-tab: "Tab";*/
+	kb-row-up: "Up";
+	kb-row-down: "Down";
+/*	kb-row-tab: "";*/
+	kb-element-next: "Tab,Control+j,Control+n";
+	kb-element-prev: "ISO_Left_Tab,Control+k";
 /*	kb-page-prev: "Page_Up";*/
 /*	kb-page-next: "Page_Down";*/
 /*	kb-row-first: "Home,KP_Home";*/
