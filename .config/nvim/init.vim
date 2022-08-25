@@ -41,9 +41,8 @@ Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'chentoast/live.nvim',
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
@@ -65,9 +64,6 @@ let g:sexp_filetypes = "clojure,scheme,lisp,hy"
 
 lua require'live'.setup()
 
-" fzf prefix
-let g:fzf_command_prefix = 'Fzf'
-
 let g:rainbow_active = 1
 let g:AutoPairsMapSpace = 0
 let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
@@ -81,6 +77,18 @@ let g:coq_settings = { 'display.icons.mode': 'none' }
 
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
+" telescope setup
+lua << EOF
+require('telescope').setup{
+    defaults = {
+        mappings = {
+            n = { ["<C-[>"] = require('telescope.actions').close, },
+        },
+    },
+}
+
+EOF
 
 " treesitter setup ---------------------------------------------------------------
 lua << EOF
@@ -97,7 +105,6 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     -- disable = { "c", "rust" },
   },
-
 }
 
 EOF
@@ -170,11 +177,11 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader><tab> :e#<CR>
-nnoremap <leader>rg :Rg <C-R><C-W><CR>
-vnoremap <leader>rg y:Rg <C-R>"<CR>
-nnoremap <leader>ff :FzfFiles<CR>
-nnoremap <leader>bb :FzfBuffers<CR>
-nnoremap <leader>/ :Rg<space>
+nnoremap <leader>gs :Telescope grep_string<CR>
+vnoremap <leader>gs y:Telescope live_grep <C-R>"<CR>
+nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>bb :Telescope buffers<CR>
+nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <C-j> i<CR><Esc>l
 nnoremap ]q :cn<CR>
