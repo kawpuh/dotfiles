@@ -92,19 +92,22 @@ EOF
 
 " treesitter setup ---------------------------------------------------------------
 lua << EOF
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim" },
+require'nvim-treesitter.configs'.setup{
+    -- A list of parser names, or "all"
+    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim" },
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false,
 
-  -- Automatically install missing parsers when entering buffer
-  auto_install = true,
-  highlight = {
-    enable = true,
-    -- disable = { "c", "rust" },
-  },
+    -- Automatically install missing parsers when entering buffer
+    auto_install = true,
+    highlight = {
+        enable = true,
+        -- disable = { "c", "rust" },
+    },
+    indent = {
+        enable = true,
+    },
 }
 
 EOF
@@ -247,3 +250,7 @@ augroup rust
     au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>
 augroup end
 
+augroup help
+    au!
+    au FileType help wincmd H
+augroup end
