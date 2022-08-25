@@ -106,6 +106,7 @@ export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 # Setup for android development
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export ANDROID_HOME=$HOME/sandbox/Android/Sdk
+export ANDROID_NDK=$HOME/sandbox/Android/Sdk/ndk/20.1.5948944
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
