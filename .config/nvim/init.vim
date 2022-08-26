@@ -54,6 +54,7 @@ Plug 'Olical/conjure'
 Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
+Plug 'bakpakin/fennel.vim'
 call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
@@ -171,7 +172,7 @@ EOF
 
 " Binds
 xmap s <Plug>VSurround
-nnoremap <leader>! :!!<CR>
+nnoremap <leader>rr :!!<CR>
 nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
