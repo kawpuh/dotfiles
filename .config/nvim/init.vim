@@ -44,23 +44,23 @@ Plug 'chentoast/live.nvim',
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
-Plug 'rust-lang/rust.vim'
-Plug 'hylang/vim-hy'
-
 " Needed for conjure
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
 
 Plug 'Olical/conjure'
+
 Plug 'clojure-vim/clojure.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'hylang/vim-hy'
 call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
 colorscheme gruvbox
 
 " enable vim-sexp
-let g:sexp_filetypes = "clojure,scheme,lisp,hy"
+let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
 
 lua require'live'.setup()
 
@@ -94,7 +94,7 @@ EOF
 lua << EOF
 require'nvim-treesitter.configs'.setup{
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim" },
+    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
