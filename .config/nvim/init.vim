@@ -46,18 +46,29 @@ Plug 'folke/todo-comments.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
+<<<<<<< HEAD
 " Conjure and its deps
+=======
+" Needed for conjure
+>>>>>>> f59aaa2a6f3e4cda617899f242f4f5de8067f690
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
 Plug 'Olical/conjure'
 
+<<<<<<< HEAD
 " Language specific
 Plug 'jaawerth/fennel.vim'
 Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
 
+=======
+Plug 'clojure-vim/clojure.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'hylang/vim-hy'
+Plug 'bakpakin/fennel.vim'
+>>>>>>> f59aaa2a6f3e4cda617899f242f4f5de8067f690
 call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
@@ -109,7 +120,7 @@ EOF
 lua << EOF
 require'nvim-treesitter.configs'.setup{
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim" },
+    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -186,7 +197,7 @@ EOF
 
 " Binds
 xmap s <Plug>VSurround
-nnoremap <leader>! :!!<CR>
+nnoremap <leader>rr :!!<CR>
 nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
