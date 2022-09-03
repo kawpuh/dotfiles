@@ -25,6 +25,7 @@ call plug#begin()
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 
+" General
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-repeat'
@@ -35,37 +36,39 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'chentoast/live.nvim',
+Plug 'windwp/nvim-autopairs'
+Plug 'folke/todo-comments.nvim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
-Plug 'rust-lang/rust.vim'
-Plug 'hylang/vim-hy'
-
-" Needed for conjure
+" Conjure and its deps
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'clojure-vim/vim-jack-in'
-
 Plug 'Olical/conjure'
+
+" Language specific
+Plug 'jaawerth/fennel.vim'
 Plug 'clojure-vim/clojure.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'hylang/vim-hy'
+
 call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
 colorscheme gruvbox
 
 " enable vim-sexp
-let g:sexp_filetypes = "clojure,scheme,lisp,hy"
+let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
 
 lua require'live'.setup()
 
 let g:rainbow_active = 1
-let g:AutoPairsMapSpace = 0
 let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
 
 " Cleanup trailing whitespace on save
@@ -78,6 +81,13 @@ let g:coq_settings = { 'display.icons.mode': 'none' }
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
+" autopairs setup
+lua << EOF
+require("nvim-autopairs").setup({
+  enable_bracket_in_quote = false
+})
+EOF
+
 " telescope setup
 lua << EOF
 require('telescope').setup{
@@ -88,6 +98,11 @@ require('telescope').setup{
     },
 }
 
+EOF
+
+" todo-comments setup
+lua << EOF
+require("todo-comments").setup{}
 EOF
 
 " treesitter setup ---------------------------------------------------------------
@@ -112,7 +127,7 @@ require'nvim-treesitter.configs'.setup{
 
 EOF
 
-" lua lsp setup ---------------------------------------------------------------
+" lsp setup ---------------------------------------------------------------
 lua << EOF
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.pylsp.setup{}
@@ -185,7 +200,7 @@ vnoremap <leader>gs y:Telescope live_grep <C-R>"<CR>
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>bb :Telescope buffers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
-nnoremap <F5> :MundoToggle<CR>
+nnoremap <leader>td :TodoTelescope<CR>
 nnoremap <C-j> i<CR><Esc>l
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
@@ -216,10 +231,6 @@ augroup c++
     au!
     au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
     au FileType cpp nnoremap <buffer> <localleader>r :!g++ % && ./a.exe<CR>
-augroup end
-
-augroup clojure
-	au FileType clojure let b:AutoPairs = {'(':')', '[':']', '{':'}', '"':'"'}
 augroup end
 
 augroup perl
