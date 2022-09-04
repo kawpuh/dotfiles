@@ -89,10 +89,33 @@ EOF
 
 " telescope setup
 lua << EOF
+local actions require('telescope.actions')
+local action_state = require('telescope.actions.state')
+
+function edit_multi_select(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local num_selections = table.getn(picker:get_multi_selection())
+
+  if num_selections > 1 then
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    for _, entry in ipairs(picker:get_multi_selection()) do
+      vim.cmd(string.format("%s %s", ":e!", entry.value))
+    end
+    vim.cmd('stopinsert')
+  else
+    actions.file_edit(prompt_bufnr)
+  end
+end
 require('telescope').setup{
     defaults = {
         mappings = {
-            n = { ["<C-[>"] = require('telescope.actions').close, },
+            n = {
+                ["<C-[>"] = require('telescope.actions').close,
+                ["<CR>"] = edit_multi_select
+                },
+            i = {
+                ["<CR>"] = edit_multi_select
+                },
         },
     },
 }
@@ -189,6 +212,7 @@ nnoremap <leader>rr :!!<CR>
 nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
+nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bn :bn<CR>
@@ -196,7 +220,6 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader><tab> :e#<CR>
 nnoremap <leader>gs :Telescope grep_string<CR>
 vnoremap <leader>gs y:Telescope live_grep <C-R>"<CR>
-nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>bb :Telescope buffers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
