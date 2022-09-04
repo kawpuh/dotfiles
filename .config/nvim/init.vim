@@ -222,7 +222,7 @@ augroup shell
 augroup end
 
 augroup vimscript
-	au!
+    au!
     au FileType vim nnoremap <buffer> <localleader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
 augroup end
 
@@ -240,16 +240,14 @@ augroup end
 augroup golang
     au!
     au FileType go nnoremap <buffer> <localleader>r :!go run %<CR>
-	au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
+    au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
     au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
 augroup end
 
 augroup python
     au!
     au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
-	au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
-    au FileType python set shiftwidth=2
-    au FileType python set tabstop=2
+    au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
 augroup end
 
 augroup rust
