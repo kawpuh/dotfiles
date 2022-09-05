@@ -89,7 +89,7 @@ EOF
 
 " telescope setup
 lua << EOF
-local actions require('telescope.actions')
+local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
 function edit_multi_select(prompt_bufnr)
