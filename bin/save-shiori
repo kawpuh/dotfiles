@@ -1,0 +1,2 @@
+#!/bin/env zsh
+ssh -t root@thetome.xyz "./shiori add $(xclip -o)"
