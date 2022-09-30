@@ -38,7 +38,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
 Plug 'luochen1990/rainbow'
 Plug 'chentoast/live.nvim',
-Plug 'windwp/nvim-autopairs'
 Plug 'folke/todo-comments.nvim'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -79,13 +78,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-
-" autopairs setup
-lua << EOF
-require("nvim-autopairs").setup({
-  enable_bracket_in_quote = false
-})
-EOF
 
 " cmp setup
 lua <<EOF
@@ -161,6 +153,7 @@ require'nvim-treesitter.configs'.setup{
     highlight = {
         enable = true,
         -- disable = { "c", "rust" },
+        additional_vim_regex_highlighting = true,
     },
     indent = {
         enable = true,
