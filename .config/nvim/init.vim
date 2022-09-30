@@ -37,11 +37,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
 Plug 'luochen1990/rainbow'
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'chentoast/live.nvim',
 Plug 'windwp/nvim-autopairs'
 Plug 'folke/todo-comments.nvim'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -73,10 +77,6 @@ let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" completion settings
-autocmd BufEnter * COQnow -s
-let g:coq_settings = { 'display.icons.mode': 'none' }
-
 " airline configuration
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
@@ -85,6 +85,25 @@ lua << EOF
 require("nvim-autopairs").setup({
   enable_bracket_in_quote = false
 })
+EOF
+
+" cmp setup
+lua <<EOF
+local cmp = require("cmp")
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'conjure' },
+    { name = 'buffer' },
+  })
+})
+-- Capabilities are setup in LSP setup
 EOF
 
 " telescope setup
@@ -202,7 +221,9 @@ for _, lsp in ipairs(servers) do
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
-    }
+    },
+    -- cmp setup
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
 end
 EOF
