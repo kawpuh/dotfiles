@@ -106,6 +106,7 @@ function edit_multi_select(prompt_bufnr)
     actions.file_edit(prompt_bufnr)
   end
 end
+
 require('telescope').setup{
     defaults = {
         mappings = {

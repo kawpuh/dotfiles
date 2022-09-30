@@ -34,15 +34,18 @@ from libqtile.utils import guess_terminal
 MOD = "mod4"
 TERM = guess_terminal()
 
+
 def send_to_next_screen(qtile):
     to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
     qtile.current_window.cmd_toscreen(to_idx)
+
 
 def goto_next_empty_group(qtile):
     for group in qtile.groups:
         if not group.windows and not group.screen:
             qtile.current_screen.set_group(group)
             return
+
 
 def followto_next_empty_group(qtile):
     "send and follow the selected window to a new group"
@@ -52,8 +55,10 @@ def followto_next_empty_group(qtile):
             qtile.current_screen.set_group(group)
             return
 
+
 def swap_screens(qtile):
     qtile.screens[0].toggle_group(qtile.screens[1].group)
+
 
 keys = [
     # Switch between windows
@@ -61,18 +66,14 @@ keys = [
     Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
-
-    Key([MOD], "n", lazy.spawn("notes")),
-
+    Key([MOD], "m", lazy.layout.toggle_split()),
+    Key([MOD], "n", lazy.spawn("foliate")),
     Key([MOD], "p", lazy.spawn("flameshot gui")),
-
     Key([MOD], "Tab", lazy.screen.toggle_group()),
-
     Key([MOD, "shift"], "h", lazy.layout.shuffle_left()),
     Key([MOD, "shift"], "l", lazy.layout.shuffle_right()),
     Key([MOD, "shift"], "j", lazy.layout.shuffle_down()),
     Key([MOD, "shift"], "k", lazy.layout.shuffle_up()),
-
     Key([MOD], "space", lazy.screen.next_group(True, True)),
     Key([MOD, "shift"], "space", lazy.screen.prev_group(True, True)),
 
@@ -80,12 +81,12 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([MOD, "shift"], "Return", lazy.layout.toggle_split(),
+    Key([MOD, "shift"],
+        "Return",
+        lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
-
     Key([MOD], "f", lazy.next_layout()),
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
     Key([MOD, "shift"], "t", lazy.function(followto_next_empty_group)),
@@ -97,9 +98,7 @@ keys = [
 
     # Some spawn commands
     Key([MOD], "b", lazy.spawn("firefox")),
-
     Key([MOD], "w", lazy.window.kill()),
-
     Key([MOD, "control"], "r", lazy.restart()),
     Key([MOD, "control"], "q", lazy.spawn("my-exit")),
     Key([MOD], "r", lazy.spawn("rofi -show run")),
@@ -108,18 +107,28 @@ keys = [
 # setup hostname specific keys
 if os.uname()[1] == 'trailer':
     keys.extend([
-        Key([], "XF86MonBrightnessUp", lazy.spawn(
-            "xbacklight -inc 10"), desc="Coarse Brightness up"),
-        Key([], "XF86MonBrightnessDown", lazy.spawn(
-            "xbacklight -dec 10"), desc="Coarse Brightness down"),
-        Key(["shift"], "XF86MonBrightnessUp", lazy.spawn(
-            "xbacklight -inc 5"), desc="Fine Brightness up"),
-        Key(["shift"], "XF86MonBrightnessDown", lazy.spawn(
-            "xbacklight -dec 5"), desc="Fine Brightness down"),
+        Key([],
+            "XF86MonBrightnessUp",
+            lazy.spawn("xbacklight -inc 10"),
+            desc="Coarse Brightness up"),
+        Key([],
+            "XF86MonBrightnessDown",
+            lazy.spawn("xbacklight -dec 10"),
+            desc="Coarse Brightness down"),
+        Key(["shift"],
+            "XF86MonBrightnessUp",
+            lazy.spawn("xbacklight -inc 5"),
+            desc="Fine Brightness up"),
+        Key(["shift"],
+            "XF86MonBrightnessDown",
+            lazy.spawn("xbacklight -dec 5"),
+            desc="Fine Brightness down"),
     ])
 elif os.uname()[1] == 'camper':
     keys.extend([
-        Key([MOD], "d", lazy.spawn("camper-displays-gui"),
+        Key([MOD],
+            "d",
+            lazy.spawn("camper-displays-gui"),
             desc="GUI for setting up xrandr displays"),
     ])
 
@@ -139,16 +148,30 @@ groups = [
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
-        Key([MOD], i.name, lazy.group[i.name].toscreen(toggle=False),
+        Key([MOD],
+            i.name,
+            lazy.group[i.name].toscreen(toggle=False),
             desc="Switch to group {}".format(i.name)),
         # mod1 + shift + letter of group = move focused window to group
-        Key([MOD, "shift"], i.name, lazy.window.togroup(i.name),
+        Key([MOD, "shift"],
+            i.name,
+            lazy.window.togroup(i.name),
             desc="move focused window to group  {}".format(i.name)),
     ])
 
 layouts = [
-    layout.MonadTall(border_focus='fbf1c7', border_normal='3c3836', margin=20,
-                     border_width=2, single_margin=50),
+    # layout.MonadTall(border_focus='fbf1c7',
+    #                  border_normal='3c3836',
+    #                  margin=20,
+    #                  border_width=2,
+    #                  single_margin=50),
+    layout.Columns(border_focus='fbf1c7',
+                   border_focus_stack='7b7157',
+                   border_normal='3c3836',
+                   border_normal_stack='2c2826',
+                   margin=20,
+                   border_width=2,
+                   single_margin=50),
     layout.Max(),
 ]
 
@@ -176,7 +199,8 @@ common_bar_prefix = [
     widget.OpenWeather(
         zip="35805",
         metric=False,
-        format='⛅ {main_temp} °{units_temperature} {humidity}% {weather_details}'),
+        format=
+        '⛅ {main_temp} °{units_temperature} {humidity}% {weather_details}'),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Net(format="{down} ↓↑ {up}"),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
@@ -191,13 +215,14 @@ common_bar_suffix = [
 ]
 
 bar_settings = {
-        "border_width": 5,
-        "border_color": "#1d2021",
-        }
+    "border_width": 5,
+    "border_color": "#1d2021",
+}
 
 if os.uname()[1] == 'toaster':
     screens = [
-        Screen(bottom=bar.Bar(common_bar_prefix + common_bar_suffix, 24, **bar_settings)),
+        Screen(bottom=bar.Bar(common_bar_prefix +
+                              common_bar_suffix, 24, **bar_settings)),
         # because of the way qtile works, we have to redefine our bar
         # rather than using the above array.
         Screen(bottom=bar.Bar([
@@ -210,55 +235,42 @@ if os.uname()[1] == 'toaster':
                             other_current_screen_border='3c3836',
                             other_screen_border='3c3836'),
             widget.WindowName(background="3c3836"),
-            widget.Clock(format='%a %m/%d/%Y %H:%M:%S')],
-            24,
-            **bar_settings))
+            widget.Clock(format='%a %m/%d/%Y %H:%M:%S')
+        ], 24, **bar_settings))
     ]
 elif os.uname()[1] == 'trailer':
     screens = [
-        Screen(
-            bottom=bar.Bar(
-                common_bar_prefix +
-                [
-                    widget.Sep(padding=12, size_percent=80,
-                               foreground="504945"),
-                    widget.Battery(
-                        format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
-                    widget.Sep(padding=12, size_percent=80,
-                               foreground="504945"),
-                    widget.TextBox("💡:"),
-                    widget.Backlight(
-                        brightness_file="/sys/class/backlight/intel_backlight/brightness",
-                        max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness"
-                    ), ] + common_bar_suffix,
-                24,
-                **bar_settings
-            ),
-        ),
+        Screen(bottom=bar.Bar(
+            common_bar_prefix + [
+                widget.Sep(padding=12, size_percent=80, foreground="504945"),
+                widget.Battery(
+                    format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
+                widget.Sep(padding=12, size_percent=80, foreground="504945"),
+                widget.TextBox("💡:"),
+                widget.Backlight(
+                    brightness_file=
+                    "/sys/class/backlight/intel_backlight/brightness",
+                    max_brightness_file=
+                    "/sys/class/backlight/intel_backlight/max_brightness"),
+            ] + common_bar_suffix, 24, **bar_settings), ),
     ]
 elif os.uname()[1] == 'camper':
     screens = [
-        Screen(
-            bottom=bar.Bar(
-                common_bar_prefix +
-                [
-                    widget.Sep(padding=12, size_percent=80,
-                               foreground="504945"),
-                    widget.Battery(
-                        format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
-                    widget.Sep(padding=12, size_percent=80,
-                               foreground="504945"),
-                    widget.Backlight(),
-                ] + common_bar_suffix,
-                24,
-                **bar_settings
-            ),
-        ),
+        Screen(bottom=bar.Bar(
+            common_bar_prefix + [
+                widget.Sep(padding=12, size_percent=80, foreground="504945"),
+                widget.Battery(
+                    format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
+                widget.Sep(padding=12, size_percent=80, foreground="504945"),
+                widget.Backlight(),
+            ] + common_bar_suffix, 24, **bar_settings), ),
     ]
 
 # Drag floating layouts.
 mouse = [
-    Drag([MOD], "Button3", lazy.window.set_size(),
+    Drag([MOD],
+         "Button3",
+         lazy.window.set_size(),
          start=lazy.window.get_size()),
     Click([MOD], "Button2", lazy.window.bring_to_front()),
 ]
@@ -277,7 +289,8 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
     Match(wm_class='ssh-askpass'),  # ssh-askpass
-    Match(wm_class='steam_app_1172470'), Match(wm_class='Wine'),  # apex
+    Match(wm_class='steam_app_1172470'),
+    Match(wm_class='Wine'),  # apex
     Match(wm_type='splash'),
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry

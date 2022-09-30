@@ -90,6 +90,7 @@ alias sf="xboard -fcp stockfish -fUCI"
 alias gs="git status"
 alias gl="git log"
 alias ga="git add"
+alias gap="git add -p"
 alias gc="git commit"
 alias gp="git push"
 alias gd="git diff"
@@ -101,6 +102,7 @@ alias -g ..2='../..'
 alias -g ..3='../../..'
 alias -g ..4='../../../..'
 alias -g ..5='../../../../..'
+alias bci="bc -i"
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 
