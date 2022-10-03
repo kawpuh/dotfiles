@@ -217,6 +217,7 @@ common_bar_suffix = [
 bar_settings = {
     "border_width": 5,
     "border_color": "#1d2021",
+    "opacity": 0.90,
 }
 
 if os.uname()[1] == 'toaster':
