@@ -12,3 +12,4 @@ no-accel
 ~/.fehbg
 flameshot &
 dunst &
+picom &
