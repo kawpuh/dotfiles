@@ -143,7 +143,7 @@ EOF
 lua << EOF
 require'nvim-treesitter.configs'.setup{
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel" },
+    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel", "html" , "css" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -169,6 +169,7 @@ require'lspconfig'.pylsp.setup{}
 require'lspconfig'.clojure_lsp.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.hls.setup{}
+require'lspconfig'.html.setup{}
 require'lspconfig'.racket_langserver.setup{}
 
 local nvim_lsp = require('lspconfig')
@@ -208,7 +209,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "racket_langserver" }
+local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "html",  "racket_langserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
