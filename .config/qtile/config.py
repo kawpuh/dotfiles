@@ -194,8 +194,9 @@ common_bar_prefix = [
                     this_screen_border='928374',
                     other_current_screen_border='3c3836',
                     other_screen_border='3c3836'),
+    widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Prompt(),
-    widget.WindowName(background="3c3836"),
+    widget.WindowName(),
     widget.OpenWeather(
         zip="35805",
         metric=False,
@@ -215,9 +216,8 @@ common_bar_suffix = [
 ]
 
 bar_settings = {
-    "border_width": 5,
     "border_color": "#1d2021",
-    "opacity": 0.90,
+    "opacity": 0.85,
 }
 
 if os.uname()[1] == 'toaster':
@@ -235,7 +235,8 @@ if os.uname()[1] == 'toaster':
                             this_screen_border='928374',
                             other_current_screen_border='3c3836',
                             other_screen_border='3c3836'),
-            widget.WindowName(background="3c3836"),
+            widget.Sep(padding=12, size_percent=80, foreground="504945"),
+            widget.WindowName(),
             widget.Clock(format='%a %m/%d/%Y %H:%M:%S')
         ], 24, **bar_settings))
     ]
