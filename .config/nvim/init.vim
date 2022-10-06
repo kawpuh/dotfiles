@@ -80,7 +80,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
 " cmp setup
-lua <<EOF
+lua << EOF
 local cmp = require("cmp")
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
@@ -170,6 +170,7 @@ require'lspconfig'.clojure_lsp.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.hls.setup{}
 require'lspconfig'.html.setup{}
+require'lspconfig'.cssls.setup{}
 require'lspconfig'.racket_langserver.setup{}
 
 local nvim_lsp = require('lspconfig')
@@ -202,14 +203,14 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
+  buf_set_keymap('n', '<space>qq', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
   buf_set_keymap('n', '<space>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap("n", "<space>=f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "html",  "racket_langserver" }
+local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "html", "cssls",  "racket_langserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -242,6 +243,7 @@ nnoremap <leader>td :TodoTelescope<CR>
 nnoremap <C-j> i<CR><Esc>l
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
+nnoremap <leader>ql :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 
