@@ -216,7 +216,7 @@ common_bar_suffix = [
 ]
 
 bar_settings = {
-    "opacity": 0.90,
+    "opacity": 0.75
 }
 
 if os.uname()[1] == 'toaster':
