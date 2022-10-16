@@ -102,6 +102,7 @@ keys = [
     Key([MOD, "control"], "r", lazy.restart()),
     Key([MOD, "control"], "q", lazy.spawn("my-exit")),
     Key([MOD], "r", lazy.spawn("rofi -show run")),
+    Key([MOD], "c", lazy.spawn("rofi -show window"), desc="pneumonic \"chase\""),
 ]
 
 # setup hostname specific keys

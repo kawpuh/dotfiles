@@ -37,7 +37,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
 Plug 'luochen1990/rainbow'
-Plug 'chentoast/live.nvim',
+Plug 'junegunn/vim-easy-align'
+Plug 'ap/vim-css-color'
+" Plug 'chentoast/live.nvim',
 Plug 'folke/todo-comments.nvim'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -68,7 +70,7 @@ colorscheme gruvbox
 " enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
 
-lua require'live'.setup()
+" lua require'live'.setup()
 
 let g:rainbow_active = 1
 let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
@@ -131,7 +133,6 @@ require('telescope').setup{
         },
     },
 }
-
 EOF
 
 " todo-comments setup
@@ -159,7 +160,6 @@ require'nvim-treesitter.configs'.setup{
         enable = true,
     },
 }
-
 EOF
 
 " lsp setup ---------------------------------------------------------------
@@ -218,14 +218,15 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     },
     -- cmp setup
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   }
 end
 EOF
 
 " Binds
 xmap s <Plug>VSurround
-nnoremap <leader>rr :!!<CR>
+nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
@@ -246,6 +247,7 @@ nnoremap [q :cp<CR>
 nnoremap <leader>ql :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
+nnoremap <leader>m :w<cr>:Make<cr>
 
 augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
@@ -259,7 +261,7 @@ augroup end
 
 augroup shell
     au!
-    au FileType sh nnoremap <buffer> <localleader>r :!./%<CR>
+    au FileType sh nnoremap <buffer> <localleader>r :wr<CR>:!./%<CR>
 augroup end
 
 augroup vimscript
@@ -270,30 +272,30 @@ augroup end
 augroup c++
     au!
     au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
-    au FileType cpp nnoremap <buffer> <localleader>r :!g++ % && ./a.exe<CR>
+    au FileType cpp nnoremap <buffer> <localleader>r :wr<CR>:!g++ % && ./a.exe<CR>
 augroup end
 
 augroup perl
     au!
-    au FileType perl nnoremap <buffer> <localleader>r :!perl %<CR>
+    au FileType perl nnoremap <buffer> <localleader>r :wr<CR>:!perl %<CR>
 augroup end
 
 augroup golang
     au!
-    au FileType go nnoremap <buffer> <localleader>r :!go run %<CR>
+    au FileType go nnoremap <buffer> <localleader>r :wr<CR>:!go run %<CR>
     au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
     au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
 augroup end
 
 augroup python
     au!
-    au FileType python nnoremap <buffer> <localleader>r :!python3 %<CR>
+    au FileType python nnoremap <buffer> <localleader>r :wr<CR>:!python3 %<CR>
     au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
 augroup end
 
 augroup rust
     au!
-    au FileType rust nnoremap <buffer> <localleader>r :Cargo run<CR>
+    au FileType rust nnoremap <buffer> <localleader>r :wr<CR>:Cargo run<CR>
     au FileType rust nnoremap <buffer> <localleader>b :Cargo build<CR>
     au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
     au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>

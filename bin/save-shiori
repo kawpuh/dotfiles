@@ -1,2 +1,2 @@
 #!/bin/env zsh
-ssh -t root@thetome.xyz "./shiori add $(xclip -o)"
+ssh -t root@thetome.xyz "./shiori add $(xclip -o) >/dev/null && echo Link saved. || echo Failed to save link." | xargs -0 notify-send
