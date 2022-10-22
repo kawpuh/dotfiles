@@ -39,13 +39,13 @@ Plug 'lambdalisue/suda.vim'
 Plug 'luochen1990/rainbow'
 Plug 'junegunn/vim-easy-align'
 Plug 'ap/vim-css-color'
-" Plug 'chentoast/live.nvim',
 Plug 'folke/todo-comments.nvim'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/nvim-cmp'
 
 Plug 'nvim-lua/plenary.nvim'
@@ -85,15 +85,21 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 lua << EOF
 local cmp = require("cmp")
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    end,
+  },
   mapping = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<C-l>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'conjure' },
+    { name = 'vsnip' },
     { name = 'buffer' },
   })
 })
