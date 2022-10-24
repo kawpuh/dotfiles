@@ -103,6 +103,7 @@ alias -g ..3='../../..'
 alias -g ..4='../../../..'
 alias -g ..5='../../../../..'
 alias bci="bc -i"
+alias ipy="ipython"
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 
