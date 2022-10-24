@@ -22,7 +22,8 @@ setopt EXTENDED_HISTORY
 
 # Basic auto/tab complete:
 autoload -U compinit
-zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' menu yes select interactive
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 zmodload zsh/complist
 compinit
