@@ -15,13 +15,14 @@ filetype plugin indent on
 
 " Netrw config
 let g:netrw_banner=0
-let g:netrw_keepdir=0
+let g:netrw_keepdir=0 " part of our use for netrw is specifically to cwd
 
 let mapleader=" "
 let maplocalleader=","
 
 " Plugin section
 call plug#begin()
+" Core
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 
@@ -67,8 +68,10 @@ Plug 'hylang/vim-hy'
 call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
-colorscheme gruvbox
 let g:gruvbox_transparent_bg=1
+colorscheme gruvbox
+
+set guifont=NotoSansMono\ Nerd\ Font:h11
 
 " vscode theme setup
 " lua << EOF
@@ -302,7 +305,7 @@ nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
-nnoremap <leader>bd :bd<CR>
+nnoremap <leader>bd :confirm bw<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader><tab> :e#<CR>
@@ -318,6 +321,7 @@ nnoremap <leader>ql :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 nnoremap <leader>m :w<cr>:Make<cr>
+nnoremap <leader><CR> :term<CR>
 
 noremap s <Plug>(leap-forward-to)
 noremap S <Plug>(leap-backward-to)
