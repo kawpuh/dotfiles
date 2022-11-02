@@ -27,7 +27,8 @@ Plug 'nvim-treesitter/nvim-treesitter'
 
 " General
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
+Plug 'Mofiqul/vscode.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -67,11 +68,35 @@ call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
 colorscheme gruvbox
+let g:gruvbox_transparent_bg=1
+
+" vscode theme setup
+" lua << EOF
+" vim.o.background = 'dark'
+" local c = require('vscode.colors')
+" require('vscode').setup({
+"     -- Enable transparent background
+"     transparent = true,
+
+"     -- Enable italic comment
+"     italic_comments = true,
+
+"     -- Override colors (see ./lua/vscode/colors.lua)
+"     color_overrides = {
+"         vscLineNumber = '#FFFFFF',
+"     },
+
+"     -- Override highlight groups (see ./lua/vscode/theme.lua)
+"     group_overrides = {
+"         -- this supports the same val table as vim.api.nvim_set_hl
+"         -- use colors from this colorscheme by requiring vscode.colors!
+"         Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
+"     }
+" })
+" EOF
 
 " enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
-
-" lua require'live'.setup()
 
 let g:rainbow_active = 1
 let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
@@ -79,8 +104,45 @@ let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" airline configuration
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+" lualine config
+lua << END
+require('lualine').setup({
+    options = {
+        theme = 'gruvbox',
+    },
+})
+END
+
+" dap setup
+" lua << EOF
+" local dap = require('dap')
+" local dap_python = require('dap-python')
+" dap.configurations.python = {
+"     {
+"             type = 'python';
+"             request = 'launch';
+"             name = "Launch file";
+"             program = "${file}";
+"             pythonPath = function()
+"             return '/usr/bin/python'
+"             end;
+"     },
+" }
+" dap.adapters.python = {
+"     type = 'executable';
+"     command = '/usr/bin/python';
+"     args = { '-m', 'debugpy.adapter' };
+" }
+" EOF
+
+
+nnoremap <silent> <leader>bt <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>rb <Cmd>lua require'dap'.continue()<CR>
+nnoremap <silent> ]b <Cmd>lua require'dap'.step_over()<CR>
+nnoremap <silent> [b <Cmd>lua require'dap'.step_into()<CR>
+nnoremap <silent> <leader>bo <Cmd>lua require'dap'.step_out()<CR>
+
+
 
 " cmp setup
 lua << EOF
