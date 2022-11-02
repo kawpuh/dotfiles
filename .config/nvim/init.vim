@@ -40,6 +40,7 @@ Plug 'luochen1990/rainbow'
 Plug 'junegunn/vim-easy-align'
 Plug 'ap/vim-css-color'
 Plug 'folke/todo-comments.nvim'
+Plug 'ggandor/leap.nvim'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -150,7 +151,7 @@ EOF
 lua << EOF
 require'nvim-treesitter.configs'.setup{
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel", "html" , "css" },
+    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel", "html" , "css", "json" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -176,6 +177,7 @@ require'lspconfig'.clojure_lsp.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.hls.setup{}
 require'lspconfig'.html.setup{}
+require'lspconfig'.jsonls.setup{}
 require'lspconfig'.cssls.setup{}
 require'lspconfig'.racket_langserver.setup{}
 
@@ -216,7 +218,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "html", "cssls",  "racket_langserver" }
+local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -231,7 +233,7 @@ end
 EOF
 
 " Binds
-xmap s <Plug>VSurround
+" xmap s <Plug>VSurround
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
@@ -254,6 +256,9 @@ nnoremap <leader>ql :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 nnoremap <leader>m :w<cr>:Make<cr>
+
+noremap s <Plug>(leap-forward-to)
+noremap S <Plug>(leap-backward-to)
 
 augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
