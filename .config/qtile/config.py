@@ -271,6 +271,10 @@ elif os.uname()[1] == 'camper':
 # Drag floating layouts.
 mouse = [
     Drag([MOD],
+         "Button1",
+         lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([MOD],
          "Button3",
          lazy.window.set_size(),
          start=lazy.window.get_size()),
