@@ -77,14 +77,8 @@ keys = [
     Key([MOD], "space", lazy.screen.next_group(True, True)),
     Key([MOD, "shift"], "space", lazy.screen.prev_group(True, True)),
 
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([MOD, "shift"],
-        "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack"),
+    Key([MOD, "shift"], "return", lazy.window.toggle_floating()),
+
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
     Key([MOD], "f", lazy.next_layout()),
@@ -207,7 +201,7 @@ common_bar_prefix = [
     widget.Net(format="{down} ↓↑ {up}"),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.TextBox("CPU:"),
-    widget.CPUGraph(),
+    widget.CPUGraph(samples=30),
 ]
 common_bar_suffix = [
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
