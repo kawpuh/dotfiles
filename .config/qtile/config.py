@@ -62,41 +62,38 @@ def swap_screens(qtile):
 
 keys = [
     # Switch between windows
+    Key([MOD], "b", lazy.spawn("firefox")),
+    Key([MOD], "c", lazy.spawn("rofi -show window"), desc="pneumonic 'chase'"),
+    Key([MOD], "f", lazy.next_layout()),
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([MOD], "m", lazy.layout.toggle_split()),
     Key([MOD], "n", lazy.spawn("foliate")),
-    Key([MOD], "p", lazy.spawn("flameshot gui")),
-    Key([MOD], "Tab", lazy.screen.toggle_group()),
-    Key([MOD, "shift"], "h", lazy.layout.shuffle_left()),
-    Key([MOD, "shift"], "l", lazy.layout.shuffle_right()),
-    Key([MOD, "shift"], "j", lazy.layout.shuffle_down()),
-    Key([MOD, "shift"], "k", lazy.layout.shuffle_up()),
-    Key([MOD], "space", lazy.screen.next_group(True, True)),
-    Key([MOD, "shift"], "space", lazy.screen.prev_group(True, True)),
-
-    Key([MOD, "shift"], "return", lazy.window.toggle_floating()),
-
-    Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
-    Key([MOD, "shift"], "n", lazy.spawn("xcwd-term")),
-    Key([MOD], "f", lazy.next_layout()),
-    Key([MOD], "t", lazy.function(goto_next_empty_group)),
-    Key([MOD, "shift"], "t", lazy.function(followto_next_empty_group)),
-    Key([MOD], "s", lazy.function(swap_screens)),
-
-    # Swap between monitors
+    Key([MOD], "n", lazy.spawn("")),
     Key([MOD], "o", lazy.next_screen()),
-    Key([MOD, "shift"], "o", lazy.function(send_to_next_screen)),
-
-    # Some spawn commands
-    Key([MOD], "b", lazy.spawn("firefox")),
-    Key([MOD], "w", lazy.window.kill()),
-    Key([MOD, "control"], "r", lazy.restart()),
-    Key([MOD, "control"], "q", lazy.spawn("my-exit")),
+    Key([MOD], "p", lazy.spawn("flameshot gui")),
     Key([MOD], "r", lazy.spawn("rofi -show run")),
-    Key([MOD], "c", lazy.spawn("rofi -show window"), desc="pneumonic \"chase\""),
+    Key([MOD], "s", lazy.function(swap_screens)),
+    Key([MOD], "t", lazy.function(goto_next_empty_group)),
+    Key([MOD], "w", lazy.window.kill()),
+    Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
+    Key([MOD], "Space", lazy.screen.next_group(True, True)),
+    Key([MOD], "Tab", lazy.screen.toggle_group()),
+
+    Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
+    Key([MOD, "Shift"], "j", lazy.layout.shuffle_down()),
+    Key([MOD, "Shift"], "k", lazy.layout.shuffle_up()),
+    Key([MOD, "Shift"], "l", lazy.layout.shuffle_right()),
+    Key([MOD, "Shift"], "n", lazy.spawn("xcwd-term")),
+    Key([MOD, "Shift"], "o", lazy.function(send_to_next_screen)),
+    Key([MOD, "Shift"], "t", lazy.function(followto_next_empty_group)),
+    Key([MOD, "Shift"], "Space", lazy.screen.prev_group(True, True)),
+    Key([MOD, "Shift"], "Return", lazy.window.toggle_floating()),
+
+    Key([MOD, "Control"], "q", lazy.spawn("my-exit")),
+    Key([MOD, "Control"], "r", lazy.restart()),
 ]
 
 # setup hostname specific keys
