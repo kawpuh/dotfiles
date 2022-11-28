@@ -71,7 +71,6 @@ keys = [
     Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([MOD], "m", lazy.layout.toggle_split()),
     Key([MOD], "n", lazy.spawn("foliate")),
-    Key([MOD], "n", lazy.spawn("")),
     Key([MOD], "o", lazy.next_screen()),
     Key([MOD], "p", lazy.spawn("flameshot gui")),
     Key([MOD], "r", lazy.spawn("rofi -show run")),
