@@ -62,6 +62,7 @@ def swap_screens(qtile):
 
 keys = [
     # Switch between windows
+    Key([MOD], "a", lazy.spawn("scratch")),
     Key([MOD], "b", lazy.spawn("firefox")),
     Key([MOD], "c", lazy.spawn("rofi -show window"), desc="pneumonic 'chase'"),
     Key([MOD], "f", lazy.next_layout()),

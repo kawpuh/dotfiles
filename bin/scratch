@@ -1,0 +1,10 @@
+#!/bin/bash
+name=tmp
+if [[ -e $name.md ]] ; then
+    i=0
+    while [[ -e $name-$i.md ]] ; do
+        let i++
+    done
+    name=$name-$i
+fi
+kitty nvim $name.md
