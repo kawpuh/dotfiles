@@ -23,7 +23,7 @@ setopt EXTENDED_HISTORY
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' completer _extensions _complete _approximate
-zstyle ':completion:*' menu yes select interactive
+zstyle ':completion:*' menu yes select
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 zmodload zsh/complist
 compinit
@@ -69,7 +69,7 @@ antigen apply
 
 # nnn cd on exit
 if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
-        source /usr/share/nnn/quitcd/quitcd.bash_zsh
+    source /usr/share/nnn/quitcd/quitcd.bash_zsh
 fi
 
 # ssl conf
