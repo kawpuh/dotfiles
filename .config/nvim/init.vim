@@ -51,7 +51,6 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/nvim-cmp'
 
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 " Conjure and its deps
@@ -61,10 +60,17 @@ Plug 'clojure-vim/vim-jack-in'
 Plug 'Olical/conjure'
 
 " Language specific
+Plug 'simrat39/rust-tools.nvim'
 Plug 'jaawerth/fennel.vim'
 Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
+
+" DAP
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'mfussenegger/nvim-dap-python'
+
 call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
@@ -145,7 +151,20 @@ nnoremap <silent> ]b <Cmd>lua require'dap'.step_over()<CR>
 nnoremap <silent> [b <Cmd>lua require'dap'.step_into()<CR>
 nnoremap <silent> <leader>bo <Cmd>lua require'dap'.step_out()<CR>
 
-
+" rust-tools setup
+lua << EOF
+local rt = require("rust-tools")
+rt.setup({
+    server = {
+        on_attach = function(_, bufnr)
+        -- hover
+        vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+        -- code action
+        vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+    },
+})
+EOF
 
 " cmp setup
 lua << EOF
@@ -236,7 +255,6 @@ EOF
 
 " lsp setup ---------------------------------------------------------------
 lua << EOF
-require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.clojure_lsp.setup{}
 require'lspconfig'.clangd.setup{}
@@ -283,7 +301,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "rust_analyzer", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
+local servers = { "pylsp", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
