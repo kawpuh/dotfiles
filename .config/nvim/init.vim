@@ -10,6 +10,8 @@ set expandtab
 set completeopt=menuone,noinsert,noselect
 set showbreak=↪\ "comment so we don't format out the trailing space
 set spr
+set undofile
+set undodir=~/.config/neovim/undo
 syntax on
 filetype plugin indent on
 
@@ -43,6 +45,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'ap/vim-css-color'
 Plug 'folke/todo-comments.nvim'
 Plug 'ggandor/leap.nvim'
+Plug 'simnalamburt/vim-mundo'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -340,6 +343,7 @@ nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader><CR> :term<CR>
+nnoremap <F5> :MundoToggle<CR>
 
 noremap s <Plug>(leap-forward-to)
 noremap S <Plug>(leap-backward-to)
