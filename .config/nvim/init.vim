@@ -297,6 +297,7 @@ require'lspconfig'.html.setup{}
 require'lspconfig'.jsonls.setup{}
 require'lspconfig'.cssls.setup{}
 require'lspconfig'.racket_langserver.setup{}
+require'lspconfig'.bashls.setup{}
 
 local nvim_lsp = require('lspconfig')
 
@@ -335,7 +336,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
+local servers = { "pylsp", "bashls", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
