@@ -108,6 +108,7 @@ alias bci="bc -i"
 alias ipy="ipython"
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 
 # Setup for android development
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
