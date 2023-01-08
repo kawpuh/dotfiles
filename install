@@ -7,6 +7,7 @@ for root, dirs, files in fs:
     if root == '.':
         files.remove('README.md')
         files.remove('install')
+        files.remove('installsh')
     if '.git' in dirs:
         dirs.remove('.git')
     for f in files:
