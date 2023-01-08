@@ -63,7 +63,8 @@ Plug 'clojure-vim/vim-jack-in'
 Plug 'Olical/conjure'
 
 " Language specific
-Plug 'simrat39/rust-tools.nvim'
+" Plug 'simrat39/rust-tools.nvim'
+Plug 'kdarkhan/rust-tools.nvim'
 Plug 'jaawerth/fennel.vim'
 Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
