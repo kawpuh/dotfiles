@@ -96,6 +96,12 @@ alias gc="git commit"
 alias gp="git push"
 alias gd="git diff"
 alias qp="git add . && git commit -m 'update' && git push"
+function quickpushmessage() {
+    git add .
+    git commit -m "$1"
+    git push
+}
+alias qpm=quickpushmessage
 alias qinst="sudo pacman -S"
 alias inst="sudo pacman -Syu"
 alias uninst="sudo pacman -R"
