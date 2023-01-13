@@ -112,6 +112,7 @@ alias -g ..4='../../../..'
 alias -g ..5='../../../../..'
 alias bci="bc -i"
 alias ipy="ipython"
+alias lol="leagueoflegends"
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
