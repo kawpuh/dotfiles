@@ -79,6 +79,21 @@ path+=('/home/ethan/bin')
 path+=('/home/ethan/.emacs.d/bin')
 path+=('/home/ethan/.yarn/bin')
 
+export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export ANDROID_HOME=$HOME/sandbox/Android/Sdk
+export ANDROID_SDK_ROOT=$HOME/sandbox/Android/Sdk
+export ANDROID_NDK=$HOME/sandbox/Android/Sdk/ndk/20.1.5948944
+export ANDROID_NDK=$HOME/sandbox/Android/Sdk/ndk/20.1.5948944
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+export NODE_OPTIONS=--openssl-legacy-provider
+export PI=192.168.86.68
+
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
@@ -113,22 +128,7 @@ alias -g ..5='../../../../..'
 alias bci="bc -i"
 alias ipy="ipython"
 alias lol="leagueoflegends"
-
-export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
-
-# Setup for android development
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-export ANDROID_HOME=$HOME/sandbox/Android/Sdk
-export ANDROID_SDK_ROOT=$HOME/sandbox/Android/Sdk
-export ANDROID_NDK=$HOME/sandbox/Android/Sdk/ndk/20.1.5948944
-export ANDROID_NDK=$HOME/sandbox/Android/Sdk/ndk/20.1.5948944
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
-export NODE_OPTIONS=--openssl-legacy-provider
-export PI=192.168.86.68
+alias air="ssh -t $PI python3 ~/py-sds011/main.py"
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
