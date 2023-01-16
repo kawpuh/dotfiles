@@ -66,6 +66,7 @@ keys = [
     Key([MOD], "b", lazy.spawn("firefox")),
     Key([MOD], "c", lazy.spawn("rofi -show window"), desc="mnemonic 'chase'"),
     Key([MOD], "f", lazy.next_layout()),
+    Key([MOD, "Shift"], "f", lazy.hide_show_bar("bottom")),
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
