@@ -128,7 +128,6 @@ alias -g ..4='../../../..'
 alias -g ..5='../../../../..'
 alias bci="bc -i"
 alias ipy="ipython"
-alias lol="leagueoflegends"
 alias air="ssh -t $PI python3 ~/py-sds011/main.py"
 
 source /usr/share/fzf/key-bindings.zsh
