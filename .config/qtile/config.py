@@ -200,6 +200,8 @@ common_bar_prefix = [
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.TextBox("CPU:"),
     widget.CPUGraph(samples=30),
+    widget.Sep(padding=12, size_percent=80, foreground="504945"),
+    widget.Memory(measure_mem="G"),
 ]
 common_bar_suffix = [
     widget.Sep(padding=12, size_percent=80, foreground="504945"),

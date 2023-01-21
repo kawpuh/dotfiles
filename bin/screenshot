@@ -1,2 +1,2 @@
 #!/bin/env bash
-flameshot screen
+flameshot gui
