@@ -3,10 +3,10 @@
 for FNAME in $(git ls-files)
 do
     if [[ $FNAME != README.md && $FNAME != install && $FNAME != installsh ]]; then
-        if [[ $1 == "-i" ]]; then
-            cp -il $FNAME ~/$FNAME
-        else
-            cp -fl $FNAME ~/$FNAME
+	parentdir="$(dirname "$HOME/$FNAME")"
+        if [[ ! -f "$parentdir" ]]; then
+		mkdir -p $parentdir
         fi
+        cp -fl $FNAME ~/$FNAME
     fi
 done
