@@ -3,7 +3,7 @@
 for FNAME in $(git ls-files)
 do
     if [[ $FNAME != README.md && $FNAME != install && $FNAME != installsh ]]; then
-	parentdir="$(dirname "$HOME/$FNAME")"
+        parentdir="$(dirname "$HOME/$FNAME")"
         if [[ ! -f "$parentdir" ]]; then
 		mkdir -p $parentdir
         fi
