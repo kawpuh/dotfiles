@@ -239,9 +239,6 @@ elif os.uname()[1] == 'trailer':
         Screen(bottom=bar.Bar(
             common_bar_prefix + [
                 widget.Sep(padding=12, size_percent=80, foreground="504945"),
-                widget.Battery(
-                    format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
-                widget.Sep(padding=12, size_percent=80, foreground="504945"),
                 widget.TextBox("💡:"),
                 widget.Backlight(
                     brightness_file=
