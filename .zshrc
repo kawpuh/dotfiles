@@ -97,6 +97,7 @@ export PI=192.168.86.68
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
+alias m="make"
 alias ec="emacsclient -n"
 alias em="emacs -nw"
 alias vi="nvim"
@@ -129,6 +130,7 @@ alias -g ..5='../../../../..'
 alias bci="bc -i"
 alias ipy="ipython"
 alias air="ssh -t $PI python3 ~/py-sds011/main.py"
+alias view="nvim -R"
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
