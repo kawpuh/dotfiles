@@ -13,3 +13,4 @@ no-accel
 flameshot &
 dunst &
 picom &
+blueman-applet &
