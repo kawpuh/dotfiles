@@ -131,6 +131,10 @@ alias bci="bc -i"
 alias ipy="ipython"
 alias air="ssh -t $PI python3 ~/py-sds011/main.py"
 alias view="nvim -R"
+function timertui() {
+    termdown $@ && notify-send "Timer Finished" && play ~/Sync/chime.wav
+}
+alias t="timertui"
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh

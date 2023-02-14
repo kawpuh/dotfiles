@@ -1,2 +1,0 @@
-#!/bin/env bash
-termdown $@ && notify-send "Timer Finished" && play ~/Sync/chime.wav
