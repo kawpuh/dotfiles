@@ -27,7 +27,7 @@
 import os
 from typing import List  # noqa: F401
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
@@ -82,7 +82,6 @@ keys = [
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD], "Space", lazy.screen.next_group(True, True)),
     Key([MOD], "Tab", lazy.screen.toggle_group()),
-
     Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
     Key([MOD, "Shift"], "j", lazy.layout.shuffle_down()),
     Key([MOD, "Shift"], "k", lazy.layout.shuffle_up()),
@@ -92,9 +91,16 @@ keys = [
     Key([MOD, "Shift"], "t", lazy.function(followto_next_empty_group)),
     Key([MOD, "Shift"], "Space", lazy.screen.prev_group(True, True)),
     Key([MOD, "Shift"], "Return", lazy.window.toggle_floating()),
-
     Key([MOD, "Control"], "q", lazy.spawn("my-exit")),
     Key([MOD, "Control"], "r", lazy.restart()),
+    Key([MOD], "Up", lazy.spawn("xdotool mousemove_relative -- 0 -15")),
+    Key([MOD], "Down", lazy.spawn("xdotool mousemove_relative 0 15")),
+    Key([MOD], "Left", lazy.spawn("xdotool mousemove_relative -- -15 0")),
+    Key([MOD], "Right", lazy.spawn("xdotool mousemove_relative 15 0")),
+    KeyChord([MOD], "Next", [
+        Key([], "Left", lazy.spawn("xdotool click 1")),
+        Key([], "Right", lazy.spawn("xdotool click 2")),
+    ]),
 ]
 
 # setup hostname specific keys
@@ -153,13 +159,14 @@ for i in groups:
     ])
 
 layouts = [
-    layout.Columns(border_focus='fbf1c7',
-                   border_focus_stack='7b7157',
-                   border_normal='3c3836',
-                   border_normal_stack='2c2826',
-                   margin=20 if os.uname()[1] != 'camper' else 8,
-                   border_width=2,
-                   ),
+    layout.Columns(
+        border_focus='fbf1c7',
+        border_focus_stack='7b7157',
+        border_normal='3c3836',
+        border_normal_stack='2c2826',
+        margin=20 if os.uname()[1] != 'camper' else 8,
+        border_width=2,
+    ),
     layout.Max(),
 ]
 
@@ -205,9 +212,7 @@ common_bar_suffix = [
     widget.Systray(),
 ]
 
-bar_settings = {
-    "opacity": 0.75
-}
+bar_settings = {"opacity": 0.75}
 
 if os.uname()[1] == 'toaster':
     screens = [
