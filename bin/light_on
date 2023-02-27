@@ -1,0 +1,7 @@
+#!/bin/env python3
+import broadlink as b
+
+dev_gen = b.xdiscover(discover_ip_address='192.168.86.127')
+for dev in dev_gen:
+    dev.auth()
+    dev.set_power(True)
