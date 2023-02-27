@@ -66,7 +66,6 @@ keys = [
     Key([MOD], "b", lazy.spawn("firefox")),
     Key([MOD], "c", lazy.spawn("rofi -show window"), desc="mnemonic 'chase'"),
     Key([MOD], "f", lazy.next_layout()),
-    Key([MOD, "Shift"], "f", lazy.hide_show_bar("bottom")),
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
@@ -82,6 +81,7 @@ keys = [
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD], "Space", lazy.screen.next_group(True, True)),
     Key([MOD], "Tab", lazy.screen.toggle_group()),
+    Key([MOD, "Shift"], "f", lazy.hide_show_bar("bottom")),
     Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
     Key([MOD, "Shift"], "j", lazy.layout.shuffle_down()),
     Key([MOD, "Shift"], "k", lazy.layout.shuffle_up()),
@@ -99,7 +99,7 @@ keys = [
     Key([MOD], "Right", lazy.spawn("xdotool mousemove_relative 15 0")),
     KeyChord([MOD], "Next", [
         Key([], "Left", lazy.spawn("xdotool click 1")),
-        Key([], "Right", lazy.spawn("xdotool click 2")),
+        Key([], "Right", lazy.spawn("xdotool click 3")),
     ]),
 ]
 
@@ -293,6 +293,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='pinentry'),  # GPG key password entry
 ])
 auto_fullscreen = True
+auto_minimize = True
 focus_on_window_activation = "never"
 reconfigure_screens = False
 
