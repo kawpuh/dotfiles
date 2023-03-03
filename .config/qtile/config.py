@@ -103,6 +103,19 @@ keys = [
     ]),
 ]
 
+mouse = [
+    Drag([MOD],
+         "Button1",
+         lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([MOD],
+         "Button3",
+         lazy.window.set_size(),
+         start=lazy.window.get_size()),
+    Click([MOD], "Button2", lazy.window.bring_to_front()),
+]
+
+
 # setup hostname specific keys
 if os.uname()[1] == 'trailer':
     keys.extend([
@@ -259,19 +272,6 @@ elif os.uname()[1] == 'camper':
             ] + common_bar_suffix, 24, **bar_settings), ),
     ]
 
-# Drag floating layouts.
-mouse = [
-    Drag([MOD],
-         "Button1",
-         lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([MOD],
-         "Button3",
-         lazy.window.set_size(),
-         start=lazy.window.get_size()),
-    Click([MOD], "Button2", lazy.window.bring_to_front()),
-]
-
 focus_on_window_activation = "never"
 
 dgroups_key_binder = None
@@ -297,12 +297,4 @@ auto_minimize = True
 focus_on_window_activation = "never"
 reconfigure_screens = False
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "qtile"
