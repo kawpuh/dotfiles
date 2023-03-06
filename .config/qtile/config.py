@@ -297,4 +297,5 @@ auto_minimize = True
 focus_on_window_activation = "never"
 reconfigure_screens = False
 
-wmname = "qtile"
+# IDK java UI toolkits mess up without it (e.g. android-studio)
+wmname = "LG3D"
