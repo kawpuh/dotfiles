@@ -137,6 +137,7 @@ function timertui() {
     termdown $@ && notify-send "Timer Finished" && play ~/Sync/chime.wav
 }
 alias t="timertui"
+alias k="kitty &"
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
