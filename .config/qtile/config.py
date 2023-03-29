@@ -113,6 +113,7 @@ mouse = [
          lazy.window.set_size(),
          start=lazy.window.get_size()),
     Click([MOD], "Button2", lazy.window.bring_to_front()),
+    Click([MOD], "Button8", lazy.next_screen()),
 ]
 
 
