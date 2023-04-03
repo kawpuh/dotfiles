@@ -1,5 +1,8 @@
 #!/bin/bash
-name=tmp
+name=tmp-notes/tmp
+if [[ ! -d tmp-notes ]] ; then
+    mkdir tmp-notes
+fi
 if [[ -e $name.md ]] ; then
     i=0
     while [[ -e $name-$i.md ]] ; do
@@ -7,4 +10,4 @@ if [[ -e $name.md ]] ; then
     done
     name=$name-$i
 fi
-kitty nvim $name.md
+kitty -o font_size=20 nvim $name.md
