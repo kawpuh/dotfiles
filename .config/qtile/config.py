@@ -41,8 +41,12 @@ def send_to_next_screen(qtile):
 
 
 def goto_next_empty_group(qtile):
+
+    def group_shown(group):
+        return group.windows or group.screen
+
     for group in qtile.groups:
-        if not group.windows and not group.screen:
+        if not group_shown(group):
             qtile.current_screen.set_group(group)
             return
 
@@ -52,6 +56,24 @@ def followto_next_empty_group(qtile):
     for group in qtile.groups:
         if len(group.windows) == 0:
             qtile.current_window.cmd_togroup(group.name)
+            qtile.current_screen.set_group(group)
+            return
+
+
+def next_unhidden_group(qtile):
+    group = qtile.current_screen.group
+    for i in range(10):
+        group = group.get_next_group(True, True)
+        if group.name not in hidden_group_names:
+            qtile.current_screen.set_group(group)
+            return
+
+
+def prev_unhidden_group(qtile):
+    group = qtile.current_screen.group
+    for i in range(10):
+        group = group.get_previous_group(True, True)
+        if group.name not in hidden_group_names:
             qtile.current_screen.set_group(group)
             return
 
@@ -79,7 +101,8 @@ keys = [
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
     Key([MOD], "w", lazy.window.kill()),
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
-    Key([MOD], "Space", lazy.screen.next_group(True, True)),
+    # Key([MOD], "Space", lazy.screen.next_group(True, True)),
+    Key([MOD], "Space", lazy.function(next_unhidden_group)),
     Key([MOD], "Tab", lazy.screen.toggle_group()),
     Key([MOD, "Shift"], "f", lazy.hide_show_bar("bottom")),
     Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
@@ -89,7 +112,8 @@ keys = [
     Key([MOD, "Shift"], "n", lazy.spawn("xcwd-term")),
     Key([MOD, "Shift"], "o", lazy.function(send_to_next_screen)),
     Key([MOD, "Shift"], "t", lazy.function(followto_next_empty_group)),
-    Key([MOD, "Shift"], "Space", lazy.screen.prev_group(True, True)),
+    # Key([MOD, "Shift"], "Space", lazy.screen.prev_group(True, True)),
+    Key([MOD, "Shift"], "Space", lazy.function(prev_unhidden_group)),
     Key([MOD, "Shift"], "Return", lazy.window.toggle_floating()),
     Key([MOD, "Control"], "q", lazy.spawn("my-exit")),
     Key([MOD, "Control"], "r", lazy.restart()),
@@ -116,7 +140,6 @@ mouse = [
     Click([MOD], "Button8", lazy.next_screen()),
     Click([MOD, "Shift"], "Button8", lazy.function(send_to_next_screen)),
 ]
-
 
 # setup hostname specific keys
 if os.uname()[1] == 'trailer':
@@ -156,8 +179,9 @@ groups = [
     Group("7"),
     Group("8"),
     Group("9"),
-    Group("0")
+    Group("0"),
 ]
+hidden_group_names = ["9", "0"]
 
 for i in groups:
     keys.extend([
@@ -300,4 +324,5 @@ focus_on_window_activation = "never"
 reconfigure_screens = False
 
 # IDK java UI toolkits mess up without it (e.g. android-studio)
+wmname = "LG3D"
 wmname = "LG3D"
