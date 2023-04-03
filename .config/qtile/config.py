@@ -78,6 +78,15 @@ def prev_unhidden_group(qtile):
             return
 
 
+def next_hidden_group(qtile):
+    group = qtile.current_screen.group
+    for i in range(10):
+        group = group.get_next_group(True, True)
+        if group.name in hidden_group_names:
+            qtile.current_screen.set_group(group)
+            return
+
+
 def swap_screens(qtile):
     qtile.screens[0].toggle_group(qtile.screens[1].group)
 
@@ -92,7 +101,7 @@ keys = [
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
     Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([MOD], "m", lazy.layout.toggle_split()),
+    Key([MOD], "m", lazy.function(next_hidden_group), desc="Mnemonic masked"),
     Key([MOD], "n", lazy.spawn("foliate")),
     Key([MOD], "o", lazy.next_screen()),
     Key([MOD], "p", lazy.spawn("flameshot gui")),
@@ -100,8 +109,8 @@ keys = [
     Key([MOD], "s", lazy.function(swap_screens)),
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
     Key([MOD], "w", lazy.window.kill()),
+    Key([MOD], "z", lazy.layout.toggle_split(), desc="Mnemonic zip"),
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
-    # Key([MOD], "Space", lazy.screen.next_group(True, True)),
     Key([MOD], "Space", lazy.function(next_unhidden_group)),
     Key([MOD], "Tab", lazy.screen.toggle_group()),
     Key([MOD, "Shift"], "f", lazy.hide_show_bar("bottom")),
@@ -112,7 +121,6 @@ keys = [
     Key([MOD, "Shift"], "n", lazy.spawn("xcwd-term")),
     Key([MOD, "Shift"], "o", lazy.function(send_to_next_screen)),
     Key([MOD, "Shift"], "t", lazy.function(followto_next_empty_group)),
-    # Key([MOD, "Shift"], "Space", lazy.screen.prev_group(True, True)),
     Key([MOD, "Shift"], "Space", lazy.function(prev_unhidden_group)),
     Key([MOD, "Shift"], "Return", lazy.window.toggle_floating()),
     Key([MOD, "Control"], "q", lazy.spawn("my-exit")),
