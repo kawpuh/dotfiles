@@ -1,8 +1,10 @@
 #!/bin/bash
-name=tmp-notes/tmp
-if [[ ! -d tmp-notes ]] ; then
-    mkdir tmp-notes
+note_dir=~/Sync/tmp-notes/
+if [[ ! -d $note_dir ]] ; then
+    mkdir note_dir
 fi
+cd $note_dir
+name=tmp
 if [[ -e $name.md ]] ; then
     i=0
     while [[ -e $name-$i.md ]] ; do
