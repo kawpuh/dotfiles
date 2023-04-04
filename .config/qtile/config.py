@@ -260,7 +260,7 @@ common_bar_prefix = [
         zip="35805",
         metric=False,
         format=
-        '⛅ {main_temp} °{units_temperature} {humidity}% {weather_details}'),
+        '{main_temp} °{units_temperature}|💧{humidity}%|{icon}'),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Net(format="{down} ↓↑ {up}"),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
