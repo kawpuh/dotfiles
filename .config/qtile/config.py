@@ -223,12 +223,13 @@ for i in groups:
 
 layouts = [
     layout.Columns(
-        border_focus='fbf1c7',
-        border_focus_stack='7b7157',
-        border_normal='3c3836',
-        border_normal_stack='2c2826',
+        border_focus='#d5c4a1',
+        border_focus_stack='#d79921',
+        border_normal='#3c3836',
+        border_normal_stack='#2c2826',
         margin=20 if os.uname()[1] != 'camper' else 8,
         border_width=2,
+        border_on_single=True,
     ),
     layout.Max(),
 ]
