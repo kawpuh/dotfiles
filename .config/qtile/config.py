@@ -63,7 +63,7 @@ def followto_next_empty_group(qtile):
 def goto_next_unhidden_group(qtile):
     group = qtile.current_screen.group
     for i in range(10):
-        group = group.get_next_group(True, True)
+        group = group.get_next_group(skip_empty=True, skip_managed=True)
         if group.name not in hidden_group_names:
             qtile.current_screen.set_group(group)
             return
@@ -72,7 +72,7 @@ def goto_next_unhidden_group(qtile):
 def goto_prev_unhidden_group(qtile):
     group = qtile.current_screen.group
     for i in range(10):
-        group = group.get_previous_group(True, True)
+        group = group.get_previous_group(skip_empty=True, skip_managed=True)
         if group.name not in hidden_group_names:
             qtile.current_screen.set_group(group)
             return
@@ -81,7 +81,7 @@ def goto_prev_unhidden_group(qtile):
 def goto_next_hidden_group(qtile):
     group = qtile.current_screen.group
     for i in range(10):
-        group = group.get_next_group(True, True)
+        group = group.get_next_group(skip_empty=False, skip_managed=True)
         if group.name in hidden_group_names:
             qtile.current_screen.set_group(group)
             return
@@ -90,7 +90,7 @@ def goto_next_hidden_group(qtile):
 def sendto_next_hidden_group(qtile):
     group = qtile.current_screen.group
     for i in range(10):
-        group = group.get_next_group(False, False)
+        group = group.get_next_group(skip_empty=False, skip_managed=False)
         if group.name in hidden_group_names:
             qtile.current_window.cmd_togroup(group.name)
             return
@@ -259,8 +259,7 @@ common_bar_prefix = [
     widget.OpenWeather(
         zip="35805",
         metric=False,
-        format=
-        '{main_temp} °{units_temperature}|💧{humidity}%|{icon}'),
+        format='{icon} {main_temp} °{units_temperature} 💧{humidity}%'),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Net(format="{down} ↓↑ {up}"),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
