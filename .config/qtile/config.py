@@ -140,6 +140,7 @@ keys = [
     Key([MOD, "Shift"], "Space", lazy.function(goto_prev_unhidden_group)),
     Key([MOD, "Shift"], "Return", lazy.window.toggle_floating()),
     Key([MOD, "Control"], "q", lazy.spawn("my-exit")),
+    Key([MOD, "Control"], "s", lazy.spawn("systemctl suspend")),
     Key([MOD, "Control"], "r", lazy.restart()),
     Key([MOD], "Up", lazy.spawn("xdotool mousemove_relative -- 0 -15")),
     Key([MOD], "Down", lazy.spawn("xdotool mousemove_relative 0 15")),
