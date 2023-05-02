@@ -98,6 +98,9 @@ def sendto_next_hidden_group(qtile):
 
 def swap_screens(qtile):
     qtile.screens[0].toggle_group(qtile.screens[1].group)
+    shown = qtile.screens[0].bottom.is_show(), qtile.screens[1].bottom.is_show()
+    qtile.screens[0].bottom.show(shown[1])
+    qtile.screens[1].bottom.show(shown[0])
 
 
 keys = [
