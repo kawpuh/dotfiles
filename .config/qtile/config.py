@@ -40,11 +40,11 @@ def send_to_next_screen(qtile):
     qtile.current_window.cmd_toscreen(to_idx)
 
 
+def group_shown(group):
+    return group.windows or group.screen
+
+
 def goto_next_empty_group(qtile):
-
-    def group_shown(group):
-        return group.windows or group.screen
-
     for group in qtile.groups:
         if not group_shown(group):
             qtile.current_screen.set_group(group)
@@ -54,7 +54,7 @@ def goto_next_empty_group(qtile):
 def followto_next_empty_group(qtile):
     "send and follow the selected window to a new group"
     for group in qtile.groups:
-        if len(group.windows) == 0:
+        if not group_shown(group):
             qtile.current_window.cmd_togroup(group.name)
             qtile.current_screen.set_group(group)
             return
