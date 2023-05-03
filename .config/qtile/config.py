@@ -125,6 +125,7 @@ keys = [
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
     Key([MOD], "w", lazy.window.kill()),
     Key([MOD], "z", lazy.layout.toggle_split(), desc="Mnemonic zip"),
+    Key([MOD], "comma", lazy.spawn("zathura")),
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
     Key([MOD], "Tab", lazy.screen.toggle_group()),
