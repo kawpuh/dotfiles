@@ -233,7 +233,7 @@ layouts = [
         border_normal='#3c3836',
         border_normal_stack='#2c2826',
         margin=20 if os.uname()[1] != 'camper' else 8,
-        border_width=2,
+        border_width=2 if os.uname()[1] == 'toaster' else 4,
         border_on_single=True,
     ),
     layout.Max(),
