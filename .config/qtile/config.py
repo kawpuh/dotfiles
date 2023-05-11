@@ -154,6 +154,13 @@ keys = [
         Key([], "Left", lazy.spawn("xdotool click 1")),
         Key([], "Right", lazy.spawn("xdotool click 3")),
     ]),
+    # media keys
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+    Key([], "XF86AudioMute", lazy.spawn("playerctl volume 0")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("playerctl volume 0.05-")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("playerctl volume 0.05+")),
 ]
 
 mouse = [
