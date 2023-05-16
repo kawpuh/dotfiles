@@ -150,6 +150,10 @@ keys = [
     Key([MOD], "Down", lazy.spawn("xdotool mousemove_relative 0 15")),
     Key([MOD], "Left", lazy.spawn("xdotool mousemove_relative -- -15 0")),
     Key([MOD], "Right", lazy.spawn("xdotool mousemove_relative 15 0")),
+    Key([MOD, "Shift"], "Up", lazy.spawn("xdotool mousemove_relative -- 0 -300")),
+    Key([MOD, "Shift"], "Down", lazy.spawn("xdotool mousemove_relative 0 300")),
+    Key([MOD, "Shift"], "Left", lazy.spawn("xdotool mousemove_relative -- -300 0")),
+    Key([MOD, "Shift"], "Right", lazy.spawn("xdotool mousemove_relative 300 0")),
     KeyChord([MOD], "Next", [
         Key([], "Left", lazy.spawn("xdotool click 1")),
         Key([], "Right", lazy.spawn("xdotool click 3")),
