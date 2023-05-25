@@ -261,7 +261,7 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 common_bar_prefix = [
-    widget.CurrentLayout(),
+    widget.CurrentLayoutIcon(),
     widget.GroupBox(active="ebdbb2",
                     disable_drag=True,
                     highlight_method="block",
@@ -281,10 +281,13 @@ common_bar_prefix = [
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.TextBox("CPU:"),
     widget.CPUGraph(samples=30),
-    widget.Sep(padding=12, size_percent=80, foreground="504945"),
+    widget.TextBox("Disk:"),
+    widget.HDDBusyGraph(samples=30),
     widget.Memory(measure_mem="G"),
 ]
 common_bar_suffix = [
+    widget.Sep(padding=12, size_percent=80, foreground="504945"),
+    widget.CheckUpdates(distro='Arch', display_format="❗:{updates}", no_update_string="✅"),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
@@ -297,10 +300,9 @@ if os.uname()[1] == 'toaster':
     screens = [
         Screen(bottom=bar.Bar(common_bar_prefix +
                               common_bar_suffix, 24, **bar_settings)),
-        # because of the way qtile works, we have to redefine our bar
-        # rather than using the above array.
+        # it seems we can't easily deepcopy bar; have to redefine
         Screen(bottom=bar.Bar([
-            widget.CurrentLayout(),
+            widget.CurrentLayoutIcon(),
             widget.GroupBox(active="ebdbb2",
                             disable_drag=True,
                             highlight_method="block",
