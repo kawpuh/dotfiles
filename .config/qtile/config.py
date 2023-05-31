@@ -287,8 +287,6 @@ common_bar_prefix = [
 ]
 common_bar_suffix = [
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
-    widget.CheckUpdates(distro='Arch', display_format="❗:{updates}", no_update_string="✅"),
-    widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
     widget.Sep(padding=12, size_percent=80, foreground="504945"),
     widget.Systray(),
