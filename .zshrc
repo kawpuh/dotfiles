@@ -93,7 +93,7 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/tools
 export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 export NODE_OPTIONS=--openssl-legacy-provider
-export PI=192.168.86.68
+export PI=192.168.1.118
 export TERM=xterm-256color
 
 # aliases
