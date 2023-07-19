@@ -436,3 +436,7 @@ augroup help
     au!
     au FileType help wincmd H
 augroup end
+
+augroup css
+    au FileType css setlocal tabstop=2 shiftwidth=2
+augroup end

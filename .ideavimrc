@@ -2,6 +2,7 @@ let mapleader=" "
 set commentary
 set surround
 set incsearch
+set ignorecase
 
 map <leader>rn <Action>(RenameElement)
 map <leader>gr <Action>(FindUsages)
