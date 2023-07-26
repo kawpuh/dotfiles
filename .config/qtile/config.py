@@ -221,7 +221,7 @@ groups = [
     Group("9"),
     Group("0"),
 ]
-hidden_group_names = ["9", "0"]
+hidden_group_names = ["8", "9", "0"]
 
 for i in groups:
     keys.extend([
