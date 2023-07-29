@@ -99,7 +99,7 @@ export TERM=xterm-256color
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
-alias m="make"
+alias m="just"
 alias ec="emacsclient -n"
 alias em="emacs -nw"
 alias vi="nvim"
