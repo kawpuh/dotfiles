@@ -9,7 +9,6 @@ fi
 autoload -U colors && colors
 autoload -U promptinit; promptinit
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-
 setopt autocd
 
 # History in cache directory:
@@ -33,7 +32,6 @@ _comp_options+=(globdots)		# Include hidden files.
 bindkey -v
 export KEYTIMEOUT=1
 export VISUAL=nvim
-
 bindkey -M main '^L' forward-char
 
 # Change cursor shape for different vi modes.
@@ -74,24 +72,14 @@ if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
 fi
 
 # ssl conf
-export OPENSSL_CONF=/etc/ssl/
 
 path+=('/home/ethan/bin')
-path+=('/home/ethan/.emacs.d/bin')
 path+=('/home/ethan/.yarn/bin')
 
 export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
-
+export OPENSSL_CONF=/etc/ssl/
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-export ANDROID_HOME=$HOME/sandbox/Android/Sdk
-export ANDROID_SDK_ROOT=$HOME/sandbox/Android/Sdk
-export ANDROID_NDK=$HOME/sandbox/Android/Sdk/ndk/20.1.5948944
-export ANDROID_NDK=$HOME/sandbox/Android/Sdk/ndk/20.1.5948944
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 export NODE_OPTIONS=--openssl-legacy-provider
 export PI=192.168.1.118
 export TERM=xterm-256color
@@ -103,7 +91,6 @@ alias m="just"
 alias ec="emacsclient -n"
 alias em="emacs -nw"
 alias vi="nvim"
-alias mupdf="mupdf-gl"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
 alias gs="git status"
@@ -140,11 +127,11 @@ function timertui() {
 alias t="timertui"
 alias k="kitty &"
 
+[[ -f $HOME/.config/local.zsh ]] && source $HOME/.config/local.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /etc/profile.d/autojump.sh
-source $HOME/.config/keys.zsh
 #
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
