@@ -289,16 +289,6 @@ EOF
 
 " lsp setup ---------------------------------------------------------------
 lua << EOF
-require'lspconfig'.pylsp.setup{}
-require'lspconfig'.clojure_lsp.setup{}
-require'lspconfig'.clangd.setup{}
-require'lspconfig'.hls.setup{}
-require'lspconfig'.html.setup{}
-require'lspconfig'.jsonls.setup{}
-require'lspconfig'.cssls.setup{}
-require'lspconfig'.racket_langserver.setup{}
-require'lspconfig'.bashls.setup{}
-
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -336,7 +326,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pylsp", "bashls", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
+local servers = { "bashls", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -346,8 +336,22 @@ for _, lsp in ipairs(servers) do
     -- cmp setup
     capabilities = require('cmp_nvim_lsp').default_capabilities()
     -- capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  }
+}
 end
+nvim_lsp.pylsp.setup{
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    },
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = {enabled = false},
+            },
+        }
+    }
+}
 EOF
 
 " Binds
