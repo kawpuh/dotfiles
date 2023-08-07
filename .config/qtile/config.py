@@ -121,6 +121,7 @@ keys = [
     Key([MOD], "o", lazy.next_screen()),
     Key([MOD], "p", lazy.spawn("flameshot gui")),
     Key([MOD], "r", lazy.spawn("rofi -show run")),
+    Key([MOD,"shift"], "r", lazy.spawn("rofi -show combi")),
     Key([MOD], "s", lazy.function(swap_screens)),
     Key([MOD], "t", lazy.function(goto_next_empty_group)),
     Key([MOD], "w", lazy.window.kill()),
@@ -240,11 +241,11 @@ for i in groups:
 layouts = [
     layout.Columns(
         border_focus='#d5c4a1',
-        border_focus_stack='#d79921',
+        border_focus_stack='#d76921',
         border_normal='#3c3836',
         border_normal_stack='#2c2826',
-        margin=20 if os.uname()[1] != 'camper' else 8,
-        border_width=2 if os.uname()[1] == 'toaster' else 4,
+        margin=4 if os.uname()[1] != 'camper' else 0,
+        border_width=1 if os.uname()[1] == 'toaster' else 2,
         border_on_single=True,
     ),
     layout.Max(),
@@ -252,7 +253,7 @@ layouts = [
 
 widget_defaults = dict(
     font='Noto Sans',
-    fontsize=14,
+    fontsize=12,
     padding=3,
     background="#282828",
     foreground="#ebdbb2",
