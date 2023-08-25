@@ -107,7 +107,6 @@ keys = [
     # Switch between windows
     Key([MOD], "a", lazy.spawn("scratch"), desc="mnemonic 'access'"),
     Key([MOD], "b", lazy.spawn("firefox")),
-    Key([MOD], "c", lazy.spawn("rofi -show combi"), desc="mnemonic 'combi' or 'chase'"),
     Key([MOD], "f", lazy.next_layout()),
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),

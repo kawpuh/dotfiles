@@ -30,28 +30,24 @@ Plug 'nvim-treesitter/nvim-treesitter'
 
 " General
 Plug 'morhetz/gruvbox'
-Plug 'Mofiqul/vscode.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
-Plug 'luochen1990/rainbow'
 Plug 'junegunn/vim-easy-align'
-Plug 'ap/vim-css-color'
 Plug 'folke/todo-comments.nvim'
-Plug 'ggandor/leap.nvim'
-Plug 'simnalamburt/vim-mundo'
+
+Plug 'luochen1990/rainbow'
+Plug 'ap/vim-css-color'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/nvim-cmp'
 
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -69,11 +65,6 @@ Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
 
-" DAP
-Plug 'mfussenegger/nvim-dap'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'mfussenegger/nvim-dap-python'
-
 call plug#end()
 
 let g:gruvbox_contrast_dark="medium"
@@ -81,36 +72,10 @@ let g:gruvbox_transparent_bg=1
 colorscheme gruvbox
 
 set guifont=NotoSansMono\ Nerd\ Font:h11
-
-" vscode theme setup
-" lua << EOF
-" vim.o.background = 'dark'
-" local c = require('vscode.colors')
-" require('vscode').setup({
-"     -- Enable transparent background
-"     transparent = true,
-
-"     -- Enable italic comment
-"     italic_comments = true,
-
-"     -- Override colors (see ./lua/vscode/colors.lua)
-"     color_overrides = {
-"         vscLineNumber = '#FFFFFF',
-"     },
-
-"     -- Override highlight groups (see ./lua/vscode/theme.lua)
-"     group_overrides = {
-"         -- this supports the same val table as vim.api.nvim_set_hl
-"         -- use colors from this colorscheme by requiring vscode.colors!
-"         Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
-"     }
-" })
-" EOF
+let g:rainbow_active = 1
 
 " enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
-
-let g:rainbow_active = 1
 let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
 
 " Cleanup trailing whitespace on save
@@ -124,35 +89,6 @@ require('lualine').setup({
     },
 })
 END
-
-" dap setup
-" lua << EOF
-" local dap = require('dap')
-" local dap_python = require('dap-python')
-" dap.configurations.python = {
-"     {
-"             type = 'python';
-"             request = 'launch';
-"             name = "Launch file";
-"             program = "${file}";
-"             pythonPath = function()
-"             return '/usr/bin/python'
-"             end;
-"     },
-" }
-" dap.adapters.python = {
-"     type = 'executable';
-"     command = '/usr/bin/python';
-"     args = { '-m', 'debugpy.adapter' };
-" }
-" EOF
-
-
-nnoremap <silent> <leader>bt <Cmd>lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <leader>rb <Cmd>lua require'dap'.continue()<CR>
-nnoremap <silent> ]b <Cmd>lua require'dap'.step_over()<CR>
-nnoremap <silent> [b <Cmd>lua require'dap'.step_into()<CR>
-nnoremap <silent> <leader>bo <Cmd>lua require'dap'.step_out()<CR>
 
 " rust-tools setup
 lua << EOF
@@ -204,21 +140,15 @@ EOF
 lua << EOF
 local cmp = require("cmp")
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-    end,
-  },
   mapping = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-l>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<C-l>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'conjure' },
-    { name = 'vsnip' },
     { name = 'buffer' },
   })
 })
@@ -355,7 +285,6 @@ nvim_lsp.pylsp.setup{
 EOF
 
 " Binds
-" xmap s <Plug>VSurround
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
@@ -366,8 +295,6 @@ nnoremap <leader>bd :confirm bw<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader><tab> :e#<CR>
-nnoremap <leader>gs :Telescope grep_string<CR>
-vnoremap <leader>gs y:Telescope live_grep <C-R>"<CR>
 nnoremap <leader>bb :Telescope buffers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
@@ -379,10 +306,6 @@ nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader><CR> :term<CR>
-nnoremap <F5> :MundoToggle<CR>
-
-noremap s <Plug>(leap-forward-to)
-noremap S <Plug>(leap-backward-to)
 
 augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
