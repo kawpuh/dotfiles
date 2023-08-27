@@ -88,8 +88,6 @@ export TERM=xterm-256color
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
 alias m="just"
-alias ec="emacsclient -n"
-alias em="emacs -nw"
 alias vi="nvim"
 alias 2clip="xclip -selection c"
 alias sf="xboard -fcp stockfish -fUCI"
@@ -117,7 +115,6 @@ alias -g ..2='../..'
 alias -g ..3='../../..'
 alias -g ..4='../../../..'
 alias -g ..5='../../../../..'
-alias bci="bc -i"
 alias ipy="ipython"
 alias air="ssh -t $PI python3 ~/py-sds011/main.py"
 alias view="nvim -R"
@@ -125,7 +122,6 @@ function timertui() {
     termdown $@ && notify-send "Timer Finished" && play ~/Sync/chime.wav
 }
 alias t="timertui"
-alias k="kitty &"
 
 [[ -f $HOME/.config/local.zsh ]] && source $HOME/.config/local.zsh
 source /usr/share/fzf/key-bindings.zsh
