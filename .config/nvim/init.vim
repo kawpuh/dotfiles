@@ -20,16 +20,16 @@ let maplocalleader=","
 
 " Netrw config
 let g:netrw_banner=0
-let g:netrw_keepdir=0 " part of our use for netrw is specifically to cwd
+let g:netrw_keepdir=0 " part of our use for netrw is to cwd
+
+set guifont=NotoSansMono\ Nerd\ Font:h11
+" Cleanup trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
   if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
   if (has("termguicolors"))
     set termguicolors
   endif
@@ -42,15 +42,13 @@ Plug 'nvim-treesitter/nvim-treesitter'
 " General
 Plug 'morhetz/gruvbox'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'folke/todo-comments.nvim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 " display colors
 Plug 'luochen1990/rainbow'
 Plug 'ap/vim-css-color'
@@ -63,8 +61,9 @@ Plug 'hrsh7th/nvim-cmp'
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-" justfile
-Plug 'NoahTheDuke/vim-just'
+" Lisp
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Conjure and repl
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
@@ -76,6 +75,10 @@ Plug 'jaawerth/fennel.vim'
 Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
+Plug 'NoahTheDuke/vim-just'
+" Folding
+Plug 'kevinhwang91/promise-async'
+Plug 'kevinhwang91/nvim-ufo'
 call plug#end()
 
 let g:gruvbox_contrast_dark="hard"
@@ -84,41 +87,47 @@ colorscheme gruvbox
 highlight Normal guibg=none
 highlight NonText guibg=none
 
-
-set guifont=NotoSansMono\ Nerd\ Font:h11
-let g:rainbow_active = 1
+let g:rainbow_active=1
 
 " enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
+" clojure config
 let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
-
-" Cleanup trailing whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
 
 lua require('init')
 
 " Binds
-nnoremap <leader>rr :w<cr>:!!<CR>
+nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>ft :Explore %:p:h<CR>
-nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fs :w<CR>
-nnoremap <leader>ff :Telescope find_files<CR>
-nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>bd :confirm bw<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader><tab> :e#<CR>
+
+nnoremap <leader>fc :e $MYVIMRC<CR>
+nnoremap <leader>rc :source $MYVIMRC<CR>
+
+nnoremap <leader><CR> :term<CR>
+nnoremap <leader>gd :term git diff %<CR>
+nnoremap <leader>m :w<cr>:Make<cr>
+nnoremap <leader>rr :w<cr>:!!<CR>
+" telescope
+nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>bb :Telescope buffers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
-nnoremap <C-j> i<CR><Esc>l
+" quickfix, loclist
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap <leader>ql :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
-nnoremap <leader>m :w<cr>:Make<cr>
-nnoremap <leader><CR> :term<CR>
+" copy/paste to clipboard
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
 
 augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
@@ -186,4 +195,5 @@ augroup clojure
     au FileType clojure command! CC ConjureConnect
     " mnemonic: ConjureKrell
     au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
+    au FileType clojure set iskeyword-=-
 augroup end
