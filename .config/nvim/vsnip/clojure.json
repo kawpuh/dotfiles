@@ -1,0 +1,14 @@
+{
+  "reg-event-db": {
+    "prefix": ["db"],
+    "body": ["(rf/reg-event-db\n  ::$1\n  (fn [db $0]))"]
+  },
+  "reg-event-fx": {
+    "prefix": ["fx"],
+    "body": ["(rf/reg-event-fx\n  ::$1\n  (fn [{:keys [db]} $0]))"]
+  },
+  "reg-sub": {
+    "prefix": ["sub"],
+    "body": ["(rf/reg-sub\n  ::$1\n  (fn [$0]))"]
+  }
+}

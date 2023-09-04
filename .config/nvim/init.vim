@@ -6,7 +6,7 @@ set ignorecase
 set smartcase
 set hidden
 set expandtab
-set showbreak=↪\ "comment so we don't format out the trailing space
+set showbreak=↪\ " comment so we don't format out the trailing space
 set completeopt=menuone,longest
 set wildmode=list:longest
 set spr
@@ -52,6 +52,9 @@ Plug 'tpope/vim-commentary'
 " display colors
 Plug 'luochen1990/rainbow'
 Plug 'ap/vim-css-color'
+" snippet
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 " Completion
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -93,6 +96,8 @@ let g:rainbow_active=1
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
 " clojure config
 let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
+" Snippet directory
+let g:vsnip_snippet_dir="$HOME/.config/nvim/vsnip"
 
 lua require('init')
 
@@ -128,6 +133,8 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
+" Snippet
+imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 
 augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
@@ -195,5 +202,4 @@ augroup clojure
     au FileType clojure command! CC ConjureConnect
     " mnemonic: ConjureKrell
     au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
-    au FileType clojure set iskeyword-=-
 augroup end
