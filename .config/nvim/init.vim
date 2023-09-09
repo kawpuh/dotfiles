@@ -200,6 +200,7 @@ augroup end
 
 augroup clojure
     au FileType clojure command! CC ConjureConnect
+    au FileType clojure command! -nargs=1 CS ConjureShadowSelect <args>
     " mnemonic: ConjureKrell
     au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
 augroup end
