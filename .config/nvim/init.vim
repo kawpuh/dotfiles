@@ -35,6 +35,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 " General
 Plug 'morhetz/gruvbox'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
