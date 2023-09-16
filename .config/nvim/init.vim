@@ -26,14 +26,7 @@ set guifont=NotoSansMono\ Nerd\ Font:h11
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+set termguicolors
 
 call plug#begin()
 " Core
