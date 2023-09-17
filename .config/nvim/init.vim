@@ -105,6 +105,7 @@ nnoremap <leader>bp :bp<CR>
 nnoremap <leader><tab> :e#<CR>
 
 nnoremap <leader>fc :e $MYVIMRC<CR>
+nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
 nnoremap <leader><CR> :term<CR>
@@ -129,6 +130,8 @@ nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 " Snippet
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
+" folds
+nnoremap zf za
 
 augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
