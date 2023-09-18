@@ -105,7 +105,7 @@ def swap_screens(qtile):
 
 keys = [
     # Switch between windows
-    Key([MOD], "a", lazy.spawn("scratch"), desc="mnemonic 'access'"),
+    Key([MOD], "a", lazy.spawn("kitty -o font_size=20 notes"), desc="mnemonic 'agenda'"),
     Key([MOD], "b", lazy.spawn("firefox")),
     Key([MOD], "f", lazy.next_layout()),
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
