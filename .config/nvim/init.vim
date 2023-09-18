@@ -9,7 +9,7 @@ set expandtab
 set showbreak=↪\ " comment so we don't format out the trailing space
 set completeopt=menuone,longest
 set wildmode=list:longest
-set spr
+set splitright
 set undofile
 set undodir=~/.config/nvim/undo
 set list
@@ -188,7 +188,7 @@ augroup end
 
 augroup help
     au!
-    au FileType help wincmd H
+    au FileType help wincmd o
 augroup end
 
 augroup css
