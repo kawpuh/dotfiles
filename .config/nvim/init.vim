@@ -142,6 +142,7 @@ augroup end
 
 augroup markdown
     au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
+    au FileType markdown setlocal spell
 augroup end
 
 augroup shell
