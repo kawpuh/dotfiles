@@ -71,7 +71,7 @@ if [ -f /usr/share/nnn/quitcd/quitcd.bash_sh_zsh ]; then
     source /usr/share/nnn/quitcd/quitcd.bash_sh_zsh
 fi
 
-# ssl conf
+fpath+=('/usr/share/zsh/site-functions')
 
 path+=('/home/ethan/bin')
 path+=('/home/ethan/.yarn/bin')
