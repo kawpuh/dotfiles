@@ -102,11 +102,19 @@ def swap_screens(qtile):
     qtile.screens[0].bottom.show(shown[1])
     qtile.screens[1].bottom.show(shown[0])
 
+def toggle_bar_and_fullscreen(qtile):
+  bar = qtile.current_screen.bottom
+  if bar.is_show():
+    bar.show(False)
+    qtile.current_screen.group.cmd_setlayout('max')
+  else:
+    bar.show(True)
 
 keys = [
     # Switch between windows
     Key([MOD], "a", lazy.spawn("kitty -o font_size=20 notes"), desc="mnemonic 'agenda'"),
     Key([MOD], "b", lazy.spawn("firefox")),
+    Key([MOD], "c", lazy.spawn("kitty nvim .config/qtile/config.py")),
     Key([MOD], "f", lazy.next_layout()),
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
@@ -129,7 +137,7 @@ keys = [
     Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
     Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
     Key([MOD], "Tab", lazy.screen.toggle_group()),
-    Key([MOD, "Shift"], "f", lazy.hide_show_bar("bottom")),
+    Key([MOD, "Shift"], "f", lazy.function(toggle_bar_and_fullscreen)),
     Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
     Key([MOD, "Shift"], "j", lazy.layout.shuffle_down()),
     Key([MOD, "Shift"], "k", lazy.layout.shuffle_up()),
@@ -143,7 +151,6 @@ keys = [
     Key([MOD, "Shift"], "t", lazy.function(followto_next_empty_group)),
     Key([MOD, "Shift"], "Space", lazy.function(goto_prev_unhidden_group)),
     Key([MOD, "Shift"], "Return", lazy.window.toggle_floating()),
-    Key([MOD, "Control"], "c", lazy.spawn("kitty nvim .config/qtile/config.py")),
     Key([MOD, "Control"], "q", lazy.spawn("my-exit")),
     Key([MOD, "Control"], "r", lazy.restart()),
     Key([MOD, "Control"], "s", lazy.spawn("systemctl suspend")),
