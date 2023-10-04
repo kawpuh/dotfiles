@@ -34,6 +34,7 @@ from libqtile.utils import guess_terminal
 MOD = "mod4"
 TERM = guess_terminal()
 
+# TODO: mark/unmark groups not to be visited by mod+space and mod+t
 
 def send_to_next_screen(qtile):
     to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
@@ -272,8 +273,9 @@ extension_defaults = widget_defaults.copy()
 common_bar_prefix = [
     widget.CurrentLayoutIcon(),
     widget.GroupBox(active="ebdbb2",
+                    markup=True,
                     disable_drag=True,
-                    highlight_method="block",
+                    highlight_method="line",
                     this_current_screen_border='928374',
                     this_screen_border='928374',
                     other_current_screen_border='504945',
@@ -312,7 +314,7 @@ if os.uname()[1] == 'toaster':
             widget.CurrentLayoutIcon(),
             widget.GroupBox(active="ebdbb2",
                             disable_drag=True,
-                            highlight_method="block",
+                            highlight_method="line",
                             this_current_screen_border='928374',
                             this_screen_border='928374',
                             other_current_screen_border='504945',
