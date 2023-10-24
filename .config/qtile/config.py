@@ -286,7 +286,7 @@ common_bar_prefix = [
     metric=False,
     format='{icon} {main_temp} °{units_temperature} 💧{humidity}%'),
   widget.Sep(padding=12, size_percent=80, foreground="504945"),
-  widget.Net(format="{down} ↓↑ {up}"),
+  widget.Net(format="{down:.0f} {down_suffix} ↓↑ {up:.0f} {up_suffix}"),
   widget.Sep(padding=12, size_percent=80, foreground="504945"),
   widget.TextBox("CPU:"),
   widget.CPUGraph(samples=30),
