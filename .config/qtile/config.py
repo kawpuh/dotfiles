@@ -374,4 +374,3 @@ reconfigure_screens = False
 
 # IDK java UI toolkits mess up without it (e.g. android-studio)
 wmname = "LG3D"
-wmname = "LG3D"

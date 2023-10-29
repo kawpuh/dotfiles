@@ -76,6 +76,9 @@ Plug 'NoahTheDuke/vim-just'
 " Folding
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
+" ChatGPT and deps
+Plug 'MunifTanjim/nui.nvim'
+Plug 'jackMort/ChatGPT.nvim'
 call plug#end()
 
 let g:gruvbox_contrast_dark="hard"
@@ -129,6 +132,9 @@ vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 nnoremap <leader>ya gg"+yG<C-o>
+" ChatGPT
+nnoremap <leader>e :ChatGPTEditWithInstructions<CR>
+vnoremap <leader>e :ChatGPTEditWithInstructions<CR>
 " Snippet
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds
