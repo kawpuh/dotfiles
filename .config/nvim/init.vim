@@ -77,6 +77,7 @@ Plug 'NoahTheDuke/vim-just'
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
 " ChatGPT and deps
+" https://github.com/jackMort/ChatGPT.nvim#interactive-popup
 Plug 'MunifTanjim/nui.nvim'
 Plug 'jackMort/ChatGPT.nvim'
 call plug#end()
@@ -111,7 +112,7 @@ nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
-nnoremap <leader><CR> :term<CR>
+nnoremap <leader>t :term<CR>
 nnoremap <leader>gd :term git diff %<CR>
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
@@ -133,6 +134,7 @@ nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 nnoremap <leader>ya gg"+yG<C-o>
 " ChatGPT
+nnoremap <leader><CR> :ChatGPT<CR>
 nnoremap <leader>e :ChatGPTEditWithInstructions<CR>
 vnoremap <leader>e :ChatGPTEditWithInstructions<CR>
 " Snippet
