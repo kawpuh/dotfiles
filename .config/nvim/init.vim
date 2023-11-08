@@ -73,6 +73,7 @@ Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
 Plug 'NoahTheDuke/vim-just'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 " Folding
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
@@ -151,6 +152,8 @@ augroup end
 augroup markdown
     au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
     au FileType markdown setlocal spell
+    " mnemonic `watch`
+    au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
 augroup end
 
 augroup shell
