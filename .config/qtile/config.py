@@ -31,6 +31,8 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+from libqtile.log_utils import logger
+
 MOD = "mod4"
 TERM = guess_terminal()
 
