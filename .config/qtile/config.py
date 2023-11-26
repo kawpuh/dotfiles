@@ -155,7 +155,11 @@ keys = [
   Key([MOD, "Shift"], "Return", lazy.window.toggle_floating()),
   Key([MOD, "Control"], "q", lazy.spawn("my-exit")),
   Key([MOD, "Control"], "r", lazy.restart()),
-  Key([MOD, "Control"], "s", lazy.spawn("systemctl suspend")),
+  # wake from suspend is broken on toaster right now
+  Key([MOD, "Control"], "s", lazy.spawn("xset dpms force off")) \
+  if os.uname()[1] == 'toaster' else \
+  Key([MOD, "Control"], "s", lazy.spawn("systemctl suspend"))
+  ,
   Key([MOD], "Up", lazy.spawn("xdotool mousemove_relative -- 0 -15")),
   Key([MOD], "Down", lazy.spawn("xdotool mousemove_relative 0 15")),
   Key([MOD], "Left", lazy.spawn("xdotool mousemove_relative -- -15 0")),
