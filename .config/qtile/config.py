@@ -133,6 +133,7 @@ keys = [
   Key([MOD,"shift"], "r", lazy.spawn("rofi -show combi")),
   Key([MOD], "s", lazy.function(swap_screens)),
   Key([MOD], "t", lazy.function(goto_next_empty_group)),
+  Key([MOD], "u", lazy.window.bring_to_front()),
   Key([MOD], "w", lazy.window.kill()),
   Key([MOD], "z", lazy.layout.toggle_split(), desc="Mnemonic zip"),
   Key([MOD], "comma", lazy.spawn("zathura")),
