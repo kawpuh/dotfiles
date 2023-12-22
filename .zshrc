@@ -88,7 +88,7 @@ export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
-alias chat="llm chat -m 4t"
+alias chat="llm chat -m 4t -s 'Only provide essential information. Follow up questions may be asked if necessary. Don't provide superfluous detail initially'"
 alias ask="llm -m 4t -s 'Be as terse as possible. Aim for a tweet length. 180 characters.'"
 alias m="just"
 alias vi="nvim"
