@@ -102,6 +102,7 @@ alias gc="git commit"
 alias gp="git push"
 alias gpl="git pull"
 alias gd="git diff"
+alias gsub="git submodule update --remote --recursive"
 alias qp="git add . && git status && git commit -m 'update' && git push"
 function quickpushmessage() {
     git add .
