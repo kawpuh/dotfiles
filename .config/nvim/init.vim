@@ -133,7 +133,7 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
-nnoremap <leader>ya gg"+yG<C-o>
+nnoremap <leader>yb gg"+yG<C-o>
 " ChatGPT
 nnoremap <leader><CR> :ChatGPT<CR>
 nnoremap <leader>e :ChatGPTEditWithInstructions<CR>
