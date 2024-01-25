@@ -112,12 +112,18 @@ def toggle_bar_and_fullscreen(qtile):
   else:
     bar.show(True)
 
+def toggle_w_columns(qtile, alt_layout):
+  if qtile.current_screen.group.layout.name == alt_layout:
+    qtile.current_screen.group.cmd_setlayout('columns')
+  else:
+    qtile.current_screen.group.cmd_setlayout(alt_layout)
+
 keys = [
   # Switch between windows
   Key([MOD], "a", lazy.spawn("kitty -o font_size=20 notes"), desc="mnemonic 'agenda'"),
   Key([MOD], "b", lazy.spawn("firefox")),
-  Key([MOD], "c", lazy.spawn("kitty nvim .config/qtile/config.py")),
-  Key([MOD], "f", lazy.next_layout()),
+  Key([MOD], "c", lazy.function(toggle_w_columns, "zoomy")),
+  Key([MOD], "f", lazy.function(toggle_w_columns, "max")),
   Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
   Key([MOD], "j", lazy.group.next_window(), desc="Move focus down"),
   Key([MOD], "k", lazy.group.prev_window(), desc="Move focus up"),
@@ -140,6 +146,7 @@ keys = [
   Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
   Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
   Key([MOD], "Tab", lazy.screen.toggle_group()),
+  Key([MOD, "Shift"], "c", lazy.spawn("kitty nvim .config/qtile/config.py")),
   Key([MOD, "Shift"], "f", lazy.function(toggle_bar_and_fullscreen)),
   Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
   Key([MOD, "Shift"], "j", lazy.layout.shuffle_down()),
@@ -259,11 +266,12 @@ layouts = [
     border_normal='#3c3836',
     border_normal_stack='#2c2826',
     margin=4 if os.uname()[1] != 'camper' else 0,
-    margin_on_single=8 if os.uname()[1] != 'camper' else 0,
+    margin_on_single=[8,240,8,240] if os.uname()[1] != 'camper' else 0,
     border_width=2,
     border_on_single=True,
   ),
   layout.Max(),
+  layout.Zoomy(),
 ]
 
 widget_defaults = dict(
