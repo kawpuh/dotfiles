@@ -100,7 +100,7 @@ let g:vsnip_snippet_dir="$HOME/.config/nvim/vsnip"
 
 lua require('init')
 
-" Binds
+" Binds ------------------------------------------------------------------------
 nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fs :w<CR>
@@ -117,30 +117,30 @@ nnoremap <leader>t :term<CR>
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gd :GitGutterDiffOrig<CR>
-" telescope
+" telescope --------------------------------------------------------------------
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>bb :Telescope buffers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
-" quickfix, loclist
+" quickfix, loclist ------------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap <leader>ql :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
-" copy/paste to clipboard
+" copy/paste to clipboard ------------------------------------------------------
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 nnoremap <leader>yb gg"+yG<C-o>
-" ChatGPT
+" ChatGPT ----------------------------------------------------------------------
 nnoremap <leader><CR> :ChatGPT<CR>
 nnoremap <leader>e :ChatGPTEditWithInstructions<CR>
 vnoremap <leader>e :ChatGPTEditWithInstructions<CR>
-" Snippet
+" Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
-" folds
+" folds ------------------------------------------------------------------------
 nnoremap zf za
 
 augroup netrw_mapping
