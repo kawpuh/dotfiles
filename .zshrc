@@ -131,6 +131,7 @@ function timertui() {
 alias tm="timertui"
 alias t="tmux"
 alias cider="clj -Mcider"
+alias rebl="clojure -Mrebel"
 
 [[ -f $HOME/.config/local.zsh ]] && source $HOME/.config/local.zsh
 source /usr/share/fzf/key-bindings.zsh
