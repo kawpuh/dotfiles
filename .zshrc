@@ -72,15 +72,11 @@ if [ -f /usr/share/nnn/quitcd/quitcd.bash_sh_zsh ]; then
 fi
 
 fpath+=('/usr/share/zsh/site-functions')
-
-path+=('/home/ethan/bin')
 path+=('/home/ethan/.yarn/bin')
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH="$PATH:$HOME/.cabal/bin:/home/ethan/.ghcup/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
 export OPENSSL_CONF=/etc/ssl/
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export NODE_OPTIONS=--openssl-legacy-provider
