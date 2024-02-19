@@ -98,6 +98,8 @@ let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
 " Snippet directory
 let g:vsnip_snippet_dir="$HOME/.config/nvim/vsnip"
 
+set shell=/bin/zsh
+
 lua require('init')
 
 " Binds ------------------------------------------------------------------------
@@ -113,7 +115,7 @@ nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
-nnoremap <leader>t :term<CR>
+nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gd :GitGutterDiffOrig<CR>
