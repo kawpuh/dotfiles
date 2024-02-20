@@ -43,6 +43,7 @@ Plug 'folke/todo-comments.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-vinegar'
 " display colors
 Plug 'luochen1990/rainbow'
 Plug 'ap/vim-css-color'
@@ -104,7 +105,6 @@ lua require('init')
 
 " Binds ------------------------------------------------------------------------
 nnoremap <C-j> i<CR><Esc>l
-nnoremap <leader>ft :Explore %:p:h<CR>
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>bd :confirm bw<CR>
 nnoremap <leader>bn :bn<CR>
