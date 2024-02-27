@@ -120,7 +120,7 @@ alias -g ..3='../../..'
 alias -g ..4='../../../..'
 alias -g ..5='../../../../..'
 alias ipy="ipython"
-alias air="ssh -t $PI python3 ~/py-sds011/main.py"
+alias air="ssh -t ethan@$PI python3 ~/py-sds011/main.py"
 alias view="nvim -R"
 function timertui() {
     termdown $@ && notify-send "Timer Finished" && play ~/Sync/chime.wav
