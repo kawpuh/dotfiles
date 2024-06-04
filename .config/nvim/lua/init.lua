@@ -1,14 +1,26 @@
+require("lsp-progress").setup()
 require('lualine').setup({
     options = {
         theme = 'gruvbox',
     },
     sections = {
+        lualine_b = {
+            'filename', 'diff', 'diagnostic'
+        },
         lualine_c = {
-            'filename',
-            {'lsp_progress',
-                spinner_symbols = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' }},
-        }
+            function()
+                return require('lsp-progress').progress()
+            end,
+        },
+        lualine_x = {'filetype'},
     }
+})
+-- listen lsp-progress event and refresh lualine
+vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+  group = "lualine_augroup",
+  pattern = "LspProgressStatusUpdated",
+  callback = require("lualine").refresh,
 })
 
 local cmp = require("cmp")
