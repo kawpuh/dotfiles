@@ -17,4 +17,4 @@ playerctld daemon
 flameshot &
 dunst &
 picom &
-blueman-applet &
+blueberry-tray
