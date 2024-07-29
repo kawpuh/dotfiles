@@ -396,7 +396,7 @@ elif os.uname()[1] == 'campstove':
           max_brightness_file=
           "/sys/class/backlight/amdgpu_bl1/max_brightness"),
         widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
-        widget.Battery(charge_char="🔋", discharge_char="🪫", empty_char="💀",
+        widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫", empty_char="💀",
                        charge_controller=lambda: (0, 90)),
       ] + common_bar_suffix, 48, **bar_settings), ),
   ]
