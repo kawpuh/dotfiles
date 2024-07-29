@@ -1,3 +1,4 @@
+Xft.dpi: 192
 ! URxvt.font: xft:Roboto Mono:size=12
 URxvt.font: xft:Fira Code:size=13
 ! URxvt.font: xft:Noto Mono:size=13
