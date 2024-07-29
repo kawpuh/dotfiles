@@ -8,6 +8,8 @@ fi
 export PATH="$PATH:/home/ethan/bin:/home/ethan/.local/bin:/home/ethan/.emacs.d/bin:/home/ethan/.yarn/bin"
 source $HOME/.config/local.zsh
 
+xrdb ~/.Xresources
+xset r rate 250 120
 xset -b
 no-accel
 ~/.fehbg
@@ -16,7 +18,5 @@ flameshot &
 dunst &
 picom &
 blueberry-tray &
-xset r rate 250 120
-xrdb ~/.Xresources
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1

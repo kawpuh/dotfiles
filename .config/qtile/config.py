@@ -385,16 +385,19 @@ elif os.uname()[1] == 'campstove':
   screens = [
     Screen(bottom=bar.Bar(
       common_bar_prefix + [
-        widget.Sep(padding=12, size_percent=80, foreground="504945"),
+        widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
         widget.TextBox("🔊:"),
         widget.PulseVolume(mute_format="🔇"),
-        widget.Sep(padding=12, size_percent=80, foreground="504945"),
+        widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
         widget.TextBox("💡:"),
         widget.Backlight(
           brightness_file=
           "/sys/class/backlight/amdgpu_bl1/brightness",
           max_brightness_file=
           "/sys/class/backlight/amdgpu_bl1/max_brightness"),
+        widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
+        widget.Battery(charge_char="🔋", discharge_char="🪫", empty_char="💀",
+                       charge_controller=lambda: (0, 90)),
       ] + common_bar_suffix, 48, **bar_settings), ),
   ]
 
