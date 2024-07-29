@@ -184,9 +184,9 @@ keys = [
   Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
   Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
   Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
-  Key([], "XF86AudioMute", lazy.spawn("playerctl volume 0")),
-  Key([], "XF86AudioLowerVolume", lazy.spawn("playerctl volume 0.05-")),
-  Key([], "XF86AudioRaiseVolume", lazy.spawn("playerctl volume 0.05+")),
+  Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
+  Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
+  Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
 ]
 
 mouse = [
@@ -229,6 +229,25 @@ elif os.uname()[1] == 'camper':
         "d",
         lazy.spawn("camper-displays-gui"),
         desc="GUI for setting up xrandr displays"),
+  ])
+elif os.uname()[1] == 'campstove':
+  keys.extend([
+    Key([],
+        "XF86MonBrightnessUp",
+        lazy.spawn("brightnessctl s +10%"),
+        desc="Coarse Brightness up"),
+    Key([],
+        "XF86MonBrightnessDown",
+        lazy.spawn("brightnessctl s 10%-"),
+        desc="Coarse Brightness down"),
+    Key(["shift"],
+        "XF86MonBrightnessUp",
+        lazy.spawn("brightnessctl s +5%"),
+        desc="Fine Brightness up"),
+    Key(["shift"],
+        "XF86MonBrightnessDown",
+        lazy.spawn("brightnessctl s 5%-"),
+        desc="Fine Brightness down"),
   ])
 
 groups = [
