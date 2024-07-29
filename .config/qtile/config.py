@@ -276,8 +276,8 @@ layouts = [
 
 widget_defaults = dict(
   font='Noto Sans',
-  fontsize=12,
-  padding=3,
+  fontsize=28,
+  padding=4,
   background="#282828",
   foreground="#ebdbb2",
 )
@@ -360,6 +360,19 @@ elif os.uname()[1] == 'camper':
         widget.Sep(padding=12, size_percent=80, foreground="504945"),
         widget.Backlight(),
       ] + common_bar_suffix, 24, **bar_settings), ),
+  ]
+elif os.uname()[1] == 'campstove':
+  screens = [
+    Screen(bottom=bar.Bar(
+      common_bar_prefix + [
+        widget.Sep(padding=12, size_percent=80, foreground="504945"),
+        widget.TextBox("💡:"),
+        widget.Backlight(
+          brightness_file=
+          "/sys/class/backlight/amdgpu_bl1/brightness",
+          max_brightness_file=
+          "/sys/class/backlight/amdgpu_bl1/max_brightness"),
+      ] + common_bar_suffix, 48, **bar_settings), ),
   ]
 
 focus_on_window_activation = "never"
