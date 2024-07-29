@@ -385,6 +385,9 @@ elif os.uname()[1] == 'campstove':
     Screen(bottom=bar.Bar(
       common_bar_prefix + [
         widget.Sep(padding=12, size_percent=80, foreground="504945"),
+        widget.TextBox("🔊:"),
+        widget.PulseVolume(mute_format="🔇"),
+        widget.Sep(padding=12, size_percent=80, foreground="504945"),
         widget.TextBox("💡:"),
         widget.Backlight(
           brightness_file=
