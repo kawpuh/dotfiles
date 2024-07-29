@@ -332,7 +332,7 @@ common_bar_suffix = [
   widget.Sep(padding=12, size_percent=80, foreground="504945"),
   widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
   widget.Sep(padding=12, size_percent=80, foreground="504945"),
-  widget.Systray(),
+  widget.Systray(icon_size=20 if os.uname()[1] != "campstove" else 40),
 ]
 
 bar_settings = {"opacity": 0.75}
