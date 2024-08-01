@@ -122,7 +122,6 @@ keys = [
   # Switch between windows
   Key([MOD], "a", lazy.spawn("kitty -o font_size=20 notes"), desc="mnemonic 'agenda'"),
   Key([MOD], "b", lazy.spawn("firefox")),
-  Key([MOD], "c", lazy.function(toggle_w_columns, "zoomy")),
   Key([MOD], "f", lazy.function(toggle_w_columns, "max")),
   Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
   Key([MOD], "j", lazy.group.next_window(), desc="Move focus down"),
@@ -290,7 +289,6 @@ layouts = [
     border_on_single=True,
   ),
   layout.Max(),
-  layout.Zoomy(),
 ]
 
 widget_defaults = dict(
