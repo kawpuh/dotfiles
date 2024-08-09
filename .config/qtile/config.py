@@ -285,7 +285,7 @@ layouts = [
     border_normal_stack='#2c2826',
     margin=4,
     margin_on_single=[8,240,8,240],
-    border_width=2,
+    border_width=2 if os.uname()[1] != "campstove" else 4,
     border_on_single=True,
   ),
   layout.Max(),
@@ -395,7 +395,7 @@ elif os.uname()[1] == 'campstove':
           "/sys/class/backlight/amdgpu_bl1/max_brightness"),
         widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
         widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫", empty_char="💀",
-                       charge_controller=lambda: (0, 90)),
+                       charge_controller=lambda: (0, 90), update_interval=15),
       ] + common_bar_suffix, 48, **bar_settings), ),
   ]
 
