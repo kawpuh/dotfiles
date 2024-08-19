@@ -78,10 +78,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' 
 " Folding
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
-" ChatGPT and deps
-" https://github.com/jackMort/ChatGPT.nvim#interactive-popup
-Plug 'MunifTanjim/nui.nvim'
-Plug 'jackMort/ChatGPT.nvim'
+" LLM
+Plug 'Robitx/gp.nvim'
 call plug#end()
 
 let g:gruvbox_contrast_dark="hard"
@@ -136,10 +134,8 @@ vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 nnoremap <leader>yb gg"+yG<C-o>
-" ChatGPT ----------------------------------------------------------------------
-nnoremap <leader><CR> :ChatGPT<CR>
-nnoremap <leader>e :ChatGPTEditWithInstructions<CR>
-vnoremap <leader>e :ChatGPTEditWithInstructions<CR>
+" LLM --------------------------------------------------------------------------
+nnoremap <leader><CR> :GpChatNew split<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
