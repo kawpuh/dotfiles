@@ -141,6 +141,7 @@ keys = [
   Key([MOD], "u", lazy.window.bring_to_front()),
   Key([MOD], "w", lazy.window.kill()),
   Key([MOD], "z", lazy.layout.toggle_split(), desc="Mnemonic zip"),
+  Key([MOD], "bracketleft", lazy.spawn("kitty -o font_size=48 vi")),
   Key([MOD], "comma", lazy.spawn("zathura")),
   Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
   Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
