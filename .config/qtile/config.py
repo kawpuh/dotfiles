@@ -294,7 +294,7 @@ layouts = [
 
 widget_defaults = dict(
   font='Noto Sans',
-  fontsize=28,
+  fontsize=12 if os.uname()[1] != "campstove" else 28,
   padding=4,
   background="#282828",
   foreground="#ebdbb2",
