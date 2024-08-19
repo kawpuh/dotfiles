@@ -61,7 +61,11 @@ bindkey '^e' edit-command-line
 bindkey -M vicmd '^e' edit-command-line
 
 # plugins
-source /usr/share/zsh/share/antigen.zsh
+if [ -f /usr/share/zsh/share/antigen.zsh ]; then
+    source /usr/share/zsh/share/antigen.zsh
+elif [ -f /home/ethan/.config/zsh/antigen.zsh ]; then
+    source /home/ethan/.config/zsh/antigen.zsh
+fi
 antigen bundle zsh-vi-more/evil-registers
 antigen bundle zsh-users/zsh-completions
 antigen apply
