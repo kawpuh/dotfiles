@@ -91,9 +91,10 @@ export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 # aliases
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
-alias chat="llm chat -m 4o -s 'Only provide essential information. Follow up questions may be asked if necessary. Don't provide superfluous detail initially'"
+alias chat="llm chat -m 4o -s \"Only provide essential information. Follow up questions may be asked if necessary. Don't provide superfluous detail initially\""
 alias ask="llm -m 4o -s 'Be as terse as possible.'"
-alias askc="llm -m claude-3.5-sonnet -s 'Be as terse as possible.'"
+alias askc="llm -m claude-3.5-sonnet -s \"Only provide essential information. Follow up questions may be asked if necessary. Don't provide superfluous detail initially\""
+alias claude="llm -m claude-3.5-sonnet"
 alias ask-unprompt="llm -m 4o"
 alias m="just"
 alias vi="nvim"

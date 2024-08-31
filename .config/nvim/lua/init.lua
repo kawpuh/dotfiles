@@ -186,4 +186,13 @@ require('ufo').setup({
 })
 
 -- LLM plugin
-require("gp").setup()
+require("gp").setup({
+    providers = {
+        anthropic = {
+            endpoint = "https://api.anthropic.com/v1/messages",
+            secret = os.getenv("ANTHROPIC_API_KEY"),
+        }
+    },
+    default_chat_agent = "ChatClaude-3.5-Sonnet",
+    default_command_agent = "CodeClaude-3.5-Sonnet"
+})
