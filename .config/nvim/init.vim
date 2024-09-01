@@ -92,11 +92,10 @@ let g:rainbow_active=1
 
 " enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
-" clojure config
-let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
 " Snippet directory
 let g:vsnip_snippet_dir="$HOME/.config/nvim/vsnip"
 
+" clojure config
 set shell=/bin/zsh
 
 lua require('init')
@@ -207,6 +206,7 @@ augroup css
 augroup end
 
 augroup clojure
+    let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
     au FileType clojure command! CC ConjureConnect
     au FileType clojure command! -nargs=1 CS ConjureShadowSelect <args>
     " mnemonic: ConjureKrell
