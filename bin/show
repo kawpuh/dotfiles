@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Check if a filename is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <filename>"
+    exit 1
+fi
+
+# Loop through all provided filenames
+for file in "$@"; do
+    # Check if the file exists
+    if [ ! -f "$file" ]; then
+        echo "Error: File '$file' not found."
+        continue
+    fi
+
+    # Print the "Showing <filename>" message
+    echo "Showing $file"
+
+    # Print the opening <FILE> tag
+    echo "<FILE>"
+
+    # Print the contents of the file
+    cat "$file"
+
+    # Print the closing </FILE> tag
+    echo "</FILE>"
+
+    # Print a newline for better separation between files
+    echo
+done
