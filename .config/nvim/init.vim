@@ -140,6 +140,9 @@ imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s
 " folds ------------------------------------------------------------------------
 nnoremap zf za
 
+" Auto-create parent directories (except for URIs "://").
+au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
+
 augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
     au FileType netrw nmap <buffer> h -
