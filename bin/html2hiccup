@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+import sys
+from bs4 import BeautifulSoup
+import re
+
+def camel_to_kebab(name):
+    pattern = re.compile(r'(?<!^)(?=[A-Z])')
+    return pattern.sub('-', name).lower()
+
+def html_to_hiccup(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    return element_to_hiccup(soup.body)
+
+def element_to_hiccup(element):
+    if element.name is None:
+        return element.string.strip() if element.string else ""
+
+    tag = element.name
+    attrs = element.attrs
+    children = list(element.children)
+
+    result = [f":{tag}"]
+
+    if attrs:
+        attr_dict = {}
+        for k, v in attrs.items():
+            key = f":{camel_to_kebab(k)}"
+            value = v if isinstance(v, str) else " ".join(v)
+            attr_dict[key] = value
+        result.append(attr_dict)
+
+    for child in children:
+        child_hiccup = element_to_hiccup(child)
+        if child_hiccup:
+            result.append(child_hiccup)
+
+    return result
+
+def format_hiccup(hiccup, indent=0):
+    if isinstance(hiccup, str):
+        return f'{" " * indent}"{hiccup}"'
+
+    result = f'{" " * indent}['
+    for i, item in enumerate(hiccup):
+        if i == 0:
+            result += str(item)
+        elif isinstance(item, dict):
+            formatted_dict = " ".join([f"{k} \"{v}\"" for k, v in item.items()])
+            result += f' {{{formatted_dict}}}'
+        elif isinstance(item, list):
+            result += '\n' + format_hiccup(item, indent + 2)
+        else:
+            result += f' "{item}"'
+    result += ']'
+    return result
+
+if __name__ == "__main__":
+    html_input = sys.stdin.read()
+    hiccup = html_to_hiccup(html_input)
+    formatted_hiccup = format_hiccup(hiccup)
+    print(formatted_hiccup)
