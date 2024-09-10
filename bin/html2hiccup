@@ -9,7 +9,7 @@ def camel_to_kebab(name):
 
 def html_to_hiccup(html):
     soup = BeautifulSoup(html, 'html.parser')
-    return element_to_hiccup(soup.body)
+    return element_to_hiccup(soup.contents[0])
 
 def element_to_hiccup(element):
     if element.name is None:
@@ -50,7 +50,7 @@ def format_hiccup(hiccup, indent=0):
         elif isinstance(item, list):
             result += '\n' + format_hiccup(item, indent + 2)
         else:
-            result += f' "{item}"'
+            result += f'\n{" " * (indent + 2)}"{item}"'
     result += ']'
     return result
 
