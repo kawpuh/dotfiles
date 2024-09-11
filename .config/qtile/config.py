@@ -315,7 +315,7 @@ common_bar_prefix = [
   widget.Prompt(),
   widget.WindowName(),
   widget.OpenWeather(
-    zip="30534",
+    zip="35114",
     update_interval=120,
     metric=False,
     format='{icon} {main_temp} °{units_temperature} 💧{humidity}%'),

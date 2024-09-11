@@ -78,9 +78,14 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' 
 " Folding
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
+" Leap
+Plug 'ggandor/leap.nvim'
 " LLM
 Plug 'Robitx/gp.nvim'
 call plug#end()
+
+" Plugin config --------------------------------------------------------------
+lua require('leap').create_default_mappings()
 
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_transparent_bg=1
