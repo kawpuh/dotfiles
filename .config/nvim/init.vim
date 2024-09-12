@@ -133,13 +133,13 @@ nnoremap <leader>ql :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 " copy/paste to clipboard ------------------------------------------------------
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
+noremap <leader>y "+y
+noremap <leader>p "+p
+noremap <leader>P "+P
 nnoremap <leader>yb gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
 nnoremap <leader><CR> :GpChatNew<CR>
+noremap <leader>gp :Gp
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
