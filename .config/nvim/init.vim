@@ -140,6 +140,7 @@ nnoremap <leader>yb gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
 nnoremap <leader><CR> :GpChatNew<CR>
 noremap <leader>gp :Gp
+noremap <leader>gr :GpRewrite<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------

@@ -191,7 +191,41 @@ require("gp").setup({
         anthropic = {
             endpoint = "https://api.anthropic.com/v1/messages",
             secret = os.getenv("ANTHROPIC_API_KEY"),
+        },
+        mistral = {
+            endpoint = "https://api.mistral.ai/v1/chat/completions",
+            secret = os.getenv("MISTRAL_API_KEY"),
+        },
+        openrouter = {
+            endpoint = "https://openrouter.ai/api/v1/chat/completions",
+            secret = os.getenv("OPENROUTER_API_KEY"),
         }
+    },
+    agents = {
+        {
+            name = "MistralLarge",
+            provider = "mistral",
+            chat = true,
+            command = false,
+            model = { model = "mistral-large-latest" },
+            system_prompt = require("gp.defaults").chat_system_prompt,
+        },
+        {
+            name = "Codestral",
+            provider = "mistral",
+            chat = false,
+            command = true,
+            model = { model = "codestral-latest" },
+            system_prompt = require("gp.defaults").code_system_prompt,
+        },
+        {
+            name = "o1-mini",
+            provider = "openrouter",
+            chat = true,
+            command = true,
+            model = { model = "" },
+            system_prompt = require("gp.defaults").code_system_prompt,
+        },
     },
     default_chat_agent = "ChatClaude-3.5-Sonnet",
     default_command_agent = "CodeClaude-3.5-Sonnet"
