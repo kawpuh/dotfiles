@@ -95,6 +95,7 @@ alias ask="llm -m claude-3.5-sonnet -s \"Only provide essential information. Fol
 alias ezsh="llm -m mistral-large -s \"Be as concise as possible. Write a linux shell script or one-liner.\""
 alias llmc="llm -m claude-3.5-sonnet"
 alias llmo="llm -m 4o"
+alias llmm="llm -m mistral-large"
 alias m="just"
 alias vi="nvim"
 alias 2clip="xclip -selection c"
