@@ -32,7 +32,7 @@ _comp_options+=(globdots)		# Include hidden files.
 bindkey -v
 export KEYTIMEOUT=1
 export VISUAL=nvim
-bindkey -M main '^L' forward-char
+bindkey -M main '^L' forward-word
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
