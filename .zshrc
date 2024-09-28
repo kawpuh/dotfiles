@@ -32,7 +32,8 @@ _comp_options+=(globdots)		# Include hidden files.
 bindkey -v
 export KEYTIMEOUT=1
 export VISUAL=nvim
-bindkey -M main '^L' forward-word
+bindkey -M main '^L' forward-char
+bindkey -M main '^[l' forward-word
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -100,6 +101,7 @@ alias m="just"
 alias vi="nvim"
 alias 2clip="xclip -selection c"
 alias clip2="xclip -o -selection c"
+alias commit2clip="git diff --staged | llm -m mistral-large -s \"Create a brief git commit message from this diff\" | tee /dev/tty | 2clip"
 alias sf="xboard -fcp stockfish -fUCI"
 alias gs="git status"
 alias gl="git log"
