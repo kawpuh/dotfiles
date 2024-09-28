@@ -228,5 +228,14 @@ require("gp").setup({
         },
     },
     default_chat_agent = "ChatClaude-3.5-Sonnet",
-    default_command_agent = "CodeClaude-3.5-Sonnet"
+    default_command_agent = "CodeClaude-3.5-Sonnet",
+    toggle_target = "buffer",
+    hooks = {
+        -- example of making :%GpChatNew a dedicated command which
+        -- opens new chat with the entire current buffer as a context
+        BufferChatNew = function(gp, _)
+            -- call GpChatNew command in range mode on whole buffer
+            vim.api.nvim_command("%" .. gp.config.cmd_prefix .. "ChatNew")
+        end,
+    }
 })

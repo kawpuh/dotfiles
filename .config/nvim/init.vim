@@ -136,9 +136,9 @@ nnoremap [l :lp<CR>
 noremap <leader>y "+y
 noremap <leader>p "+p
 noremap <leader>P "+P
-nnoremap <leader>yb gg"+yG<C-o>
+nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
-nnoremap <leader><CR> :GpChatNew<CR>
+nnoremap <leader><CR> :GpChatToggle<CR>
 noremap <leader>gp :Gp
 noremap <leader>gr :GpRewrite<CR>
 " Snippet ----------------------------------------------------------------------
