@@ -160,6 +160,7 @@ augroup markdown
     au FileType markdown setlocal spell
     " mnemonic `watch`
     au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
+    au FileType markdown nnoremap <buffer> <leader>sc i```<CR>```<ESC>
 augroup end
 
 augroup shell

@@ -101,6 +101,7 @@ alias m="just"
 alias vi="nvim"
 alias 2clip="xclip -selection c"
 alias clip2="xclip -o -selection c"
+alias -g qc='"$(xclip -o -selection c)"' # mnemonic quoted clipboard
 alias commit2clip="git diff --staged | llm -m 4o -s \"Create a brief git commit message from this diff. Provide only the commit message.\" | tee /dev/tty | 2clip"
 alias c2c="commit2clip"
 alias sf="xboard -fcp stockfish -fUCI"
