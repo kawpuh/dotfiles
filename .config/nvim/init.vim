@@ -138,9 +138,13 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
-nnoremap <leader><CR> :GpChatToggle<CR>
 noremap <leader>gp :Gp
 noremap <leader>gr :GpRewrite<CR>
+nnoremap <leader><CR> :GpChatToggle<CR>
+nnoremap <leader>cp :%GpChatPaste<CR>
+vnoremap <leader>cp :GpChatPaste<CR>
+nnoremap <leader>cn :%GpChatNew<CR>
+vnoremap <leader>cn :GpChatNew<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
