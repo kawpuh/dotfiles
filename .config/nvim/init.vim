@@ -139,7 +139,8 @@ noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
 noremap <leader>gp :Gp
-noremap <leader>gr :GpRewrite<CR>
+vnoremap <leader>gr :GpRewrite<CR>
+nnoremap <leader>gr :%GpRewrite<CR>
 nnoremap <leader><CR> :GpChatToggle<CR>
 nnoremap <leader>cp :%GpChatPaste<CR>
 vnoremap <leader>cp :GpChatPaste<CR>
