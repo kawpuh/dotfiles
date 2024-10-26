@@ -81,7 +81,7 @@ require("todo-comments").setup{}
 
 require'nvim-treesitter.configs'.setup{
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel", "html" , "css", "json" },
+    ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel", "html" , "css", "json" , "markdown"},
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
 
@@ -225,6 +225,16 @@ require("gp").setup({
             command = true,
             model = { model = "" },
             system_prompt = require("gp.defaults").code_system_prompt,
+        },
+        {
+            provider = "anthropic",
+            name = "ChatClaude-3-5-Sonnet",
+            chat = true,
+            command = false,
+            -- string with model name or table with model name and parameters
+            model = { model = "claude-3-5-sonnet-latest", temperature = 0.8, top_p = 1 },
+            -- system prompt (use this to specify the persona/role of the AI)
+            system_prompt = require("gp.defaults").chat_system_prompt,
         },
     },
     default_chat_agent = "ChatClaude-3.5-Sonnet",
