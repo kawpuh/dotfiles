@@ -102,6 +102,7 @@ alias vi="nvim"
 alias 2clip="tee /dev/tty | xclip -selection c"
 alias clip2="xclip -o -selection c"
 alias -g qc='"$(xclip -o -selection c)"' # mnemonic quoted clipboard
+alias ezc='git diff --staged | llm -m 4o -s "Create a brief git commit message from this diff. Focus on major changes and feel free to broadly generalize or even ignore a variety of smaller changes. Provide only the commit message." | tee /dev/tty | read -r message; echo -n "Commit with this message? (y/n): "; read -r confirm && [[ $confirm =~ ^[Yy](es)?$ ]] && git commit -m "$message" || echo "Commit cancelled."'
 alias commit2clip="git diff --staged | llm -m 4o -s \"Create a brief git commit message from this diff. Focus on major changes and feel free to broadly generalize or even ignore a variety of smaller changes. Provide only the commit message.\" | 2clip"
 alias sf="xboard -fcp stockfish -fUCI"
 alias gs="git status"
