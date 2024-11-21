@@ -327,6 +327,9 @@ common_bar_prefix = [
   widget.TextBox("Disk:"),
   widget.HDDBusyGraph(samples=30),
   widget.Memory(measure_mem="G"),
+  widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
+  widget.TextBox("🔊:"),
+  widget.PulseVolume(mute_format="🔇"),
 ]
 common_bar_suffix = [
   widget.Sep(padding=12, size_percent=80, foreground="504945"),
@@ -384,9 +387,6 @@ elif os.uname()[1] == 'campstove':
   screens = [
     Screen(bottom=bar.Bar(
       common_bar_prefix + [
-        widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
-        widget.TextBox("🔊:"),
-        widget.PulseVolume(mute_format="🔇"),
         widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
         widget.TextBox("💡:"),
         widget.Backlight(
