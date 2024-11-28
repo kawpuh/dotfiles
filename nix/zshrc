@@ -4,5 +4,3 @@ source @syntax_highlighting@/share/zsh-syntax-highlighting/zsh-syntax-highlighti
 source @autosuggestions@/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source @fzf@/share/fzf/key-bindings.zsh
 source @fzf@/share/fzf/completion.zsh
-
-echo "Donezo"

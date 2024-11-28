@@ -83,4 +83,8 @@ alias view="nvim -R"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-[[ -f $HOME/.config/config.zsh ]] && source $HOME/.config/config.zsh
+if [[ $IN_NIX_SHELL ]]; then
+    source $HOME/.config/nix.zsh
+elif [[ -f $HOME/.config/config.zsh ]]; then
+    source $HOME/.config/config.zsh
+fi

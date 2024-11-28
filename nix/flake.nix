@@ -37,8 +37,8 @@
           shellHook = ''
             mkdir -p "$HOME/.config"
             mkdir -p "$HOME/.cache/zsh"
-            rm -f ".config/config.zsh"
-            cp ${zshConfigFile} ".config/config.zsh"
+            rm -f "$HOME/.config/nix.zsh"
+            cp ${zshConfigFile} "$HOME/.config/nix.zsh"
             exec zsh
           '';
         };
