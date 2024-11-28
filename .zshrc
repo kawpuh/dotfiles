@@ -8,7 +8,7 @@ fi
 # Enable colors and change prompt:
 autoload -U colors && colors
 autoload -U promptinit; promptinit
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+[[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]] && source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 setopt autocd
 
 # History in cache directory:
