@@ -1,0 +1,8 @@
+# Enable Powerlevel10k instant prompt
+# Source plugins
+source @syntax_highlighting@/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source @autosuggestions@/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source @fzf@/share/fzf/key-bindings.zsh
+source @fzf@/share/fzf/completion.zsh
+
+echo "Donezo"
