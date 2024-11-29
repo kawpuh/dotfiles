@@ -19,6 +19,17 @@
           autosuggestions = pkgs.zsh-autosuggestions;
           fzf = pkgs.fzf;
         };
+
+        # Create vim-plug installation script
+        vimPlugInstall = pkgs.writeShellScriptBin "install-vim-plug" ''
+          PLUG_PATH="$HOME/.local/share/nvim/site/autoload/plug.vim"
+          if [ ! -f "$PLUG_PATH" ]; then
+            echo "Installing vim-plug..."
+            mkdir -p "$(dirname "$PLUG_PATH")"
+            curl -fLo "$PLUG_PATH" --create-dirs \
+              https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+          fi
+        '';
       in
       {
         devShells.default = pkgs.mkShell {
@@ -32,6 +43,8 @@
             git
             neovim
             tmux
+            curl # Required for vim-plug installation
+            vimPlugInstall
           ];
 
           shellHook = ''
@@ -39,6 +52,7 @@
             mkdir -p "$HOME/.cache/zsh"
             rm -f "$HOME/.config/nix.zsh"
             cp ${zshConfigFile} "$HOME/.config/nix.zsh"
+            install-vim-plug
             exec zsh
           '';
         };
