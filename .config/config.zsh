@@ -4,7 +4,7 @@ alias llmo="llm -m 4o"
 alias llmm="llm -m mistral-large"
 commit() {
     local message confirm
-    message=$(git diff --staged | llm -s "Create a brief git commit message from this diff. Focus on major changes and feel free to broadly generalize or even ignore a variety of smaller changes. Provide only the commit message.")
+    message=$(git diff --staged | llm -s "Write a commit message. Respond with only the commit message.")
     echo "$message"
     echo -n "Commit with this message? (y/n): "
     read -r confirm
