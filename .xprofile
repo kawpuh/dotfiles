@@ -9,6 +9,9 @@ export PATH="$PATH:/home/ethan/bin:/home/ethan/.local/bin:/home/ethan/.emacs.d/b
 source $HOME/.config/local.zsh
 
 xrdb ~/.Xresources
+if [[ $HOSTNAME == "campstove" ]]; then
+    echo "Xft.dpi: 192" | xrdb -merge
+fi
 xset r rate 250 120
 xset -b
 no-accel

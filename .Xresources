@@ -1,7 +1,7 @@
 URxvt.scrollBar: false
 URxvt.depth: 32
 URxvt.font: xft:Noto Mono:size=13
-Xft.dpi: 192
+Xft.dpi: 96
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintslight
 Xft.hinting: 1
