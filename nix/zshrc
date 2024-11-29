@@ -4,3 +4,5 @@ source @autosuggestions@/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source @fzf@/share/fzf/key-bindings.zsh
 source @fzf@/share/fzf/completion.zsh
 source @p10k@/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
+TERM=xterm-256color
