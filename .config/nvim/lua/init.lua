@@ -199,7 +199,11 @@ require("gp").setup({
         openrouter = {
             endpoint = "https://openrouter.ai/api/v1/chat/completions",
             secret = os.getenv("OPENROUTER_API_KEY"),
-        }
+        },
+        xai = {
+            endpoint = "https://api.x.ai/v1/chat/completions",
+            secret = os.getenv("XAI_API_KEY"),
+        },
     },
     agents = {
         {
@@ -242,6 +246,14 @@ require("gp").setup({
             -- string with model name or table with model name and parameters
             model = { model = "claude-3-5-sonnet-latest", temperature = 0.8, top_p = 1 },
             -- system prompt (use this to specify the persona/role of the AI)
+            system_prompt = require("gp.defaults").chat_system_prompt,
+        },
+        {
+            name = "Grok Beta",
+            provider = "xai",
+            chat = true,
+            command = false,
+            model = { model = "grok-beta" },
             system_prompt = require("gp.defaults").chat_system_prompt,
         },
     },
