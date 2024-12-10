@@ -105,6 +105,15 @@ set shell=/bin/zsh
 
 lua require('init')
 
+function! WrapInBackticks() range
+    let lines = getline(a:firstline, a:lastline)
+    let wrapped_lines = ['```']
+    call extend(wrapped_lines, lines)
+    call add(wrapped_lines, '```')
+    call append(a:lastline, wrapped_lines)
+    execute a:firstline . ',' . a:lastline . 'delete _'
+endfunction
+
 " Binds ------------------------------------------------------------------------
 nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>fs :w<CR>
@@ -165,7 +174,8 @@ augroup markdown
     au FileType markdown setlocal spell
     " mnemonic `watch`
     au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
-    au FileType markdown nnoremap <buffer> <leader>sc i```<CR>```<ESC>
+    au FileType markdown nnoremap <buffer> <leader>sc i```<CR>```<ESC>k
+    au FileType markdown vnoremap <buffer> <leader>sc :call WrapInBackticks()<CR>
 augroup end
 
 augroup shell
