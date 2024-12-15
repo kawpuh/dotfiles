@@ -1,3 +1,110 @@
+local term_job_id = nil
+local term_buf = nil
+function open_term()
+    if term_job_id then
+        -- open existing term in current window
+        if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+            vim.api.nvim_set_current_buf(term_buf)
+        else
+            -- If buffer is invalid, reset and create new terminal
+            term_job_id = nil
+            term_buf = nil
+            open_term()
+        end
+    else
+        -- create new term, set term_job_id, open in current window
+        term_buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_set_current_buf(term_buf)
+
+        -- Open terminal in current buffer
+        term_job_id = vim.fn.termopen(vim.o.shell, {
+            on_exit = function()
+                term_job_id = nil
+                term_buf = nil
+            end
+        })
+
+        -- Enter insert mode automatically
+        vim.cmd('startinsert')
+    end
+end
+
+function send_to_term()
+    -- If terminal doesn't exist, create it
+    if not term_job_id then
+        open_term()
+        -- Create a new window if we're in the terminal
+        vim.cmd('vsplit')
+        -- Move to the previous window
+        vim.cmd('wincmd p')
+    end
+
+    -- Get visual selection
+    local start_pos = vim.fn.getpos("'<")
+    local end_pos = vim.fn.getpos("'>")
+    local lines = vim.api.nvim_buf_get_text(
+        0,
+        start_pos[2] - 1,
+        start_pos[3] - 1,
+        end_pos[2] - 1,
+        end_pos[3],
+        {}
+    )
+
+    if #lines > 0 then
+        -- Add newline to the last line
+        local text = table.concat(lines, '\n') .. '\n'
+        -- Send text to terminal
+        vim.api.nvim_chan_send(term_job_id, text)
+    end
+end
+
+vim.api.nvim_create_user_command('TermOpen', open_term, {})
+vim.api.nvim_create_user_command('TermSend', send_to_term, { range = true })
+
+function SelectWithinCodeBlock()
+    -- Get current buffer
+    local bufnr = vim.api.nvim_get_current_buf()
+    -- Get cursor position
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    local current_line = cursor_pos[1]
+
+    -- Find start of code block (searching backwards)
+    local start_line = current_line
+    while start_line > 0 do
+        local line = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, start_line, false)[1]
+        if line and line:match("^```") then
+            break
+        end
+        start_line = start_line - 1
+    end
+
+    -- Find end of code block (searching forwards)
+    local last_line = vim.api.nvim_buf_line_count(bufnr)
+    local end_line = current_line
+    while end_line <= last_line do
+        local line = vim.api.nvim_buf_get_lines(bufnr, end_line - 1, end_line, false)[1]
+        if line and line:match("^```%s*$") then
+            break
+        end
+        end_line = end_line + 1
+    end
+
+    -- If we found both delimiters, make the selection
+    if start_line > 0 and end_line <= last_line then
+        -- Move to start line + 1 (skip the opening delimiter)
+        vim.api.nvim_win_set_cursor(0, {start_line + 1, 0})
+        -- Enter visual line mode
+        vim.cmd('normal! V')
+        -- Move to end line - 1 (exclude the closing delimiter)
+        vim.api.nvim_win_set_cursor(0, {end_line - 1, 0})
+    else
+        print("No code block found")
+    end
+end
+
+vim.api.nvim_create_user_command('SelectCodeBlock', SelectWithinCodeBlock, {})
+
 require("lsp-progress").setup()
 require('lualine').setup({
     options = {
@@ -75,7 +182,11 @@ require('telescope').setup{
             },
         },
     },
+    extensions = {
+        fzf = {},
+    },
 }
+require('telescope').load_extension('fzf')
 
 require("todo-comments").setup{}
 
@@ -128,7 +239,7 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>qq', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
+    buf_set_keymap('n', '<space>ql', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
     buf_set_keymap('n', '<space>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
     buf_set_keymap("n", "<space>=f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
 end
