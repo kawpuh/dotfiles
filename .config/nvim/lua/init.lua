@@ -105,6 +105,7 @@ end
 
 vim.api.nvim_create_user_command('SelectCodeBlock', SelectWithinCodeBlock, {})
 
+require("ibl").setup()
 require("lsp-progress").setup()
 require('lualine').setup({
     options = {

@@ -44,6 +44,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
+Plug 'lukas-reineke/indent-blankline.nvim'
 " display colors
 Plug 'luochen1990/rainbow'
 Plug 'ap/vim-css-color'
@@ -58,6 +59,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
 Plug 'nvim-telescope/telescope.nvim'
 " Lisp
 Plug 'guns/vim-sexp'
