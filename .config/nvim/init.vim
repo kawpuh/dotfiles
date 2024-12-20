@@ -178,6 +178,7 @@ augroup markdown
     au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
     au FileType markdown nnoremap <buffer> <leader>sc i```<CR>```<ESC>k
     au FileType markdown vnoremap <buffer> <leader>sc :call WrapInBackticks()<CR>
+    au FileType markdown nnoremap <buffer> <leader>vb :SelectCodeBlock<CR>
 augroup end
 
 augroup shell
