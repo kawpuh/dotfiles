@@ -351,6 +351,14 @@ require("gp").setup({
             system_prompt = require("gp.defaults").chat_system_prompt,
         },
         {
+            name = "gemini-2.0-flash",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "google/gemini-2.0-flash-exp:free" },
+            system_prompt = require("gp.defaults").chat_system_prompt,
+        },
+        {
             provider = "anthropic",
             name = "ChatClaude-3-5-Sonnet",
             chat = true,

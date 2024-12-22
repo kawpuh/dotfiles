@@ -140,7 +140,7 @@ nnoremap <leader>td :TodoTelescope<CR>
 " quickfix, loclist ------------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
-nnoremap <leader>ql :ccl<CR>
+nnoremap <leader>qc :ccl<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 " copy/paste to clipboard ------------------------------------------------------
