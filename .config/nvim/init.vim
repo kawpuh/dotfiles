@@ -33,7 +33,7 @@ call plug#begin()
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 " General
-Plug 'morhetz/gruvbox'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'linrongbin16/lsp-progress.nvim'
 Plug 'airblade/vim-gitgutter'
@@ -89,9 +89,7 @@ call plug#end()
 " Plugin config --------------------------------------------------------------
 lua require('leap').create_default_mappings()
 
-let g:gruvbox_contrast_dark="hard"
-let g:gruvbox_transparent_bg=1
-colorscheme gruvbox
+colorscheme catppuccin-frappe
 highlight Normal guibg=none
 highlight NonText guibg=none
 

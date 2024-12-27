@@ -109,7 +109,7 @@ require("ibl").setup()
 require("lsp-progress").setup()
 require('lualine').setup({
     options = {
-        theme = 'gruvbox',
+        theme = 'catppuccin-frappe',
     },
     sections = {
         lualine_b = {
