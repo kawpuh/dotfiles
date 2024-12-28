@@ -67,7 +67,6 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Conjure and repl
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
-Plug 'clojure-vim/vim-jack-in'
 Plug 'Olical/conjure'
 " Language specific
 Plug 'simrat39/rust-tools.nvim'
