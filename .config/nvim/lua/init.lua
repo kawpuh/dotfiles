@@ -400,6 +400,14 @@ require("gp").setup({
             system_prompt = require("gp.defaults").chat_system_prompt,
         },
         {
+            name = "deepseek",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "deepseek/deepseek-chat" },
+            system_prompt = require("gp.defaults").chat_system_prompt,
+        },
+        {
             provider = "anthropic",
             name = "ChatClaude-3-5-Sonnet",
             chat = true,
