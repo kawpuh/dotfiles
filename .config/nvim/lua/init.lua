@@ -57,6 +57,52 @@ end
 vim.api.nvim_create_user_command('TermOpen', open_term, {})
 vim.api.nvim_create_user_command('TermSend', send_to_term, { range = true })
 
+local cider_buf = nil
+function find_deps_edn_and_start_cider()
+    -- Start from the current buffer's directory
+    local current_dir = vim.fn.expand('%:p:h')
+    local max_depth = 5  -- Protection against going too far up
+    local found_dir = nil
+    -- Search up for deps.edn
+    local dir = current_dir
+    for _ = 1, max_depth do
+        if vim.fn.filereadable(dir .. '/deps.edn') == 1 then
+            found_dir = dir
+            break
+        end
+        -- Go up one directory
+        local parent = vim.fn.fnamemodify(dir, ':h')
+        if parent == dir then
+            break  -- We've reached the root
+        end
+        dir = parent
+    end
+    -- If we found deps.edn
+    if found_dir then
+        -- If buffer exists and is valid, switch to it
+        if cider_buf and vim.api.nvim_buf_is_valid(cider_buf) then
+            vim.cmd('split')
+            vim.api.nvim_set_current_buf(cider_buf)
+        else
+            -- Create new split and buffer
+            cider_buf = vim.api.nvim_create_buf(false, true)
+            vim.api.nvim_set_current_buf(cider_buf)
+            -- Start CIDER in the buffer
+            vim.fn.termopen('clj -Mcider', {
+                cwd = found_dir,
+                on_exit = function()
+                    cider_buf = nil
+                end
+            })
+        end
+        -- Enter insert mode
+        vim.cmd('startinsert')
+    else
+        print("Could not find deps.edn within " .. max_depth .. " parent directories")
+    end
+end
+vim.api.nvim_create_user_command('CljCider', find_deps_edn_and_start_cider, {})
+
 function SelectWithinCodeBlock()
     -- Get current buffer
     local bufnr = vim.api.nvim_get_current_buf()
@@ -77,8 +123,7 @@ function SelectWithinCodeBlock()
     local end_line = current_line
     while end_line <= last_line do
         local line = vim.api.nvim_buf_get_lines(bufnr, end_line - 1, end_line, false)[1]
-        if line and line:match("^```%s*$") then
-            break
+        if line and line:match("^```%s*$") then break
         end
         end_line = end_line + 1
     end
@@ -95,56 +140,6 @@ function SelectWithinCodeBlock()
     end
 end
 vim.api.nvim_create_user_command('SelectCodeBlock', SelectWithinCodeBlock, {})
-
-local cider_buf = nil
-function find_deps_edn_and_start_cider()
-    -- Start from the current buffer's directory
-    local current_dir = vim.fn.expand('%:p:h')
-    local max_depth = 5  -- Protection against going too far up
-    local found_dir = nil
-
-    -- Search up for deps.edn
-    local dir = current_dir
-    for _ = 1, max_depth do
-        if vim.fn.filereadable(dir .. '/deps.edn') == 1 then
-            found_dir = dir
-            break
-        end
-        -- Go up one directory
-        local parent = vim.fn.fnamemodify(dir, ':h')
-        if parent == dir then
-            break  -- We've reached the root
-        end
-        dir = parent
-    end
-
-    -- If we found deps.edn
-    if found_dir then
-        -- If buffer exists and is valid, switch to it
-        if cider_buf and vim.api.nvim_buf_is_valid(cider_buf) then
-            vim.cmd('split')
-            vim.api.nvim_set_current_buf(cider_buf)
-        else
-            -- Create new split and buffer
-            vim.cmd('split')
-            cider_buf = vim.api.nvim_create_buf(false, true)
-            vim.api.nvim_set_current_buf(cider_buf)
-
-            -- Start CIDER in the buffer
-            vim.fn.termopen('clj -Mcider', {
-                cwd = found_dir,
-                on_exit = function()
-                    cider_buf = nil
-                end
-            })
-        end
-        -- Enter insert mode
-        vim.cmd('startinsert')
-    else
-        print("Could not find deps.edn within " .. max_depth .. " parent directories")
-    end
-end
-vim.api.nvim_create_user_command('CljCider', find_deps_edn_and_start_cider, {})
 
 require("ibl").setup()
 require("lsp-progress").setup()
