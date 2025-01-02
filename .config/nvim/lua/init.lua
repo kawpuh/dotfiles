@@ -426,4 +426,3 @@ require("gp").setup({
     toggle_target = "buffer",
     hooks = {},
 })
-require("oil").setup()

@@ -44,9 +44,8 @@ Plug 'folke/todo-comments.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-vinegar'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'stevearc/oil.nvim'
 " display colors
 Plug 'luochen1990/rainbow'
 Plug 'ap/vim-css-color'
@@ -160,8 +159,6 @@ vnoremap <leader>cn :GpChatNew<CR>
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
 nnoremap zf za
-" oil --------------------------------------------------------------------------
-nnoremap - :Oil<CR>
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
