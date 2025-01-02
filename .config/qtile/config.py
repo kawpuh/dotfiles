@@ -120,7 +120,7 @@ def toggle_w_columns(qtile, alt_layout):
 
 keys = [
   # Switch between windows
-  Key([MOD], "a", lazy.spawn("kitty -o font_size=20 notes"), desc="mnemonic 'agenda'"),
+  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e notes"), desc="mnemonic 'agenda'"),
   Key([MOD], "b", lazy.spawn("firefox")),
   Key([MOD], "f", lazy.function(toggle_w_columns, "max")),
   Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -141,12 +141,11 @@ keys = [
   Key([MOD], "u", lazy.window.bring_to_front()),
   Key([MOD], "w", lazy.window.kill()),
   Key([MOD], "z", lazy.layout.toggle_split(), desc="Mnemonic zip"),
-  Key([MOD], "bracketleft", lazy.spawn("kitty -o font_size=48 vi")),
   Key([MOD], "comma", lazy.spawn("zathura")),
   Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
   Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
   Key([MOD], "Tab", lazy.screen.toggle_group()),
-  Key([MOD, "Shift"], "c", lazy.spawn("kitty nvim .config/qtile/config.py")),
+  Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim .config/qtile/config.py")),
   Key([MOD, "Shift"], "f", lazy.function(toggle_bar_and_fullscreen)),
   Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
   Key([MOD, "Shift"], "j", lazy.layout.shuffle_down()),

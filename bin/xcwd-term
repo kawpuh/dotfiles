@@ -1,2 +1,2 @@
 #!/bin/bash
-(cd $(xcwd); kitty)
+(cd $(xcwd); ghostty)

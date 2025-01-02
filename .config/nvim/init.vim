@@ -13,6 +13,7 @@ set splitright
 set undofile
 set undodir=~/.config/nvim/undo
 set list
+set signcolumn=no
 syntax on
 filetype plugin indent on
 let mapleader=" "
