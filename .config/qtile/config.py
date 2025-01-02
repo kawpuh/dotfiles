@@ -34,7 +34,7 @@ from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger
 
 MOD = "mod4"
-TERM = "ghostty"
+TERM = guess_terminal("ghostty")
 
 # TODO: mark/unmark groups not to be visited by mod+space and mod+t
 
