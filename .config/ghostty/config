@@ -1,0 +1,8 @@
+background-opacity = 0.98
+window-decoration = false
+theme = catppuccin-frappe
+font-size = 12
+font-family = "NotoSansM Nerd Font Mono Regular"
+confirm-close-surface = false
+shell-integration = zsh
+keybind = ctrl+[=esc:\033
