@@ -159,6 +159,8 @@ vnoremap <leader>cn :GpChatNew<CR>
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
 nnoremap zf za
+nnoremap zr zR
+nnoremap zm zM
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
