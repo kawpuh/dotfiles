@@ -14,7 +14,8 @@ configuration {
 /*	run-shell-command: "{terminal} -e {cmd}";*/
 /*	window-command: "wmctrl -i -R {window}";*/
 /*	window-match-fields: "all";*/
-	icon-theme: "Papirus";
+/*	icon-theme: "Papirus";*/
+	icon-theme: "Oranchelo";
 /*	drun-match-fields: "name,generic,exec,categories,keywords";*/
 /*	drun-categories: ;*/
 /*	drun-show-actions: false;*/
@@ -27,6 +28,7 @@ configuration {
 /*	case-sensitive: false;*/
 /*	cycle: true;*/
 /*	sidebar-mode: false;*/
+    sidebar-mode: true;
 /*	hover-select: false;*/
 /*	eh: 1;*/
 /*	auto-select: false;*/
@@ -149,4 +151,4 @@ configuration {
         sorting-method:    "name";
     }
 }
-@theme "/usr/share/rofi/themes/android_notification.rasi"
+@theme "catppuccin-frappe"
