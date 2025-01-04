@@ -22,6 +22,15 @@ let maplocalleader=","
 " Netrw config
 let g:netrw_banner=0
 let g:netrw_keepdir=0 " part of our use for netrw is to cwd
+function! CwdLineCounts()
+    let files = split(glob('*'), '\n')
+    for file in files
+        let lines = system('wc -l ' . shellescape(file))
+        echo file . ': ' . split(lines)[0]
+    endfor
+endfunction
+
+command! WC call CwdLineCounts()
 
 set guifont=NotoSansMono\ Nerd\ Font:h11
 " Cleanup trailing whitespace on save

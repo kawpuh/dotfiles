@@ -5,4 +5,4 @@ font-size = 12
 font-family = "NotoSansM Nerd Font Mono Regular"
 confirm-close-surface = false
 shell-integration = zsh
-keybind = ctrl+[=esc:\033
+keybind = ctrl+[=text:\x1b
