@@ -55,6 +55,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'mbbill/undotree'
 " display colors
 Plug 'luochen1990/rainbow'
 Plug 'ap/vim-css-color'
@@ -170,6 +171,8 @@ imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s
 nnoremap zf za
 nnoremap zr zR
 nnoremap zm zM
+" undotree ---------------------------------------------------------------------
+nnoremap <leader>ut :UndotreeToggle<CR>
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
