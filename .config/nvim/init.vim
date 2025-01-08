@@ -58,7 +58,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
 " display colors
 Plug 'luochen1990/rainbow'
-Plug 'ap/vim-css-color'
 " snippet
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
