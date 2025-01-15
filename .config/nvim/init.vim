@@ -96,8 +96,6 @@ Plug 'Robitx/gp.nvim'
 call plug#end()
 
 " Plugin config --------------------------------------------------------------
-lua require('leap').create_default_mappings()
-
 colorscheme catppuccin-frappe
 highlight Normal guibg=none
 highlight NonText guibg=none
@@ -172,6 +170,8 @@ nnoremap zr zR
 nnoremap zm zM
 " undotree ---------------------------------------------------------------------
 nnoremap <leader>ut :UndotreeToggle<CR>
+" leap -------------------------------------------------------------------------
+noremap s <Plug>(leap)
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
@@ -180,6 +180,7 @@ augroup netrw_mapping
     au FileType netrw nmap <buffer> H u
     au FileType netrw nmap <buffer> h -
     au FileType netrw nmap <buffer> l <CR>
+    au FileType netrw nnoremap <buffer> s <Plug>(leap)
 augroup end
 
 augroup markdown
