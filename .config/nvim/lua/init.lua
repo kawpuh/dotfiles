@@ -218,6 +218,9 @@ require('telescope').setup{
                 ["<CR>"] = edit_multi_select
             },
         },
+        path_display = {
+            "smart"
+        },
     },
     extensions = {
         fzf = {},
