@@ -149,6 +149,7 @@ nnoremap <leader>td :TodoTelescope<CR>
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap <leader>qc :ccl<CR>
+nnoremap <leader>qo :copen<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 " copy/paste to clipboard ------------------------------------------------------
