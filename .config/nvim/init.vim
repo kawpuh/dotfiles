@@ -140,6 +140,7 @@ nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gd :GitGutterDiffOrig<CR>
+nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
 " telescope --------------------------------------------------------------------
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>bb :Telescope buffers<CR>

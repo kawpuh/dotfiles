@@ -1,0 +1,4 @@
+- model_id: deepseek-chat
+  model_name: deepseek-chat
+  api_base: "https://api.deepseek.com"
+  api_key_name: deepseek
