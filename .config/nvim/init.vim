@@ -22,6 +22,7 @@ let maplocalleader=","
 " Netrw config
 let g:netrw_banner=0
 let g:netrw_keepdir=0 " part of our use for netrw is to cwd
+
 function! CwdLineCounts()
     let files = split(glob('*'), '\n')
     for file in files
@@ -31,6 +32,7 @@ function! CwdLineCounts()
 endfunction
 
 command! WC call CwdLineCounts()
+command! TempMD :execute 'edit ' . tempname() . '.md'
 
 set guifont=NotoSansMono\ Nerd\ Font:h11
 " Cleanup trailing whitespace on save
@@ -131,6 +133,7 @@ nnoremap <leader><tab> :e#<CR>
 
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
+nnoremap <leader>ft :TempMD<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
 nnoremap <leader><leader> :term<CR>A
