@@ -398,11 +398,19 @@ require("gp").setup({
             system_prompt = require("gp.defaults").chat_system_prompt,
         },
         {
-            name = "deepseek",
+            name = "deepseek-chat",
             provider = "openrouter",
             chat = true,
             command = false,
             model = { model = "deepseek/deepseek-chat" },
+            system_prompt = require("gp.defaults").chat_system_prompt,
+        },
+        {
+            name = "deepseek-r1",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "deepseek/deepseek-r1" },
             system_prompt = require("gp.defaults").chat_system_prompt,
         },
         {

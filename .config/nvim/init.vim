@@ -59,7 +59,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
 " display colors
-Plug 'luochen1990/rainbow'
+Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
 " snippet
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
