@@ -123,6 +123,28 @@ function! WrapInBackticks() range
     execute a:firstline . ',' . a:lastline . 'delete _'
 endfunction
 
+" Variable to track if diff window is open
+let g:gitgutter_diff_win_open = 0
+
+function! ToggleGitGutterDiff()
+    if g:gitgutter_diff_win_open
+        " If diff is open, close it
+        diffoff!
+        " Find and close the diff window
+        for winnr in range(1, winnr('$'))
+            if getwinvar(winnr, '&buftype') ==# 'nofile'
+                execute winnr.'wincmd c'
+                let g:gitgutter_diff_win_open = 0
+                return
+            endif
+        endfor
+    else
+        " If diff is closed, open it
+        GitGutterDiffOrig
+        let g:gitgutter_diff_win_open = 1
+    endif
+endfunction
+
 " Binds ------------------------------------------------------------------------
 nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>fs :w<CR>
@@ -139,7 +161,7 @@ nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
-nnoremap <leader>gd :GitGutterDiffOrig<CR>
+nnoremap <Leader>gd :call ToggleGitGutterDiff()<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
 " telescope --------------------------------------------------------------------
 nnoremap <leader>ff :Telescope find_files<CR>
