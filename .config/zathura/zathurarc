@@ -46,5 +46,5 @@ set highlight-active-color	  rgba(244,184,228,0.5)
 set adjust-open width
 set scroll-full-overlap 0.1
 
-map , scroll half-down
-map . scroll half-up
+map , scroll half-up
+map . scroll half-down
