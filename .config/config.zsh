@@ -32,21 +32,42 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export NODE_OPTIONS=--openssl-legacy-provider
 
 # plugins
+# First antigen check with additional path
 if [ -f /usr/share/zsh/share/antigen.zsh ]; then
     source /usr/share/zsh/share/antigen.zsh
+elif [ -f /usr/local/share/zsh/share/antigen.zsh ]; then
+    source /usr/local/share/zsh/share/antigen.zsh
 elif [ -f /home/ethan/.config/zsh/antigen.zsh ]; then
     source /home/ethan/.config/zsh/antigen.zsh
 fi
-antigen bundle zsh-vi-more/evil-registers
-antigen bundle zsh-users/zsh-completions
-antigen apply
 
+# Only run antigen commands if antigen was successfully sourced
+if type antigen > /dev/null; then
+    antigen bundle zsh-vi-more/evil-registers
+    antigen bundle zsh-users/zsh-completions
+    antigen apply
+fi
+
+# Local config check
 [[ -f $HOME/.config/local.zsh ]] && source $HOME/.config/local.zsh
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /etc/profile.d/autojump.sh
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
 
-# Load zsh-syntax-highlighting
-# Should be last!
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [ -f /usr/local/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/local/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [ -f /etc/profile.d/autojump.sh ]; then
+    source /etc/profile.d/autojump.sh
+elif [ -f /usr/local/etc/profile.d/autojump.sh ]; then
+    source /usr/local/etc/profile.d/autojump.sh
+fi
+
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f /usr/local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/local/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi 2>/dev/null
+ource /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
