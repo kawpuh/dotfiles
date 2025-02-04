@@ -162,9 +162,9 @@ require('lualine').setup({
 -- listen lsp-progress event and refresh lualine
 vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
 vim.api.nvim_create_autocmd("User", {
-  group = "lualine_augroup",
-  pattern = "LspProgressStatusUpdated",
-  callback = require("lualine").refresh,
+    group = "lualine_augroup",
+    pattern = "LspProgressStatusUpdated",
+    callback = require("lualine").refresh,
 })
 
 local cmp = require("cmp")
@@ -351,10 +351,6 @@ require("gp").setup({
             endpoint = "https://openrouter.ai/api/v1/chat/completions",
             secret = os.getenv("OPENROUTER_API_KEY"),
         },
-        groq = {
-            endpoint = "https://api.groq.com/openai/v1/chat/completions",
-            secret = os.getenv("GROQ_API_KEY"),
-        },
         xai = {
             endpoint = "https://api.x.ai/v1/chat/completions",
             secret = os.getenv("XAI_API_KEY"),
@@ -428,14 +424,6 @@ require("gp").setup({
             system_prompt = require("gp.defaults").chat_system_prompt,
         },
         {
-            name = "r1-distill",
-            provider = "groq",
-            chat = true,
-            command = false,
-            model = { model = "deepseek-r1-distill-llama-70b" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
             name = "Grok Beta",
             provider = "xai",
             chat = true,
@@ -447,5 +435,234 @@ require("gp").setup({
     default_chat_agent = "ChatClaude-3.5-Sonnet",
     default_command_agent = "CodeClaude-3.5-Sonnet",
     toggle_target = "buffer",
-    hooks = {},
+    hooks = {
+
+        CountAllTokens = function(gp, _)
+            local api_key = os.getenv("ANTHROPIC_API_KEY")
+            if not api_key then
+                vim.notify("ANTHROPIC_API_KEY environment variable not set", vim.log.levels.ERROR)
+                return
+            end
+
+            -- Get all buffer lines
+            local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+            local user_messages = {}
+            local assistant_messages = {}
+
+            -- Process all lines to collect messages
+            local i = 1
+            while i <= #lines do
+                local line = lines[i]
+
+                -- Check for assistant message
+                if line:sub(1, #gp.config.chat_assistant_prefix[1]) == gp.config.chat_assistant_prefix[1] then
+                    local j = i
+                    while j < #lines do
+                        local next_line = j + 1
+                        if next_line > #lines or
+                            lines[next_line]:sub(1, #gp.config.chat_user_prefix) == gp.config.chat_user_prefix or
+                            lines[next_line]:sub(1, #gp.config.chat_assistant_prefix[1]) == gp.config.chat_assistant_prefix[1] then
+                            break
+                        end
+                        j = next_line
+                    end
+
+                    local msg = table.concat(vim.list_slice(lines, i, j), "\n")
+                    msg = msg:sub(#gp.config.chat_assistant_prefix[1] + 1):gsub("^%s*(.-)%s*$", "%1")
+                    if msg:match("%S") then
+                        table.insert(assistant_messages, { role = "assistant", content = msg })
+                    end
+                    i = j + 1
+                    -- Check for user message
+                elseif line:sub(1, #gp.config.chat_user_prefix) == gp.config.chat_user_prefix then
+                    local j = i
+                    while j < #lines do
+                        local next_line = j + 1
+                        if next_line > #lines or
+                            lines[next_line]:sub(1, #gp.config.chat_user_prefix) == gp.config.chat_user_prefix or
+                            lines[next_line]:sub(1, #gp.config.chat_assistant_prefix[1]) == gp.config.chat_assistant_prefix[1] then
+                            break
+                        end
+                        j = next_line
+                    end
+
+                    local msg = table.concat(vim.list_slice(lines, i, j), "\n")
+                    msg = msg:sub(#gp.config.chat_user_prefix + 1):gsub("^%s*(.-)%s*$", "%1")
+                    if msg:match("%S") then
+                        table.insert(user_messages, { role = "user", content = msg })
+                    end
+                    i = j + 1
+                else
+                    i = i + 1
+                end
+            end
+
+            if #user_messages == 0 and #assistant_messages == 0 then
+                vim.notify("No messages found", vim.log.levels.WARN)
+                return
+            end
+
+            -- Function to make API request
+            local function count_tokens(messages)
+                local cmd = string.format([[curl -s https://api.anthropic.com/v1/messages/count_tokens \
+        -H "x-api-key: %s" \
+        -H "content-type: application/json" \
+        -H "anthropic-version: 2023-06-01" \
+        -d %s]],
+                    api_key,
+                    vim.fn.shellescape(vim.fn.json_encode({
+                        model = "claude-3-5-sonnet-20241022",
+                        messages = messages
+                    }))
+                )
+
+                local handle = io.popen(cmd)
+                if not handle then
+                    return nil, "Failed to execute curl command"
+                end
+
+                local success, response = pcall(vim.fn.json_decode, handle:read("*a"))
+                handle:close()
+
+                if not success then
+                    return nil, "Failed to parse response"
+                end
+                return response
+            end
+
+            -- Count tokens for all user messages
+            local total_user_tokens = 0
+            if #user_messages > 0 then
+                local response = count_tokens(user_messages)
+                if response and response.input_tokens then
+                    total_user_tokens = response.input_tokens
+                end
+            end
+
+            -- Count tokens for all assistant messages
+            local total_assistant_tokens = 0
+            if #assistant_messages > 0 then
+                local response = count_tokens(assistant_messages)
+                if response and response.input_tokens then
+                    total_assistant_tokens = response.input_tokens
+                end
+            end
+
+            vim.notify(string.format(
+                "Total tokens - User: %d (%d messages), Assistant: %d (%d messages)",
+                total_user_tokens,
+                #user_messages,
+                total_assistant_tokens,
+                #assistant_messages
+            ), vim.log.levels.INFO)
+        end,
+        CountLastTokens = function(gp, _)
+            local api_key = os.getenv("ANTHROPIC_API_KEY")
+            if not api_key then
+                vim.notify("ANTHROPIC_API_KEY environment variable not set", vim.log.levels.ERROR)
+                return
+            end
+
+            -- Get all buffer lines
+            local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+            local user_message = nil
+            local assistant_message = nil
+
+            -- Search from bottom for last exchange
+            for i = #lines, 1, -1 do
+                local line = lines[i]
+                if not assistant_message and line:sub(1, #gp.config.chat_assistant_prefix[1]) == gp.config.chat_assistant_prefix[1] then
+                    -- Found assistant message, collect it
+                    local j = i
+                    while j < #lines do
+                        local next_line = j + 1
+                        if next_line > #lines or
+                            lines[next_line]:sub(1, #gp.config.chat_user_prefix) == gp.config.chat_user_prefix or
+                            lines[next_line]:sub(1, #gp.config.chat_assistant_prefix[1]) == gp.config.chat_assistant_prefix[1] then
+                            break
+                        end
+                        j = next_line
+                    end
+
+                    local msg = table.concat(vim.list_slice(lines, i, j), "\n")
+                    msg = msg:sub(#gp.config.chat_assistant_prefix[1] + 1):gsub("^%s*(.-)%s*$", "%1")
+                    if msg:match("%S") then
+                        assistant_message = { role = "assistant", content = msg }
+                    end
+                elseif not user_message and line:sub(1, #gp.config.chat_user_prefix) == gp.config.chat_user_prefix and assistant_message then
+                    local j = i
+                    while j < #lines do
+                        local next_line = j + 1
+                        if next_line > #lines or
+                            lines[next_line]:sub(1, #gp.config.chat_user_prefix) == gp.config.chat_user_prefix or
+                            lines[next_line]:sub(1, #gp.config.chat_assistant_prefix[1]) == gp.config.chat_assistant_prefix[1] then
+                            break
+                        end
+                        j = next_line
+                    end
+
+                    local msg = table.concat(vim.list_slice(lines, i, j), "\n")
+                    msg = msg:sub(#gp.config.chat_user_prefix + 1):gsub("^%s*(.-)%s*$", "%1")
+                    user_message = { role = "user", content = msg }
+                end
+
+                if assistant_message and user_message then
+                    break
+                end
+            end
+
+            if not (assistant_message or user_message) then
+                vim.notify("No messages found", vim.log.levels.WARN)
+                return
+            end
+
+            -- Function to make API request
+            local function count_tokens(messages)
+                local cmd = string.format([[curl -s https://api.anthropic.com/v1/messages/count_tokens \
+            -H "x-api-key: %s" \
+            -H "content-type: application/json" \
+            -H "anthropic-version: 2023-06-01" \
+            -d %s]],
+                    api_key,
+                    vim.fn.shellescape(vim.fn.json_encode({
+                        model = "claude-3-5-sonnet-20241022",
+                        messages = messages
+                    }))
+                )
+
+                local handle = io.popen(cmd)
+                if not handle then
+                    return nil, "Failed to execute curl command"
+                end
+
+                local success, response = pcall(vim.fn.json_decode, handle:read("*a"))
+                handle:close()
+
+                if not success then
+                    return nil, "Failed to parse response"
+                end
+                return response
+            end
+
+            -- Count tokens for user message
+            local input_tokens = 0
+            if user_message then
+                local response = count_tokens({user_message})
+                if response and response.input_tokens then
+                    input_tokens = response.input_tokens
+                end
+            end
+
+            -- Count tokens for assistant message
+            local output_tokens = 0
+            if assistant_message then
+                local response = count_tokens({assistant_message})
+                if response and response.input_tokens then
+                    output_tokens = response.input_tokens
+                end
+            end
+
+            vim.notify(string.format("Last exchange tokens - Input: %d, Output: %d", input_tokens, output_tokens), vim.log.levels.INFO)
+        end
+    },
 })
