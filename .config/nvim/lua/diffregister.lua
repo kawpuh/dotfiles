@@ -16,8 +16,12 @@ function M.diff_with_register(register)
     visual_lines[#visual_lines] = visual_lines[#visual_lines]:sub(1, end_col)
   end
 
+  -- Store the original window
+  local original_win = vim.api.nvim_get_current_win()
+
   -- Create a temporary split
   vim.cmd('lefta vnew')
+  local reg_buf = vim.api.nvim_get_current_buf()
 
   -- Make the buffer temporary
   vim.bo.buftype = 'nofile'
@@ -33,6 +37,7 @@ function M.diff_with_register(register)
 
   -- Create another split for visual selection
   vim.cmd('vnew')
+  local visual_buf = vim.api.nvim_get_current_buf()
   vim.bo.buftype = 'nofile'
   vim.bo.bufhidden = 'wipe'
   vim.bo.swapfile = false
@@ -43,6 +48,31 @@ function M.diff_with_register(register)
   vim.api.nvim_buf_set_name(0, 'Visual_Selection')
   vim.cmd('wincmd h')
   vim.api.nvim_buf_set_name(0, 'Register_' .. register)
+
+  -- Set up autocmd to clean up diff mode when either buffer is closed
+  vim.api.nvim_create_autocmd("BufWipeout", {
+    buffer = reg_buf,
+    callback = function()
+      vim.wo.diff = false
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        vim.wo[win].diff = false
+      end
+      vim.api.nvim_buf_delete(visual_buf, { force = true })
+    end,
+    once = true,
+  })
+
+  vim.api.nvim_create_autocmd("BufWipeout", {
+    buffer = visual_buf,
+    callback = function()
+      vim.wo.diff = false
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        vim.wo[win].diff = false
+      end
+      vim.api.nvim_buf_delete(reg_buf, { force = true })
+    end,
+    once = true,
+  })
 end
 
 vim.api.nvim_create_user_command('DiffReg', function(opts)
