@@ -1,3 +1,4 @@
+require('diffregister')
 local term_job_id = nil
 local term_buf = nil
 function open_term()
@@ -338,113 +339,7 @@ require('ufo').setup({
 
 -- LLM plugin
 require("gp").setup({
-    providers = {
-        anthropic = {
-            endpoint = "https://api.anthropic.com/v1/messages",
-            secret = os.getenv("ANTHROPIC_API_KEY"),
-        },
-        mistral = {
-            endpoint = "https://api.mistral.ai/v1/chat/completions",
-            secret = os.getenv("MISTRAL_API_KEY"),
-        },
-        openrouter = {
-            endpoint = "https://openrouter.ai/api/v1/chat/completions",
-            secret = os.getenv("OPENROUTER_API_KEY"),
-        },
-        xai = {
-            endpoint = "https://api.x.ai/v1/chat/completions",
-            secret = os.getenv("XAI_API_KEY"),
-        },
-    },
-    agents = {
-        {
-            name = "MistralLarge",
-            provider = "mistral",
-            chat = true,
-            command = false,
-            model = { model = "mistral-large-latest" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            name = "Codestral",
-            provider = "mistral",
-            chat = false,
-            command = true,
-            model = { model = "codestral-latest" },
-            system_prompt = require("gp.defaults").code_system_prompt,
-        },
-        {
-            name = "o1-mini",
-            provider = "openrouter",
-            chat = true,
-            command = false,
-            model = { model = "openai/o1-mini" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            name = "o1-preview",
-            provider = "openrouter",
-            chat = true,
-            command = false,
-            model = { model = "openai/o1-preview" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            name = "gemini-2.0-flash",
-            provider = "openrouter",
-            chat = true,
-            command = false,
-            model = { model = "google/gemini-2.0-flash-exp:free" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            name = "deepseek-chat",
-            provider = "openrouter",
-            chat = true,
-            command = false,
-            model = { model = "deepseek/deepseek-chat" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            name = "deepseek-r1",
-            provider = "openrouter",
-            chat = true,
-            command = false,
-            model = { model = "deepseek/deepseek-r1" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            name = "gemini-2-pro",
-            provider = "openrouter",
-            chat = true,
-            command = false,
-            model = { model = "google/gemini-2.0-pro-exp-02-05:free" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            provider = "anthropic",
-            name = "ChatClaude-3-5-Sonnet",
-            chat = true,
-            command = false,
-            -- string with model name or table with model name and parameters
-            model = { model = "claude-3-5-sonnet-latest", temperature = 0.8, top_p = 1 },
-            -- system prompt (use this to specify the persona/role of the AI)
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-        {
-            name = "Grok Beta",
-            provider = "xai",
-            chat = true,
-            command = false,
-            model = { model = "grok-beta" },
-            system_prompt = require("gp.defaults").chat_system_prompt,
-        },
-    },
-    default_chat_agent = "ChatClaude-3.5-Sonnet",
-    default_command_agent = "CodeClaude-3.5-Sonnet",
-    toggle_target = "buffer",
     hooks = {
-
         CountAllTokens = function(gp, _)
             local api_key = os.getenv("ANTHROPIC_API_KEY")
             if not api_key then
@@ -673,4 +568,126 @@ require("gp").setup({
             vim.notify(string.format("Last exchange tokens - Input: %d, Output: %d", input_tokens, output_tokens), vim.log.levels.INFO)
         end
     },
-})
+
+    providers = {
+        anthropic = {
+            endpoint = "https://api.anthropic.com/v1/messages",
+            secret = os.getenv("ANTHROPIC_API_KEY"),
+        },
+        mistral = {
+            endpoint = "https://api.mistral.ai/v1/chat/completions",
+            secret = os.getenv("MISTRAL_API_KEY"),
+        },
+        openrouter = {
+            endpoint = "https://openrouter.ai/api/v1/chat/completions",
+            secret = os.getenv("OPENROUTER_API_KEY"),
+        },
+        xai = {
+            endpoint = "https://api.x.ai/v1/chat/completions",
+            secret = os.getenv("XAI_API_KEY"),
+        },
+    },
+    agents = {
+        {
+            name = "MistralLarge",
+            provider = "mistral",
+            chat = true,
+            command = false,
+            model = { model = "mistral-large-latest" },
+            system_prompt = "",
+        },
+        {
+            name = "Codestral",
+            provider = "mistral",
+            chat = false,
+            command = true,
+            model = { model = "codestral-latest" },
+            system_prompt = "",
+        },
+        {
+            name = "o1-mini",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "openai/o1-mini" },
+            system_prompt = "",
+        },
+        {
+            name = "o1-preview",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "openai/o1-preview" },
+            system_prompt = "",
+        },
+        {
+            name = "gemini-2.0-flash",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "google/gemini-2.0-flash-exp:free" },
+            system_prompt = "",
+        },
+        {
+            name = "deepseek-chat",
+            provider = "openrouter",
+            chat = true,
+            command = true,
+            model = { model = "deepseek/deepseek-chat" },
+            system_prompt = "",
+        },
+        {
+            name = "deepseek-r1",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "deepseek/deepseek-r1" },
+            system_prompt = "",
+        },
+        {
+            name = "free-deepseek-r1",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "deepseek/deepseek-r1:free" },
+            system_prompt = "",
+        },
+        {
+            name = "gemini-2-pro",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "google/gemini-2.0-pro-exp-02-05:free" },
+            system_prompt = "",
+        },
+        {
+            provider = "anthropic",
+            name = "sonnet-latest",
+            chat = true,
+            command = true,
+            -- string with model name or table with model name and parameters
+            model = { model = "claude-3-5-sonnet-latest", temperature = 0.8, top_p = 1 },
+            -- system prompt (use this to specify the persona/role of the AI)
+            system_prompt = "You are a staff software engineer.",
+        },
+        {
+            name = "gemini-thinking",
+            provider = "openrouter",
+            chat = true,
+            command = false,
+            model = { model = "google/gemini-2.0-flash-thinking-exp:free" },
+            system_prompt = "",
+        },
+        {
+            name = "Grok Beta",
+            provider = "xai",
+            chat = true,
+            command = false,
+            model = { model = "grok-beta" },
+            system_prompt = "",
+        },
+    },
+    chat_free_cursor = true,
+    default_chat_agent = "sonnet-latest",
+    default_command_agent = "sonnet-latest",
+    toggle_target = "buffer"})
