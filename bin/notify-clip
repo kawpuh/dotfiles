@@ -1,3 +1,3 @@
 #!/bin/bash
 
-xclip -o -selection c | xargs notify-send
+xclip -o -selection c | xargs -0 notify-send
