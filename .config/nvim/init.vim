@@ -58,6 +58,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 " display colors
 Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
 " snippet
@@ -190,6 +191,7 @@ nnoremap <leader>cp :%GpChatPaste<CR>
 vnoremap <leader>cp :GpChatPaste<CR>
 nnoremap <leader>cn :%GpChatNew<CR>
 vnoremap <leader>cn :GpChatNew<CR>
+nnoremap <leader>cc :GpChatNew<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
