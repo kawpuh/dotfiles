@@ -59,6 +59,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'MunifTanjim/nui.nvim'
 " display colors
 Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
 " snippet
@@ -89,6 +90,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
 Plug 'NoahTheDuke/vim-just'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 " Folding
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
@@ -96,6 +98,9 @@ Plug 'kevinhwang91/nvim-ufo'
 Plug 'ggandor/leap.nvim'
 " LLM
 Plug 'Robitx/gp.nvim'
+" Optional deps
+Plug 'hrsh7th/nvim-cmp'
+Plug 'echasnovski/mini.icons'
 call plug#end()
 
 " Plugin config --------------------------------------------------------------
@@ -286,3 +291,7 @@ augroup end
 augroup nix
     au FileType nix setlocal tabstop=2 shiftwidth=2
 augroup end
+
+if argc() == 0
+    autocmd VimEnter * :Ex
+endif
