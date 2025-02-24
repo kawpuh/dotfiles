@@ -666,8 +666,25 @@ require("gp").setup({
             chat = true,
             command = true,
             -- string with model name or table with model name and parameters
-            model = { model = "claude-3-5-sonnet-latest", temperature = 0.8, top_p = 1 },
+            model = { model = "claude-3-7-sonnet-latest", temperature = 0.7, top_p = 1 },
             -- system prompt (use this to specify the persona/role of the AI)
+            system_prompt = "You are a staff software engineer.",
+        },
+        {
+            provider = "anthropic",
+            name = "sonnet-thinking",
+            chat = true,
+            command = true,
+            -- string with model name or table with model name and parameters
+            model = {
+                model = "claude-3-7-sonnet-latest",
+                temperature = 0.7,
+                max_tokens = 64000,
+                thinking = {
+                    type = "enabled",
+                    budget_tokens = 32000
+                },
+            },
             system_prompt = "You are a staff software engineer.",
         },
         {
@@ -691,3 +708,24 @@ require("gp").setup({
     default_chat_agent = "sonnet-latest",
     default_command_agent = "sonnet-latest",
     toggle_target = "buffer"})
+
+-- Monkey patch the dispatcher after setup
+local dispatcher = require 'gp.dispatcher'
+local original_prepare_payload = dispatcher.prepare_payload
+dispatcher.prepare_payload = function(messages, model, provider)
+    local output = original_prepare_payload(messages, model, provider)
+    if provider == 'anthropic' and model.model == 'claude-3-7-sonnet-latest' then
+        for i = #messages, 1, -1 do
+            if messages[i].role == 'system' then
+                table.remove(messages, i)
+            end
+        end
+        output.temperature = nil
+        output.top_p = nil
+        output.thinking = {
+            type = "enabled",
+            budget_tokens = 32000
+        }
+    end
+    return output
+    end
