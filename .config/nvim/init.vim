@@ -98,7 +98,8 @@ Plug 'kevinhwang91/nvim-ufo'
 " Leap
 Plug 'ggandor/leap.nvim'
 " LLM
-Plug 'Robitx/gp.nvim'
+" Plug 'Robitx/gp.nvim'
+Plug 'frankroeder/parrot.nvim'
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
@@ -189,15 +190,15 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
-noremap <leader>gp :Gp
-vnoremap <leader>gr :GpRewrite<CR>
-nnoremap <leader>gr :%GpRewrite<CR>
-nnoremap <leader><CR> :GpChatToggle<CR>
-nnoremap <leader>cp :%GpChatPaste<CR>
-vnoremap <leader>cp :GpChatPaste<CR>
-nnoremap <leader>cn :%GpChatNew<CR>
-vnoremap <leader>cn :GpChatNew<CR>
-nnoremap <leader>cc :GpChatNew<CR>
+noremap <leader>gp :Prt
+vnoremap <leader>gr :PrtRewrite<CR>
+nnoremap <leader>gr :%PrtRewrite<CR>
+nnoremap <leader><CR> :PrtChatToggle<CR>
+nnoremap <leader>cp :%PrtChatPaste<CR>
+vnoremap <leader>cp :PrtChatPaste<CR>
+nnoremap <leader>cn :%PrtChatNew<CR>
+vnoremap <leader>cn :PrtChatNew<CR>
+nnoremap <leader>cc :PrtChatNew<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
