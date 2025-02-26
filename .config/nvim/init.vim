@@ -22,6 +22,7 @@ let maplocalleader=","
 " Netrw config
 let g:netrw_banner=0
 let g:netrw_keepdir=0 " part of our use for netrw is to cwd
+let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
 
 function! CwdLineCounts()
     let files = split(glob('*'), '\n')
