@@ -58,6 +58,23 @@ end
 vim.api.nvim_create_user_command('TermOpen', open_term, {})
 vim.api.nvim_create_user_command('TermSend', send_to_term, { range = true })
 
+
+-- Command to create and open a scratch file with timestamp
+vim.api.nvim_create_user_command('Scratch', function()
+  -- Ensure the scratch directory exists
+  local scratch_dir = vim.fn.expand('~/.local/share/nvim/scratch')
+  if vim.fn.isdirectory(scratch_dir) == 0 then
+    vim.fn.mkdir(scratch_dir, 'p')
+  end
+
+  -- Create a timestamp for the filename (format: YYYY-MM-DD_HH-MM-SS)
+  local timestamp = os.date('%Y-%m-%d_%H-%M-%S')
+  local filename = scratch_dir .. '/' .. timestamp .. '.md'
+
+  -- Open the new scratch file
+  vim.cmd('edit ' .. filename)
+end, {})
+
 local cider_buf = nil
 function find_deps_edn_and_start_cider()
     -- Start from the current buffer's directory
@@ -343,17 +360,39 @@ require("parrot").setup{
     toggle_target = "buffer",
     -- Providers must be explicitly added to make them available.
     providers = {
+        openrouter = {
+            style = "openai",
+            api_key = os.getenv "OPENROUTER_API_KEY",
+            endpoint = "https://openrouter.ai/api/v1/chat/completions",
+            models = { "deepseek/deepseek-r1", "google/gemini-2.0-pro-exp-02-05:free" },
+            topic = {
+                model = "google/gemini-2.0-pro-exp-02-05:free",
+                params = { max_tokens = 64 },
+            },
+            params = {
+                chat = {
+                    max_tokens = 8000,
+                    temperature = 1
+                },
+            }
+        },
         anthropic = {
             api_key = os.getenv "ANTHROPIC_API_KEY",
+            params = {
+                chat = {
+                    max_tokens = 64000,
+                    temperature = 1,
+                }
+            }
+        },
+        gemini = {
+            api_key = os.getenv "GEMINI_API_KEY",
             params = {
                 chat = {
                     max_tokens = 64000,
                 }
             }
         },
-        -- gemini = {
-        --   api_key = os.getenv "GEMINI_API_KEY",
-        -- },
         -- openai = {
         --   api_key = os.getenv "OPENAI_API_KEY",
         -- },

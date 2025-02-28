@@ -195,7 +195,7 @@ vnoremap <leader>gr :PrtRewrite<CR>
 nnoremap <leader>gr :%PrtRewrite<CR>
 nnoremap <leader><CR> :PrtChatToggle<CR>
 nnoremap <leader>cp :%PrtChatPaste<CR>
-vnoremap <leader>cp :PrtChatPaste<CR>
+vnoremap <leader>cp :PrtChatPaste<CR>:e#<CR>
 nnoremap <leader>cn :%PrtChatNew<CR>
 vnoremap <leader>cn :PrtChatNew<CR>
 nnoremap <leader>cc :PrtChatNew<CR>
