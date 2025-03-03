@@ -121,7 +121,7 @@ def toggle_w_columns(qtile, alt_layout):
 keys = [
   # Switch between windows
   Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes"), desc="mnemonic 'agenda'"),
-  Key([MOD], "b", lazy.spawn("firefox")),
+  Key([MOD], "b", lazy.spawn("chromium")),
   Key([MOD], "f", lazy.function(toggle_w_columns, "max")),
   Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
   Key([MOD], "j", lazy.group.next_window(), desc="Move focus down"),
