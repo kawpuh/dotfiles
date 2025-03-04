@@ -358,6 +358,7 @@ require('ufo').setup({
 require("parrot").setup{
     chat_free_cursor = true,
     toggle_target = "buffer",
+    user_input_ui = "buffer",
     -- Providers must be explicitly added to make them available.
     providers = {
         openrouter = {
