@@ -1,0 +1,5 @@
+{:cljfmt
+ {:indents {re-frame.core/reg-event-fx [[:block 1]]
+            re-frame.core/reg-event-db [[:block 1]]
+            re-frame.core/reg-sub [[:block 1]]}
+  :alias-map {rf re-frame.core}}}
