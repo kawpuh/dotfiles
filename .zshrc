@@ -20,13 +20,13 @@ export HISTTIMEFORMAT="[%F %T] "
 setopt EXTENDED_HISTORY
 
 # Basic auto/tab complete:
-autoload -U compinit
-zstyle ':completion:*' completer _extensions _complete _approximate
-zstyle ':completion:*' menu yes select
-zstyle ':completion:*:*:make:*' tag-order 'targets'
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# Include hidden files.
+# autoload -U compinit
+# zstyle ':completion:*' completer _extensions _complete _approximate
+# zstyle ':completion:*' menu yes select
+# zstyle ':completion:*:*:make:*' tag-order 'targets'
+# zmodload zsh/complist
+# compinit
+# _comp_options+=(globdots)		# Include hidden files.
 
 # vi mode
 bindkey -v
