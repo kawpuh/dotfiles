@@ -32,6 +32,8 @@ function! CwdLineCounts()
     endfor
 endfunction
 
+let g:surround_99 = "```\n\r```\n" " Use c as a codeblock delimiter with vim-surround
+
 command! WC call CwdLineCounts()
 
 set guifont=NotoSansMono\ Nerd\ Font:h11
@@ -121,15 +123,6 @@ let g:vsnip_snippet_dir="$HOME/.config/nvim/vsnip"
 set shell=/bin/zsh
 
 lua require('init')
-
-function! WrapInBackticks() range
-    let lines = getline(a:firstline, a:lastline)
-    let wrapped_lines = ['```']
-    call extend(wrapped_lines, lines)
-    call add(wrapped_lines, '```')
-    call append(a:lastline, wrapped_lines)
-    execute a:firstline . ',' . a:lastline . 'delete _'
-endfunction
 
 " Variable to track if diff window is open
 let g:gitgutter_diff_win_open = 0
@@ -226,8 +219,7 @@ augroup markdown
     au FileType markdown setlocal spell
     " mnemonic `watch`
     au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
-    au FileType markdown nnoremap <buffer> <leader>sc i```<CR>```<ESC>k
-    au FileType markdown vnoremap <buffer> <leader>sc :call WrapInBackticks()<CR>
+    " yssc to quickly insert codeblock
     au FileType markdown nnoremap <buffer> <leader>vb :SelectCodeBlock<CR>
 augroup end
 
