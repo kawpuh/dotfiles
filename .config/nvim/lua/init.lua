@@ -149,14 +149,22 @@ function SelectWithinCodeBlock()
     if start_line > 0 and end_line <= last_line then
         -- Move to start line + 1 (skip the opening delimiter)
         vim.api.nvim_win_set_cursor(0, {start_line + 1, 0})
-        -- Enter visual line mode
-        vim.cmd('normal! V')
+        -- Enter normal visual mode
+        vim.cmd('normal! v')
         -- Move to end line - 1 (exclude the closing delimiter)
-        vim.api.nvim_win_set_cursor(0, {end_line - 1, 0})
+        -- Get the content of the last line to select
+        local last_content_line = vim.api.nvim_buf_get_lines(bufnr, end_line - 2, end_line - 1, false)[1]
+        local last_col = 0
+        if last_content_line then
+            last_col = #last_content_line
+        end
+        -- Move to the end of the last line of content
+        vim.api.nvim_win_set_cursor(0, {end_line - 1, last_col - 1})
     else
         print("No code block found")
     end
 end
+
 vim.api.nvim_create_user_command('SelectCodeBlock', SelectWithinCodeBlock, {})
 
 require("ibl").setup()
@@ -383,8 +391,12 @@ require("parrot").setup{
                 chat = {
                     max_tokens = 64000,
                     temperature = 1,
-                }
-            }
+                    thinking = {
+                        type = "enabled",
+                        budget_tokens = 16000,
+                    },
+                },
+            },
         },
         gemini = {
             api_key = os.getenv "GEMINI_API_KEY",

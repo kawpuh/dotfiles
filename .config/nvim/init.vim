@@ -33,7 +33,6 @@ function! CwdLineCounts()
 endfunction
 
 command! WC call CwdLineCounts()
-command! TempMD :execute 'edit ' . tempname() . '.md'
 
 set guifont=NotoSansMono\ Nerd\ Font:h11
 " Cleanup trailing whitespace on save
@@ -99,7 +98,8 @@ Plug 'kevinhwang91/nvim-ufo'
 Plug 'ggandor/leap.nvim'
 " LLM
 " Plug 'Robitx/gp.nvim'
-Plug 'frankroeder/parrot.nvim'
+" Plug 'frankroeder/parrot.nvim'
+Plug 'kawpuh/parrot.nvim'
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
@@ -163,7 +163,7 @@ nnoremap <leader><tab> :e#<CR>
 
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
-nnoremap <leader>ft :TempMD<CR>
+nnoremap <leader>fn :Scratch<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
 nnoremap <leader><leader> :term<CR>A
@@ -195,10 +195,10 @@ noremap <leader>gp :Prt
 vnoremap <leader>gr :PrtRewrite<CR>
 nnoremap <leader>gr :%PrtRewrite<CR>
 nnoremap <leader><CR> :PrtChatToggle<CR>
-nnoremap <leader>cp :%PrtChatPaste<CR>
-vnoremap <leader>cp :PrtChatPaste<CR>
-nnoremap <leader>cn :%PrtChatNew<CR>
-vnoremap <leader>cn :PrtChatNew<CR>
+nnoremap <leader>cp :%PrtChatPaste<CR>:e#<CR><C-o>
+vnoremap <leader>cp :PrtChatPaste<CR>:e#<CR><C-o>
+nnoremap <leader>cn :%PrtChatNew<CR>:e#<CR><C-o>
+vnoremap <leader>cn :PrtChatNew<CR>:e#<CR><C-o>
 nnoremap <leader>cc :PrtChatNew<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
