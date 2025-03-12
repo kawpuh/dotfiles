@@ -391,10 +391,10 @@ require("parrot").setup{
                 chat = {
                     max_tokens = 64000,
                     temperature = 1,
-                    thinking = {
-                        type = "enabled",
-                        budget_tokens = 16000,
-                    },
+                    -- thinking ={
+                    --     type = "enabled",
+                    --     budget_tokens = 16000,
+                    -- },
                 },
             },
         },
@@ -413,3 +413,60 @@ require("parrot").setup{
         --   api_key = os.getenv "XAI_API_KEY",
     },
 }
+
+-- Function to select parrot.nvim chat messages
+local function select_parrot_message()
+    local cursor_line = vim.fn.line('.')
+    local current_line_text = vim.fn.getline(cursor_line)
+
+    -- Determine if we're on a user or AI message start
+    local is_user_message = current_line_text:match("^🗨:")
+    local is_ai_message = current_line_text:match("^🦜:")
+    local start_line = cursor_line
+
+    if not (is_user_message or is_ai_message) then
+        -- Search backward for the nearest message start
+        local line = cursor_line
+        while line > 1 do
+            line = line - 1
+            local line_text = vim.fn.getline(line)
+            if line_text:match("^🗨:") or line_text:match("^🦜:") then
+                start_line = line
+                is_user_message = line_text:match("^🗨:")
+                is_ai_message = line_text:match("^🦜:")
+                break
+            end
+        end
+    end
+
+    -- If we found a message start or we're already on one
+    if is_user_message or is_ai_message then
+        -- Find where the next message starts
+        local end_line = vim.fn.line('$') -- Default to end of file
+
+        for line = start_line + 1, vim.fn.line('$') do
+            local line_text = vim.fn.getline(line)
+            if line_text:match("^🗨:") or line_text:match("^🦜:") then
+                end_line = line - 1
+                break
+            end
+        end
+
+        -- Select from the line after the prefix to the line before the next message
+        if start_line + 1 <= end_line then
+            vim.cmd("normal! " .. (start_line + 1) .. "GV" .. end_line .. "G")
+        else
+            vim.notify("No message content to select", vim.log.levels.WARN)
+        end
+    else
+        vim.notify("No parrot.nvim message found at cursor", vim.log.levels.WARN)
+    end
+end
+
+-- Register command
+vim.api.nvim_create_user_command('ParrotSelectMessage', function()
+    select_parrot_message()
+end, {})
+
+-- Optionally, map to a key combination
+vim.keymap.set('n', '<leader>vm', ':ParrotSelectMessage<CR>', { noremap = true, silent = true, desc = "Select Parrot Message" })
