@@ -14,6 +14,12 @@ commit() {
         echo "Commit cancelled."
     fi
 }
+qcommit() {
+    local message
+    message=$( git diff --no-ext-diff --no-color --staged | llm -m fast -s "Write a commit message. Respond with only the commit message. Keep it simple.")
+    echo "$message"
+    git commit -m "$message"
+}
 alias qinst="sudo pacman -S"
 alias inst="sudo pacman -Syu"
 alias uninst="sudo pacman -R"
