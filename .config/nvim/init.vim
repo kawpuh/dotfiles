@@ -193,6 +193,8 @@ vnoremap <leader>cp :PrtChatPaste<CR>:e#<CR><C-o>
 nnoremap <leader>cn :%PrtChatNew<CR>:e#<CR><C-o>
 vnoremap <leader>cn :PrtChatNew<CR>:e#<CR><C-o>
 nnoremap <leader>cc :PrtChatNew<CR>
+nnoremap <leader>vm :ParrotSelectMessage<CR>
+noremap <leader>gt :PrtThinking<space>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------

@@ -467,6 +467,3 @@ end
 vim.api.nvim_create_user_command('ParrotSelectMessage', function()
     select_parrot_message()
 end, {})
-
--- Optionally, map to a key combination
-vim.keymap.set('n', '<leader>vm', ':ParrotSelectMessage<CR>', { noremap = true, silent = true, desc = "Select Parrot Message" })
