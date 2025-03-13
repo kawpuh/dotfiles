@@ -222,7 +222,7 @@ augroup markdown
     " mnemonic `watch`
     au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
     " yssc to quickly insert codeblock
-    au FileType markdown nnoremap <buffer> <leader>vb :SelectCodeBlock<CR>
+    au FileType markdown nnoremap <buffer> <leader>vc :SelectCodeBlock<CR>
 augroup end
 
 augroup shell
