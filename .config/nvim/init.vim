@@ -99,9 +99,8 @@ Plug 'kevinhwang91/nvim-ufo'
 " Leap
 Plug 'ggandor/leap.nvim'
 " LLM
-" Plug 'Robitx/gp.nvim'
-" Plug 'frankroeder/parrot.nvim'
-Plug 'kawpuh/parrot.nvim'
+Plug 'frankroeder/parrot.nvim'
+" Plug 'kawpuh/parrot.nvim'
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
