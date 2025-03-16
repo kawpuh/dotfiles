@@ -288,6 +288,6 @@ augroup nix
     au FileType nix setlocal tabstop=2 shiftwidth=2
 augroup end
 
-if argc() == 0
-    autocmd VimEnter * :Ex
+if argc() == 0 && index(v:argv, '-c') == -1
+  autocmd VimEnter * :Ex
 endif
