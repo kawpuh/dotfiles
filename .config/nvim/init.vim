@@ -222,6 +222,7 @@ augroup markdown
     au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
     " yssc to quickly insert codeblock
     au FileType markdown nnoremap <buffer> <leader>vc :SelectCodeBlock<CR>
+    au FileType markdown nnoremap <buffer> <C-m> :ParrotSelectMessage<CR>"+y<C-o>
 augroup end
 
 augroup shell
