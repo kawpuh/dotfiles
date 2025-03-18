@@ -385,6 +385,24 @@ require("parrot").setup{
                 },
             }
         },
+        lambda = {
+            style = "openai",
+            api_key = os.getenv "LAMBDA_API_KEY",
+            endpoint = "https://api.lambdalabs.com/v1/chat/completions",
+            models = { "deepseek-r1-671b", "hermes3-8b" },
+            topic = {
+                model = "hermes3-8b",
+                params = {
+                    max_tokens = 64
+                },
+            },
+            params = {
+                chat = {
+                    max_tokens = 8000,
+                    temperature = 1
+                },
+            }
+        },
         anthropic = {
             api_key = os.getenv "ANTHROPIC_API_KEY",
             params = {

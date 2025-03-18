@@ -100,7 +100,7 @@ Plug 'kevinhwang91/nvim-ufo'
 Plug 'ggandor/leap.nvim'
 " LLM
 Plug 'frankroeder/parrot.nvim'
-" Plug 'kawpuh/parrot.nvim'
+" Plug 'kawpuh/parrot.nvim', { 'dir': '~/sandbox/parrot' }
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
