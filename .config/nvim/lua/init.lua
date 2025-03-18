@@ -389,9 +389,9 @@ require("parrot").setup{
             style = "openai",
             api_key = os.getenv "LAMBDA_API_KEY",
             endpoint = "https://api.lambdalabs.com/v1/chat/completions",
-            models = { "deepseek-r1-671b", "hermes3-8b" },
+            models = { "deepseek-r1-671b", "hermes3-70b" },
             topic = {
-                model = "hermes3-8b",
+                model = "hermes3-70b",
                 params = {
                     max_tokens = 64
                 },
