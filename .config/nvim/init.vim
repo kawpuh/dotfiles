@@ -62,6 +62,9 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'MunifTanjim/nui.nvim'
+" text object
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
 " display colors
 Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
 " snippet
@@ -99,8 +102,8 @@ Plug 'kevinhwang91/nvim-ufo'
 " Leap
 Plug 'ggandor/leap.nvim'
 " LLM
-Plug 'frankroeder/parrot.nvim'
-" Plug 'kawpuh/parrot.nvim', { 'dir': '~/sandbox/parrot' }
+" Plug 'frankroeder/parrot.nvim'
+Plug 'kawpuh/parrot.nvim', { 'dir': '~/sandbox/parrot' }
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'

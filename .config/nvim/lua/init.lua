@@ -424,9 +424,9 @@ require("parrot").setup{
                 }
             }
         },
-        -- openai = {
-        --   api_key = os.getenv "OPENAI_API_KEY",
-        -- },
+        openai = {
+          api_key = os.getenv "OPENAI_API_KEY",
+        },
         -- xai = {
         --   api_key = os.getenv "XAI_API_KEY",
     },
