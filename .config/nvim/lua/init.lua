@@ -374,6 +374,7 @@ require("parrot").setup{
             api_key = os.getenv "OPENROUTER_API_KEY",
             endpoint = "https://openrouter.ai/api/v1/chat/completions",
             models = { "deepseek/deepseek-r1", "google/gemini-2.0-pro-exp-02-05:free" },
+            topic_prompt = topic_prompt,
             topic = {
                 model = "google/gemini-2.0-pro-exp-02-05:free",
                 params = { max_tokens = 64 },
@@ -396,12 +397,13 @@ require("parrot").setup{
                     max_tokens = 64
                 },
             },
+            topic_prompt = topic_prompt,
             params = {
                 chat = {
                     max_tokens = 8000,
                     temperature = 1
                 },
-            }
+            },
         },
         anthropic = {
             api_key = os.getenv "ANTHROPIC_API_KEY",
@@ -409,10 +411,6 @@ require("parrot").setup{
                 chat = {
                     max_tokens = 64000,
                     temperature = 1,
-                    -- thinking ={
-                    --     type = "enabled",
-                    --     budget_tokens = 16000,
-                    -- },
                 },
             },
         },
@@ -427,8 +425,6 @@ require("parrot").setup{
         openai = {
           api_key = os.getenv "OPENAI_API_KEY",
         },
-        -- xai = {
-        --   api_key = os.getenv "XAI_API_KEY",
     },
 }
 

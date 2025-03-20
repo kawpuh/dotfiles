@@ -112,18 +112,12 @@ def toggle_bar_and_fullscreen(qtile):
   else:
     bar.show(True)
 
-def toggle_w_columns(qtile, alt_layout):
-  if qtile.current_screen.group.layout.name == alt_layout:
-    qtile.current_screen.group.cmd_setlayout('columns')
-  else:
-    qtile.current_screen.group.cmd_setlayout(alt_layout)
-
 keys = [
   # Switch between windows
   Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes"), desc="mnemonic 'agenda'"),
   Key([MOD], "b", lazy.spawn("chromium")),
   Key([MOD], "e", lazy.spawn("ghostty -e nvim -c ':Scratch'")),
-  Key([MOD], "f", lazy.function(toggle_w_columns, "max")),
+  Key([MOD], "f", lazy.next_layout()),
   Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
   Key([MOD], "j", lazy.group.next_window(), desc="Move focus down"),
   Key([MOD], "k", lazy.group.prev_window(), desc="Move focus up"),
@@ -279,13 +273,12 @@ for i in groups:
   ])
 
 layouts = [
-  layout.Columns(
+  layout.MonadTall(
+    auto_maximize=True,
+    min_secondary_size=200,
     border_focus='#d5c4a1',
-    border_focus_stack='#d76921',
     border_normal='#3c3836',
-    border_normal_stack='#2c2826',
     margin=4,
-    margin_on_single=[8,240,8,240],
     border_width=2 if os.uname()[1] != "campstove" else 4,
     border_on_single=True,
   ),
