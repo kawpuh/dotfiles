@@ -407,6 +407,7 @@ require("parrot").setup{
         },
         anthropic = {
             api_key = os.getenv "ANTHROPIC_API_KEY",
+            topic_prompt = topic_prompt,
             params = {
                 chat = {
                     max_tokens = 64000,

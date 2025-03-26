@@ -1,7 +1,4 @@
 alias ask="llm -s \"Only provide essential information. Follow up questions may be asked if necessary. Don't provide superfluous detail initially\""
-alias llmc="llm -m claude-3.5-sonnet"
-alias llmo="llm -m 4o"
-alias llmm="llm -m mistral-large"
 commit() {
     local message confirm
     message=$(git diff --no-ext-diff --no-color --staged | llm -m fast -s "Write a commit message. Respond with only the commit message. Keep it simple.")
@@ -26,6 +23,7 @@ qcommit() {
     echo "$message"
     git commit -m "$message"
 }
+alias ym="llm logs -c --xl | 2clip" # mnemonic yank-message
 alias qinst="sudo pacman -S"
 alias inst="sudo pacman -Syu"
 alias uninst="sudo pacman -R"
