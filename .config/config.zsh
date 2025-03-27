@@ -23,7 +23,9 @@ qcommit() {
     echo "$message"
     git commit -m "$message"
 }
-alias ym="llm logs -c --xl | 2clip" # mnemonic yank-message
+alias ym="llm logs -r | 2clip" # mnemonic yank-message
+alias yc="llm logs -c --xl | 2clip" # mnemonic yank-code
+alias pm="clip2 | llm" # mnemonic put-message
 alias qinst="sudo pacman -S"
 alias inst="sudo pacman -Syu"
 alias uninst="sudo pacman -R"
