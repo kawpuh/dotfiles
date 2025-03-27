@@ -64,7 +64,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'MunifTanjim/nui.nvim'
 " text object
 Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-entire' " (ae) think a entire
 " display colors
 Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
 " snippet
@@ -159,6 +159,7 @@ nnoremap <leader><tab> :e#<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
 nnoremap <leader>fn :Scratch<CR>
+nnoremap <leader>fp :OpenLatestScratch<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
 nnoremap <leader><leader> :term<CR>A

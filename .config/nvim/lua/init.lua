@@ -58,13 +58,13 @@ end
 vim.api.nvim_create_user_command('TermOpen', open_term, {})
 vim.api.nvim_create_user_command('TermSend', send_to_term, { range = true })
 
-
 -- Command to create and open a scratch file with timestamp
 vim.api.nvim_create_user_command('Scratch', function()
   -- Ensure the scratch directory exists
   local scratch_dir = vim.fn.expand('~/.local/share/nvim/scratch')
   if vim.fn.isdirectory(scratch_dir) == 0 then
     vim.fn.mkdir(scratch_dir, 'p')
+    print("Created scratch directory: " .. scratch_dir) -- Optional feedback
   end
 
   -- Create a timestamp for the filename (format: YYYY-MM-DD_HH-MM-SS)
@@ -72,7 +72,54 @@ vim.api.nvim_create_user_command('Scratch', function()
   local filename = scratch_dir .. '/' .. timestamp .. '.md'
 
   -- Open the new scratch file
-  vim.cmd('edit ' .. filename)
+  -- Use fnameescape to handle potential special characters, though unlikely with timestamps
+  vim.cmd('edit ' .. vim.fn.fnameescape(filename))
+end, {})
+
+-- Command to open the most recently modified scratch file
+vim.api.nvim_create_user_command('OpenLatestScratch', function()
+  local scratch_dir = vim.fn.expand('~/.local/share/nvim/scratch')
+
+  -- Check if the directory exists
+  if vim.fn.isdirectory(scratch_dir) == 0 then
+    vim.notify("Scratch directory not found: " .. scratch_dir, vim.log.levels.WARN)
+    return
+  end
+
+  -- Get list of files (absolute paths) in the directory
+  -- globpath(dir, pattern, return_list, absolute_paths)
+  local files = vim.fn.globpath(scratch_dir, '*', 1, 1)
+
+  -- Check if the directory is empty
+  if #files == 0 then
+    vim.notify("Scratch directory is empty: " .. scratch_dir, vim.log.levels.INFO)
+    return
+  end
+
+  local latest_mtime = -1
+  local latest_file = nil
+
+  -- Find the file with the latest modification time
+  for _, file in ipairs(files) do
+     -- Make sure it's a file and not a subdirectory (though '*' usually only matches files)
+     if vim.fn.filereadable(file) == 1 and vim.fn.isdirectory(file) == 0 then
+        local mtime = vim.fn.getftime(file)
+        -- getftime returns -1 on error, ensure we have a valid time
+        if mtime ~= -1 and mtime > latest_mtime then
+          latest_mtime = mtime
+          latest_file = file
+        end
+     end
+  end
+
+  -- Open the latest file if found
+  if latest_file then
+    -- Use fnameescape to handle potential special characters in filenames
+    vim.cmd('edit ' .. vim.fn.fnameescape(latest_file))
+  else
+    -- This might happen if the directory only contains unreadable files or subdirs
+    vim.notify("Could not determine the latest readable scratch file.", vim.log.levels.WARN)
+  end
 end, {})
 
 local cider_buf = nil
