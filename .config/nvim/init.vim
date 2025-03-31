@@ -104,6 +104,7 @@ Plug 'ggandor/leap.nvim'
 " LLM
 " Plug 'frankroeder/parrot.nvim'
 Plug 'kawpuh/parrot.nvim', { 'dir': '~/sandbox/parrot' }
+Plug '~/sandbox/pelican'
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
@@ -119,7 +120,7 @@ let g:rainbow_active=1
 " enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
 " Snippet directory
-let g:vsnip_snippet_dir="$HOME/.config/nvim/vsnip"
+let g:vsnip_snippet_dir="$HOME/.config/nvim/snippets"
 
 " clojure config
 set shell=/bin/zsh
