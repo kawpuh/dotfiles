@@ -240,28 +240,6 @@ vim.api.nvim_create_autocmd("User", {
     callback = require("lualine").refresh,
 })
 
-local cmp = require("cmp")
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
-    },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-l>'] = cmp.mapping.complete_common_string()
-    }),
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'conjure' },
-        { name = 'buffer' },
-    })
-})
--- Capabilities are setup in LSP setup
---
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 
@@ -357,6 +335,17 @@ local lsp_on_attach = function(client, bufnr)
     buf_set_keymap("n", "<space>=f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
 end
 
+require('blink.cmp').setup({
+    keymap = { preset = 'default' },
+    completion = {
+        list = {
+            selection = {
+                preselect = false,
+            },
+        },
+    },
+})
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "bashls", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
@@ -366,8 +355,7 @@ for _, lsp in ipairs(servers) do
         flags = {
             debounce_text_changes = 150,
         },
-        -- cmp setup
-        capabilities = require('cmp_nvim_lsp').default_capabilities()
+        capabilities = require('blink.cmp').get_lsp_capabilities(),
     }
 end
 nvim_lsp.pylsp.setup{
@@ -375,7 +363,7 @@ nvim_lsp.pylsp.setup{
     flags = {
         debounce_text_changes = 150,
     },
-    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
     settings = {
         pylsp = {
             plugins = {

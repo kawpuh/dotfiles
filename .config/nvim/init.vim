@@ -7,7 +7,7 @@ set smartcase
 set hidden
 set expandtab
 set showbreak=↪\ " comment so we don't format out the trailing space
-set completeopt=menuone,longest
+set completeopt=menu,menuone,longest,noselect
 set wildmode=list:longest
 set splitright
 set undofile
@@ -68,14 +68,9 @@ Plug 'kana/vim-textobj-entire' " (ae) think a entire
 " display colors
 Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
 " snippet
-Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 " Completion
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
+Plug 'saghen/blink.cmp', { 'do': 'cargo build --release' }
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
