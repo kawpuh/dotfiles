@@ -62,6 +62,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 " text object
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire' " (ae) think a entire
@@ -89,7 +90,6 @@ Plug 'clojure-vim/clojure.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'hylang/vim-hy'
 Plug 'NoahTheDuke/vim-just'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 Plug 'MeanderingProgrammer/render-markdown.nvim'
 " Folding
 Plug 'kevinhwang91/promise-async'
@@ -183,17 +183,8 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
-noremap <leader>gp :Prt
-vnoremap <leader>gr :PrtRewrite<CR>
-nnoremap <leader>gr :%PrtRewrite<CR>
-nnoremap <leader><CR> :PrtChatToggle<CR>
-nnoremap <leader>cp :%PrtChatPaste<CR>:e#<CR><C-o>
-vnoremap <leader>cp :PrtChatPaste<CR>:e#<CR><C-o>
-nnoremap <leader>cn :%PrtChatNew<CR>:e#<CR><C-o>
-vnoremap <leader>cn :PrtChatNew<CR>:e#<CR><C-o>
-nnoremap <leader>cc :PrtChatNew<CR>
-nnoremap <leader>vm :ParrotSelectMessage<CR>
-noremap <leader>gt :PrtThinking<space>
+noremap <leader>cn :YankCodeblock<CR>:Scratch<CR>pGo<CR><Esc>
+noremap <leader>cp :YankCodeblock<CR>:OpenLatestScratch<CR>GpGo<CR><Esc>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
@@ -219,11 +210,10 @@ augroup markdown
     au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
     au FileType markdown setlocal spell
     " mnemonic `watch`
-    au FileType markdown nnoremap <buffer> <leader>w <Plug>MarkdownPreviewToggle
     " yssc to quickly insert codeblock
     au FileType markdown nnoremap <buffer> <leader>vc :SelectCodeBlock<CR>
-    au FileType markdown nnoremap <buffer> <C-m> :ParrotSelectMessage<CR>"+y<C-o>
-    au FileType markdown nnoremap <buffer> <C-y> :SelectCodeBlock<CR>"+y
+    au FileType markdown nnoremap <buffer> <C-m> :SelectCodeBlock<CR>"+y
+    au FileType markdown nnoremap <buffer> <C-y> "+yae
     au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
 augroup end
 
@@ -289,6 +279,10 @@ augroup end
 
 augroup nix
     au FileType nix setlocal tabstop=2 shiftwidth=2
+augroup end
+
+augroup lua
+    au FileType lua setlocal tabstop=2 shiftwidth=2
 augroup end
 
 if argc() == 0 && index(v:argv, '-c') == -1

@@ -58,70 +58,6 @@ end
 vim.api.nvim_create_user_command('TermOpen', open_term, {})
 vim.api.nvim_create_user_command('TermSend', send_to_term, { range = true })
 
--- Command to create and open a scratch file with timestamp
-vim.api.nvim_create_user_command('Scratch', function()
-  -- Ensure the scratch directory exists
-  local scratch_dir = vim.fn.expand('~/.local/share/nvim/scratch')
-  if vim.fn.isdirectory(scratch_dir) == 0 then
-    vim.fn.mkdir(scratch_dir, 'p')
-    print("Created scratch directory: " .. scratch_dir) -- Optional feedback
-  end
-
-  -- Create a timestamp for the filename (format: YYYY-MM-DD_HH-MM-SS)
-  local timestamp = os.date('%Y-%m-%d_%H-%M-%S')
-  local filename = scratch_dir .. '/' .. timestamp .. '.md'
-
-  -- Open the new scratch file
-  -- Use fnameescape to handle potential special characters, though unlikely with timestamps
-  vim.cmd('edit ' .. vim.fn.fnameescape(filename))
-end, {})
-
--- Command to open the most recently modified scratch file
-vim.api.nvim_create_user_command('OpenLatestScratch', function()
-  local scratch_dir = vim.fn.expand('~/.local/share/nvim/scratch')
-
-  -- Check if the directory exists
-  if vim.fn.isdirectory(scratch_dir) == 0 then
-    vim.notify("Scratch directory not found: " .. scratch_dir, vim.log.levels.WARN)
-    return
-  end
-
-  -- Get list of files (absolute paths) in the directory
-  -- globpath(dir, pattern, return_list, absolute_paths)
-  local files = vim.fn.globpath(scratch_dir, '*', 1, 1)
-
-  -- Check if the directory is empty
-  if #files == 0 then
-    vim.notify("Scratch directory is empty: " .. scratch_dir, vim.log.levels.INFO)
-    return
-  end
-
-  local latest_mtime = -1
-  local latest_file = nil
-
-  -- Find the file with the latest modification time
-  for _, file in ipairs(files) do
-     -- Make sure it's a file and not a subdirectory (though '*' usually only matches files)
-     if vim.fn.filereadable(file) == 1 and vim.fn.isdirectory(file) == 0 then
-        local mtime = vim.fn.getftime(file)
-        -- getftime returns -1 on error, ensure we have a valid time
-        if mtime ~= -1 and mtime > latest_mtime then
-          latest_mtime = mtime
-          latest_file = file
-        end
-     end
-  end
-
-  -- Open the latest file if found
-  if latest_file then
-    -- Use fnameescape to handle potential special characters in filenames
-    vim.cmd('edit ' .. vim.fn.fnameescape(latest_file))
-  else
-    -- This might happen if the directory only contains unreadable files or subdirs
-    vim.notify("Could not determine the latest readable scratch file.", vim.log.levels.WARN)
-  end
-end, {})
-
 local cider_buf = nil
 function find_deps_edn_and_start_cider()
     -- Start from the current buffer's directory
@@ -348,7 +284,18 @@ require('blink.cmp').setup({
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "bashls", "clojure_lsp", "clangd", "hls", "html", "cssls", "jsonls", "racket_langserver" }
+local servers = {
+    "bashls",
+    "clojure_lsp",
+    "clangd",
+    "hls",
+    "html",
+    "cssls",
+    "jsonls",
+    "racket_langserver",
+    "lua_ls",
+}
+
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = lsp_on_attach,
@@ -517,3 +464,101 @@ end
 vim.api.nvim_create_user_command('ParrotSelectMessage', function()
     select_parrot_message()
 end, {})
+
+
+-- yank -----------------------------------------------------------------------
+-- Function to get text, format it, and yank it
+local function yank_as_codeblock(opts)
+  -- opts contains information about the command invocation, including:
+  -- opts.line1: starting line number (1-based)
+  -- opts.line2: ending line number (1-based)
+  -- opts.range: number of items in the range (2 for visual line, 0 for %) -- less useful here
+
+  -- Get the lines based on the provided range
+  -- nvim_buf_get_lines requires 0-based indexing and end line is exclusive
+  local lines = vim.api.nvim_buf_get_lines(0, opts.line1 - 1, opts.line2, false)
+
+  -- Check if we actually got any lines
+  if not lines or #lines == 0 then
+    vim.notify("No text selected or buffer is empty.", vim.log.levels.WARN)
+    return
+  end
+
+  -- Join the lines back into a single string with newlines
+  local text_content = table.concat(lines, "\n")
+
+  -- Get the filetype of the current buffer
+  local filetype = vim.bo.filetype
+  -- Use an empty string if filetype is not set or empty, so we get ``` rather than ```nil
+  local lang_tag = filetype and #filetype > 0 and filetype or ""
+  -- Format the text as a markdown code block
+  local formatted_text = string.format("```%s\n%s\n```", lang_tag, text_content)
+
+  -- Yank the formatted text to the default register (")
+  vim.fn.setreg('"', formatted_text)
+  -- Optional: also set the system clipboard register (+) if you want
+  -- vim.fn.setreg('+', formatted_text)
+
+  -- Notify the user
+  local line_count = #lines
+  local message = string.format("Yanked %d lines as '%s' code block", line_count, lang_tag ~= "" and lang_tag or "markdown")
+   -- Slightly shorten message if it gets too long (optional)
+  vim.notify(message, vim.log.levels.INFO, {title = "YankCodeblock"})
+
+  -- Optional: Briefly highlight the yanked area (Neovim often does this automatically)
+  -- vim.cmd('normal! gv') -- Re-select visually
+  -- vim.highlight.on_yank({timeout = 200}) -- Trigger highlight manually if needed
+end
+
+-- Create the user command :YankCodeblock
+vim.api.nvim_create_user_command(
+  'YankCodeblock',
+  yank_as_codeblock,
+  {
+    range = '%', -- Default range is the whole file (%), but accepts visual range ('<,'>)
+    desc = 'Yank buffer/selection as Markdown code block'
+  }
+)
+
+require'nvim-treesitter.configs'.setup {
+  textobjects = {
+    select = {
+      enable = true,
+      disable = { 'clojure' },
+      lookahead = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        -- You can optionally set descriptions to the mappings (used in the desc parameter of
+        -- nvim_buf_set_keymap) which plugins like which-key display
+        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+        -- You can also use captures from other query groups like `locals.scm`
+        ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+      },
+      -- You can choose the select mode (default is charwise 'v')
+      --
+      -- Can also be a function which gets passed a table with the keys
+      -- * query_string: eg '@function.inner'
+      -- * method: eg 'v' or 'o'
+      -- and should return the mode ('v', 'V', or '<c-v>') or a table
+      -- mapping query_strings to modes.
+      selection_modes = {
+        ['@parameter.outer'] = 'v', -- charwise
+        ['@function.outer'] = 'V', -- linewise
+        ['@class.outer'] = '<c-v>', -- blockwise
+      },
+      -- If you set this to `true` (default is `false`) then any textobject is
+      -- extended to include preceding or succeeding whitespace. Succeeding
+      -- whitespace has priority in order to act similarly to eg the built-in
+      -- `ap`.
+      --
+      -- Can also be a function which gets passed a table with the keys
+      -- * query_string: eg '@function.inner'
+      -- * selection_mode: eg 'v'
+      -- and should return true or false
+      include_surrounding_whitespace = true,
+    },
+  },
+}
