@@ -58,6 +58,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-eunuch'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter-context'
@@ -99,7 +100,7 @@ Plug 'ggandor/leap.nvim'
 " LLM
 " Plug 'frankroeder/parrot.nvim'
 Plug 'kawpuh/parrot.nvim', { 'dir': '~/sandbox/parrot' }
-Plug '~/sandbox/pelican'
+Plug 'kawpuh/pelican', { 'dir': '~/sandbox/pelican' }
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
@@ -183,8 +184,12 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
-noremap <leader>cn :YankCodeblock<CR>:Scratch<CR>pGo<CR><Esc>
-noremap <leader>cp :YankCodeblock<CR>:OpenLatestScratch<CR>GpGo<CR><Esc>
+noremap <leader>cn :YankCodeBlock<CR>:Scratch<CR>pGo<Esc>
+noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<Esc>
+vnoremap <leader>ca y:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
+nnoremap <leader>ca :%y<CR>:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
+nnoremap <leader>llm :LLM<space>
+vnoremap <leader>llm :<C-u>LLM<space>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
@@ -199,60 +204,61 @@ noremap s <Plug>(leap)
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
 
-augroup netrw_mapping
+augroup KawpuhNetrw
+    au!
     au FileType netrw nmap <buffer> H u
     au FileType netrw nmap <buffer> h -
     au FileType netrw nmap <buffer> l <CR>
     au FileType netrw nnoremap <buffer> s <Plug>(leap)
 augroup end
 
-augroup markdown
+augroup KawpuhMarkdown
+    au!
     au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
     au FileType markdown setlocal spell
-    " mnemonic `watch`
-    " yssc to quickly insert codeblock
-    au FileType markdown nnoremap <buffer> <leader>vc :SelectCodeBlock<CR>
     au FileType markdown nnoremap <buffer> <C-m> :SelectCodeBlock<CR>"+y
     au FileType markdown nnoremap <buffer> <C-y> "+yae
     au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
+    au FileType markdown nnoremap <buffer> <C-g> :LLM -m claude -o thinking_budget 32000<CR>
+    au FileType markdown vnoremap <buffer> <C-g> :<C-u>LLM -m claude -o thinking_budget 32000<CR>
 augroup end
 
-augroup shell
+augroup KawpuhShell
     au!
     au FileType sh nnoremap <buffer> <localleader>r :wr<CR>:!./%<CR>
 augroup end
 
-augroup vimscript
+augroup KawpuhVimscript
     au!
     au FileType vim nnoremap <buffer> <localleader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
 augroup end
 
-augroup c++
+augroup KawpuhC++
     au!
     au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
     au FileType cpp nnoremap <buffer> <localleader>r :wr<CR>:!g++ % && ./a.exe<CR>
 augroup end
 
-augroup perl
+augroup KawpuhPerl
     au!
     au FileType perl nnoremap <buffer> <localleader>r :wr<CR>:!perl %<CR>
 augroup end
 
-augroup golang
+augroup KawpuhGolang
     au!
     au FileType go nnoremap <buffer> <localleader>r :wr<CR>:!go run %<CR>
     au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
     au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
 augroup end
 
-augroup python
+augroup KawpuhPython
     au!
     au FileType python nnoremap <buffer> <localleader>r :wr<CR>:!python3 %<CR>
     au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
     au FileType python setlocal tabstop=2 shiftwidth=2
 augroup end
 
-augroup rust
+augroup KawpuhRust
     au!
     au FileType rust nnoremap <buffer> <localleader>r :wr<CR>:Cargo run<CR>
     au FileType rust nnoremap <buffer> <localleader>b :Cargo build<CR>
@@ -260,16 +266,18 @@ augroup rust
     au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>
 augroup end
 
-augroup help
+augroup KawpuhHelp
     au!
     au FileType help wincmd o
 augroup end
 
-augroup css
+augroup KawpuhCss
+    au!
     au FileType css setlocal tabstop=2 shiftwidth=2
 augroup end
 
-augroup clojure
+augroup KawpuhClojure
+    au!
     let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
     au FileType clojure command! CC ConjureConnect
     au FileType clojure command! -nargs=1 CS ConjureShadowSelect <args>
@@ -277,11 +285,13 @@ augroup clojure
     au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
 augroup end
 
-augroup nix
+augroup KawpuhNix
+    au!
     au FileType nix setlocal tabstop=2 shiftwidth=2
 augroup end
 
-augroup lua
+augroup KawpuhLua
+    au!
     au FileType lua setlocal tabstop=2 shiftwidth=2
 augroup end
 
