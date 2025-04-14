@@ -106,6 +106,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
 call plug#end()
 
+lua require('pelican').setup()
+
 " Plugin config --------------------------------------------------------------
 colorscheme catppuccin-frappe
 highlight Normal guibg=none
@@ -157,6 +159,7 @@ nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
 nnoremap <leader>fn :Scratch<CR>
 nnoremap <leader>fp :OpenLatestScratch<CR>
+nnoremap <leader>fv :vs<CR>:OpenLatestScratch<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 
 nnoremap <leader><leader> :term<CR>A
@@ -184,8 +187,8 @@ noremap <leader>p "+p
 noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
-noremap <leader>cn :YankCodeBlock<CR>:Scratch<CR>pGo<Esc>
-noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<Esc>
+noremap <leader>cn :YankCodeBlock<CR>:Scratch<CR>pGo<CR><Esc>
+noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<CR><Esc>
 vnoremap <leader>ca y:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
 nnoremap <leader>ca :%y<CR>:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
 nnoremap <leader>llm :LLM<space>
@@ -221,6 +224,7 @@ augroup KawpuhMarkdown
     au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
     au FileType markdown nnoremap <buffer> <C-g> :LLM -m claude -o thinking_budget 32000<CR>
     au FileType markdown vnoremap <buffer> <C-g> :<C-u>LLM -m claude -o thinking_budget 32000<CR>
+    au FileType markdown nnoremap <buffer> <leader>fb y<Plug>(textobj-entire-i):Scratch<CR>PG
 augroup end
 
 augroup KawpuhShell
