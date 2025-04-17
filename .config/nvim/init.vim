@@ -192,7 +192,8 @@ noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<CR><Esc>
 vnoremap <leader>ca y:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
 nnoremap <leader>ca :%y<CR>:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
 nnoremap <leader>llm :LLM<space>
-vnoremap <leader>llm :<C-u>LLM<space>
+vnoremap <leader>llm :LLMSelection<space>
+nnoremap <leader>lll :LLMLogs<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
@@ -223,7 +224,7 @@ augroup KawpuhMarkdown
     au FileType markdown nnoremap <buffer> <C-y> "+yae
     au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
     au FileType markdown nnoremap <buffer> <C-g> :LLM -m claude -o thinking_budget 32000<CR>
-    au FileType markdown vnoremap <buffer> <C-g> :<C-u>LLM -m claude -o thinking_budget 32000<CR>
+    au FileType markdown vnoremap <buffer> <C-g> :LLMSelection -m claude -o thinking_budget 32000<CR>
     au FileType markdown nnoremap <buffer> <leader>fb y<Plug>(textobj-entire-i):Scratch<CR>PG
 augroup end
 
