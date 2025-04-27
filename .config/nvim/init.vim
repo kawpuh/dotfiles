@@ -168,8 +168,8 @@ nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <Leader>gd :call ToggleGitGutterDiff()<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
 " telescope --------------------------------------------------------------------
-nnoremap <leader>sf :Telescope find_files<CR>
-nnoremap <leader>sb :Telescope buffers<CR>
+nnoremap <leader>ft :Telescope find_files<CR>
+nnoremap <leader>bt :Telescope buffers<CR>
 nnoremap <leader>" :Telescope registers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
