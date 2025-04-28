@@ -227,6 +227,7 @@ augroup KawpuhMarkdown
     au FileType markdown nnoremap <buffer> <C-g> :LLM -m claude -o thinking_budget 32000<CR>
     au FileType markdown vnoremap <buffer> <C-g> :LLMSelection -m claude -o thinking_budget 32000<CR>
     au FileType markdown nnoremap <buffer> <leader>fb y<Plug>(textobj-entire-i):Scratch<CR>PG
+    au FileType markdown nnoremap <buffer> <localleader>gg :LLM<CR>
 augroup end
 
 augroup KawpuhShell
@@ -285,10 +286,11 @@ augroup end
 augroup KawpuhClojure
     au!
     let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
-    au FileType clojure command! CC ConjureConnect
     au FileType clojure command! -nargs=1 CS ConjureShadowSelect <args>
-    " mnemonic: ConjureKrell
     au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
+    au FileType clojure nnoremap <buffer> <localleader>ck :CK<CR>
+    au FileType clojure nnoremap <buffer> <localleader>cs :CS<space>
+    au FileType clojure nnoremap <buffer> <localleader>cc :ConjureConnect<CR>
 augroup end
 
 augroup KawpuhNix
