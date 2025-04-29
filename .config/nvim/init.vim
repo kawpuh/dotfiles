@@ -32,7 +32,7 @@ function! CwdLineCounts()
     endfor
 endfunction
 
-let g:surround_99 = "```\n\r```\n" " Use c as a codeblock delimiter with vim-surround
+let g:surround_99 = "```\r```" " Use c as a codeblock delimiter with vim-surround
 
 command! WC call CwdLineCounts()
 
@@ -148,6 +148,9 @@ function! ToggleGitGutterDiff()
 endfunction
 
 " Binds ------------------------------------------------------------------------
+nnoremap <M-j> <C-e>M
+nnoremap <M-k> <C-y>M
+
 nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>bd :confirm bw<CR>
