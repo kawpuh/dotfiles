@@ -13,7 +13,7 @@ set splitright
 set undofile
 set undodir=~/.config/nvim/undo
 set list
-set signcolumn=no
+set signcolumn=no " toggle for gitgutter
 syntax on
 filetype plugin indent on
 let mapleader=" "
@@ -32,7 +32,8 @@ function! CwdLineCounts()
     endfor
 endfunction
 
-let g:surround_99 = "```\r```" " Use c as a codeblock delimiter with vim-surround
+let g:rooter_manual_only = 1
+let g:rooter_patterns = ['.git', 'justfile', 'deps.edn', 'shadow-cljs.edn']
 
 command! WC call CwdLineCounts()
 
@@ -51,11 +52,12 @@ Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'linrongbin16/lsp-progress.nvim'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'folke/todo-comments.nvim'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
+Plug 'kylechui/nvim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
@@ -176,6 +178,8 @@ nnoremap <leader>bt :Telescope buffers<CR>
 nnoremap <leader>" :Telescope registers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
+" Explore root
+nnoremap <leader>fr :execute 'Explore ' . FindRootDirectory()<CR>
 " quickfix, loclist ------------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
