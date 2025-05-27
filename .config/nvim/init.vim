@@ -14,6 +14,7 @@ set undofile
 set undodir=~/.config/nvim/undo
 set list
 set signcolumn=no " toggle for gitgutter
+set syntax=off " use treesitter
 syntax on
 filetype plugin indent on
 let mapleader=" "

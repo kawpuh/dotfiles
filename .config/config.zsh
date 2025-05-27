@@ -23,6 +23,9 @@ qcommit() {
     echo "$message"
     git commit -m "$message"
 }
+diffdump() {
+    git diff --no-ext-diff --no-color "$@"
+}
 alias ym="llm logs -r | 2clip" # mnemonic yank-message
 alias yc="llm logs -c --xl | 2clip" # mnemonic yank-code
 alias pm="clip2 | llm" # mnemonic put-message
