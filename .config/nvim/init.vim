@@ -232,6 +232,7 @@ augroup KawpuhMarkdown
     au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
     au FileType markdown nnoremap <buffer> <localleader>fb :ScratchBranch<CR>
     au FileType markdown nnoremap <buffer> <localleader>gg :LLM -m gemini<CR>
+    au FileType markdown nnoremap <buffer> <localleader>gf :LLM -m flash<CR>
     au FileType markdown nnoremap <buffer> <localleader>gc :LLM -m claude<CR>
     au FileType markdown nnoremap <buffer> <localleader>gt :LLM -m claude -o thinking_budget<space>
     au FileType markdown nnoremap <buffer> <localleader>fa :ScratchAddName<space>

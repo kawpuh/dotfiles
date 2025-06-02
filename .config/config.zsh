@@ -1,7 +1,7 @@
 alias ask="llm -s \"Only provide essential information. Follow up questions may be asked if necessary. Don't provide superfluous detail initially\""
 commit() {
     local message confirm
-    message=$(git diff --no-ext-diff --no-color --staged | llm -m fast -s "Write a commit message. Respond with only the commit message. Keep it simple.")
+    message=$(git diff --no-ext-diff --no-color --staged | llm -m flash -s "Write a commit message. Respond with only the commit message. Keep it simple.")
     echo "$message"
     echo -n "Commit with this message? (y/n): "
     read -r confirm
@@ -13,13 +13,13 @@ commit() {
 }
 status() {
     local explanation
-    explanation=$(git diff --no-ext-diff --no-color "$@" | llm -m fast -s "Explain these git changes in a clear, concise way. Focus on what files were modified and how. Be brief.")
+    explanation=$(git diff --no-ext-diff --no-color "$@" | llm -m flash -s "Explain these git changes in a clear, concise way. Focus on what files were modified and how. Be brief.")
     git status
     echo "$explanation"
 }
 qcommit() {
     local message
-    message=$(git diff --no-ext-diff --no-color --staged | llm -m fast -s "Write a commit message. Respond with only the commit message. Keep it simple.")
+    message=$(git diff --no-ext-diff --no-color --staged | llm -m flash -s "Write a commit message. Respond with only the commit message. Keep it simple.")
     echo "$message"
     git commit -m "$message"
 }
