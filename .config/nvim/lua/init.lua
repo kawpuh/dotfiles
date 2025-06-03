@@ -13,7 +13,8 @@ require('nvim-surround').setup({
         return { { "```\n" }, { "\n```" } }
       end,
     }
-  }
+  },
+  indent_lines = false
 })
 
 require('lualine').setup({
