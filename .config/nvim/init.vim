@@ -107,46 +107,17 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
 call plug#end()
 
-lua require('pelican').setup()
-
-" Plugin config --------------------------------------------------------------
 colorscheme catppuccin-frappe
 highlight Normal guibg=none
 highlight NonText guibg=none
 
 let g:rainbow_active=1
-
-" enable vim-sexp
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
-" Snippet directory
 let g:vsnip_snippet_dir="$HOME/.config/nvim/snippets"
 
-" clojure config
 set shell=/bin/zsh
 
 lua require('init')
-
-" Variable to track if diff window is open
-let g:gitgutter_diff_win_open = 0
-
-function! ToggleGitGutterDiff()
-    if g:gitgutter_diff_win_open
-        " If diff is open, close it
-        diffoff!
-        " Find and close the diff window
-        for winnr in range(1, winnr('$'))
-            if getwinvar(winnr, '&buftype') ==# 'nofile'
-                execute winnr.'wincmd c'
-                let g:gitgutter_diff_win_open = 0
-                return
-            endif
-        endfor
-    else
-        " If diff is closed, open it
-        GitGutterDiffOrig
-        let g:gitgutter_diff_win_open = 1
-    endif
-endfunction
 
 " Binds ------------------------------------------------------------------------
 nnoremap <M-j> <C-e>M

@@ -2,9 +2,10 @@ require('kawpuh.lsp')
 require('kawpuh.treesitter')
 require('kawpuh.diffregister')
 require('kawpuh.termsend')
+require('pelican').setup()
 
-require("ibl").setup()
-require("lsp-progress").setup()
+require('ibl').setup()
+require('lsp-progress').setup()
 
 require('nvim-surround').setup({
   surrounds = {
