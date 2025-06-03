@@ -13,10 +13,4 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
   vim.lsp.enable(lsp)
-  vim.lsp.config(lsp, {
-    on_attach = lsp_on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  })
 end
