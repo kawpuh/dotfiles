@@ -11,9 +11,8 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-        # Substitute package paths in zshrc
-        zshConfigFile = pkgs.substituteAll {
-          src = ./zshrc;
+        # Substitute package paths in zshrc using replaceVars
+        zshConfigFile = pkgs.replaceVars ./zshrc {
           p10k = pkgs.zsh-powerlevel10k;
           syntax_highlighting = pkgs.zsh-syntax-highlighting;
           autosuggestions = pkgs.zsh-autosuggestions;
