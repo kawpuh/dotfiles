@@ -80,6 +80,10 @@ alias gsub="git submodule update --remote --recursive"
 alias t="tmux"
 alias view="nvim -R"
 
+up() {
+  cd $(printf "%*s" ${1:-1} | tr ' ' '/' | sed 's|/|../|g')
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
