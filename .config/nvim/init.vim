@@ -184,6 +184,7 @@ nnoremap <leader>ut :UndotreeToggle<CR>
 noremap s <Plug>(leap)
 " lsp
 noremap gr= :lua vim.lsp.buf.format({async = true})<CR>
+noremap gd :lua vim.lsp.buf.definition()<CR>
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
