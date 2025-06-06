@@ -84,6 +84,41 @@ up() {
   cd $(printf "%*s" ${1:-1} | tr ' ' '/' | sed 's|/|../|g')
 }
 
+seecopy() {
+    # Create a temporary file to store the input
+    local tmpfile=$(mktemp)
+
+    # Use tee to show input as it comes and save to temp file
+    tee "$tmpfile"
+
+    # Now prompt user (reading the saved content)
+    echo -n "Copy to clipboard? (y/N): " >&2
+    read -r response < /dev/tty
+
+    case "$response" in
+        [yY]|[yY][eE][sS])
+            if command -v pbcopy >/dev/null 2>&1; then
+                pbcopy < "$tmpfile"
+                echo "✓ Copied to clipboard" >&2
+            elif command -v xclip >/dev/null 2>&1; then
+                xclip -selection clipboard < "$tmpfile"
+                echo "✓ Copied to clipboard" >&2
+            elif command -v wl-copy >/dev/null 2>&1; then
+                wl-copy < "$tmpfile"
+                echo "✓ Copied to clipboard" >&2
+            else
+                echo "✗ No clipboard utility found" >&2
+            fi
+            ;;
+        *)
+            echo "Not copied" >&2
+            ;;
+    esac
+
+    # Clean up
+    rm "$tmpfile"
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -92,3 +127,6 @@ if [[ $IN_NIX_SHELL ]]; then
 elif [[ -f $HOME/.config/config.zsh ]]; then
     source $HOME/.config/config.zsh
 fi
+
+# Created by `pipx` on 2025-06-06 01:32:35
+export PATH="$PATH:/home/ethan/.local/bin"

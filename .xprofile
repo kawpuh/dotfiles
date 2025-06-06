@@ -5,6 +5,10 @@ if [[ $HOSTNAME == "toaster" ]]; then
 	xrandr --output DVI-D-0 --right-of DP-0
 fi
 
+if [ -f "$HOME/.Xresources" ]; then
+    xrdb -merge "$HOME/.Xresources"
+fi
+
 export PATH="$PATH:/home/ethan/bin:/home/ethan/.local/bin:/home/ethan/.emacs.d/bin:/home/ethan/.yarn/bin"
 source $HOME/.config/local.zsh
 
