@@ -259,9 +259,14 @@ augroup KawpuhHelp
     au FileType help wincmd o
 augroup end
 
-augroup KawpuhCss
+augroup KawpuhCSS
     au!
     au FileType css setlocal tabstop=2 shiftwidth=2
+augroup end
+
+augroup KawpuhHTML
+    au!
+    au FileType html setlocal tabstop=2 shiftwidth=2
 augroup end
 
 augroup KawpuhClojure
