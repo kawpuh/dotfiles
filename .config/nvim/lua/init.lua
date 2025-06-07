@@ -18,6 +18,14 @@ require('nvim-surround').setup({
   indent_lines = false
 })
 
+require("catppuccin").setup {
+    custom_highlights = function(colors)
+        return {
+            SignColumn = { bg = colors.surface0 }
+        }
+    end
+}
+
 require('lualine').setup({
   options = {
     theme = 'catppuccin-frappe',

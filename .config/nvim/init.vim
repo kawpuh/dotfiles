@@ -107,10 +107,6 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
 call plug#end()
 
-colorscheme catppuccin-frappe
-highlight Normal guibg=none
-highlight NonText guibg=none
-
 let g:rainbow_active=1
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
 let g:vsnip_snippet_dir="$HOME/.config/nvim/snippets"
@@ -118,6 +114,10 @@ let g:vsnip_snippet_dir="$HOME/.config/nvim/snippets"
 set shell=/bin/zsh
 
 lua require('init')
+
+colorscheme catppuccin-frappe
+highlight Normal guibg=none
+highlight NonText guibg=none
 
 " Binds ------------------------------------------------------------------------
 nnoremap <M-j> <C-e>M
@@ -185,6 +185,18 @@ noremap s <Plug>(leap)
 " lsp
 noremap gr= :lua vim.lsp.buf.format({async = true})<CR>
 noremap gd :lua vim.lsp.buf.definition()<CR>
+noremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+inoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" signcolumn
+function! ToggleSignColumn()
+    if &signcolumn ==# 'no'
+        set signcolumn=yes
+    else
+        set signcolumn=no
+    endif
+endfunction
+nnoremap <leader>sc :call ToggleSignColumn()<CR>
+
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
