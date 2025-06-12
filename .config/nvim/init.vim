@@ -167,8 +167,6 @@ nnoremap <leader>by gg"+yG<C-o>
 noremap <leader>cn :YankCodeBlock<CR>:Scratch<CR>pGo<CR><Esc>
 noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<CR><Esc>
 noremap <leader>cs :YankCodeBlock<CR>:OpenLatestScratch<CR>ggO<CR><ESC>ggP
-vnoremap <leader>ca y:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
-nnoremap <leader>ca :%y<CR>:OpenLatestScratch<CR>G:call search('^\s*```\s*$', 'b')<CR>P
 nnoremap <leader>llm :LLM<space>
 nnoremap <leader>lll :LLMLogs<CR>
 " Snippet ----------------------------------------------------------------------
