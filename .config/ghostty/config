@@ -2,9 +2,11 @@ background-opacity = 0.98
 window-decoration = false
 theme = catppuccin-frappe
 font-size = 12
-font-family = "NotoSansM Nerd Font Mono Regular"
+# font-family = "NotoSansM Nerd Font Mono Regular"
+font-family = "Monaspace Argon Regular"
 confirm-close-surface = false
 shell-integration = zsh
 keybind = ctrl+[=text:\x1b
 keybind = ctrl+shift+j=scroll_page_lines:1
 keybind = ctrl+shift+k=scroll_page_lines:-1
+keybind = shift+enter=text:\n
