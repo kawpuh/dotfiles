@@ -13,7 +13,7 @@ set splitright
 set undofile
 set undodir=~/.config/nvim/undo
 set list
-set signcolumn=no " toggle for gitgutter
+set signcolumn=no
 set syntax=off " use treesitter
 syntax on
 filetype plugin indent on
@@ -52,7 +52,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'linrongbin16/lsp-progress.nvim'
-Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'airblade/vim-rooter'
 Plug 'lambdalisue/suda.vim'
 Plug 'junegunn/vim-easy-align'
@@ -140,11 +140,10 @@ nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
-nnoremap <Leader>gd :call ToggleGitGutterDiff()<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
 " telescope --------------------------------------------------------------------
 nnoremap <leader>ft :Telescope find_files<CR>
-nnoremap <leader>bt :Telescope buffers<CR>
+nnoremap <leader>bt <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR>
 nnoremap <leader>" :Telescope registers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
@@ -193,6 +192,10 @@ function! ToggleSignColumn()
     endif
 endfunction
 nnoremap <leader>sc :call ToggleSignColumn()<CR>
+" git signs
+nnoremap ]c <cmd>Gitsigns next_hunk<CR>
+nnoremap [c <cmd>Gitsigns prev_hunk<CR>
+nnoremap <leader>gd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
 
 
 " Auto-create parent directories (except for URIs "://").
