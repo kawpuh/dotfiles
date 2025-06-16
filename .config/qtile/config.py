@@ -116,6 +116,7 @@ keys = [
   # Switch between windows
   Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes"), desc="mnemonic 'agenda'"),
   Key([MOD], "b", lazy.spawn("chromium")),
+  Key([MOD], "d", lazy.window.move_down(force=True)),
   Key([MOD], "e", lazy.spawn("ghostty -e nvim -c ':Scratch'")),
   Key([MOD], "f", lazy.next_layout()),
   Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),

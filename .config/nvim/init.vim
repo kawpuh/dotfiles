@@ -128,7 +128,7 @@ nnoremap <leader>fs :w<CR>
 nnoremap <leader>bd :confirm bw<CR>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
-nnoremap <leader><tab> <C-^>
+nnoremap <leader><tab> <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR><Esc>
 
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
@@ -142,8 +142,8 @@ nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
 " telescope --------------------------------------------------------------------
-nnoremap <leader>ft :Telescope find_files<CR>
-nnoremap <leader>bt <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR>
+nnoremap <leader>f/ :Telescope find_files<CR>
+" nnoremap <leader>bt <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR>
 nnoremap <leader>" :Telescope registers<CR>
 nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>

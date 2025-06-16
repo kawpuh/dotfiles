@@ -6,6 +6,7 @@ require('pelican').setup()
 
 require('ibl').setup()
 require('lsp-progress').setup()
+require('treesitter-context').setup({enable = true})
 
 require('nvim-surround').setup({
   surrounds = {
