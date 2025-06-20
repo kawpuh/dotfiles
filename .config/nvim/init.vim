@@ -122,6 +122,8 @@ highlight NonText guibg=none
 " Binds ------------------------------------------------------------------------
 nnoremap <M-j> <C-e>M
 nnoremap <M-k> <C-y>M
+noremap <C-f> <C-f>M
+noremap <C-b> <C-b>M
 
 nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>fs :w<CR>
