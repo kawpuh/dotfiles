@@ -1,6 +1,6 @@
 set mouse=a
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set inccommand=nosplit
 set ignorecase
 set smartcase
@@ -26,11 +26,11 @@ let g:netrw_keepdir=0 " part of our use for netrw is to cwd
 let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
 
 function! CwdLineCounts()
-    let files = split(glob('*'), '\n')
-    for file in files
-        let lines = system('wc -l ' . shellescape(file))
-        echo file . ': ' . split(lines)[0]
-    endfor
+  let files = split(glob('*'), '\n')
+  for file in files
+    let lines = system('wc -l ' . shellescape(file))
+    echo file . ': ' . split(lines)[0]
+  endfor
 endfunction
 
 let g:rooter_manual_only = 1
@@ -187,11 +187,11 @@ noremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 inoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 " signcolumn
 function! ToggleSignColumn()
-    if &signcolumn ==# 'no'
-        set signcolumn=yes
-    else
-        set signcolumn=no
-    endif
+  if &signcolumn ==# 'no'
+    set signcolumn=yes
+  else
+    set signcolumn=no
+  endif
 endfunction
 nnoremap <leader>sc :call ToggleSignColumn()<CR>
 " git signs
@@ -204,104 +204,104 @@ nnoremap <leader>gd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
 
 augroup KawpuhNetrw
-    au!
-    au FileType netrw nmap <buffer> H u
-    au FileType netrw nmap <buffer> h -
-    au FileType netrw nmap <buffer> l <CR>
-    au FileType netrw nnoremap <buffer> s <Plug>(leap)
+  au!
+  au FileType netrw nmap <buffer> H u
+  au FileType netrw nmap <buffer> h -
+  au FileType netrw nmap <buffer> l <CR>
+  au FileType netrw nnoremap <buffer> s <Plug>(leap)
 augroup end
 
 augroup KawpuhMarkdown
-    au!
-    au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
-    au FileType markdown setlocal spell
-    au FileType markdown nnoremap <buffer> <C-m> :SelectCodeBlock<CR>"+y
-    au FileType markdown nnoremap <buffer> <C-y> "+yae
-    au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
-    au FileType markdown nnoremap <buffer> <localleader>fb :ScratchBranch<CR>
-    au FileType markdown nnoremap <buffer> <localleader>gg :LLM -m gemini<CR>
-    au FileType markdown nnoremap <buffer> <localleader>gf :LLM -m flash<CR>
-    au FileType markdown nnoremap <buffer> <localleader>gc :LLM -m claude<CR>
-    au FileType markdown nnoremap <buffer> <localleader>gt :LLM -m claude -o thinking_budget<space>
-    au FileType markdown nnoremap <buffer> <localleader>fa :ScratchAddName<space>
+  au!
+  au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
+  au FileType markdown setlocal spell
+  au FileType markdown nnoremap <buffer> <C-m> :SelectCodeBlock<CR>"+y
+  au FileType markdown nnoremap <buffer> <C-y> "+yae
+  au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
+  au FileType markdown nnoremap <buffer> <localleader>fb :ScratchBranch<CR>
+  au FileType markdown nnoremap <buffer> <localleader>gg :LLM -m gemini<CR>
+  au FileType markdown nnoremap <buffer> <localleader>gf :LLM -m flash<CR>
+  au FileType markdown nnoremap <buffer> <localleader>gc :LLM -m claude<CR>
+  au FileType markdown nnoremap <buffer> <localleader>gt :LLM -m claude -o thinking_budget<space>
+  au FileType markdown nnoremap <buffer> <localleader>fa :ScratchAddName<space>
 augroup end
 
 augroup KawpuhShell
-    au!
-    au FileType sh nnoremap <buffer> <localleader>r :wr<CR>:!./%<CR>
+  au!
+  au FileType sh nnoremap <buffer> <localleader>r :wr<CR>:!./%<CR>
 augroup end
 
 augroup KawpuhVimscript
-    au!
-    au FileType vim nnoremap <buffer> <localleader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
+  au!
+  au FileType vim nnoremap <buffer> <localleader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
 augroup end
 
 augroup KawpuhC++
-    au!
-    au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
-    au FileType cpp nnoremap <buffer> <localleader>r :wr<CR>:!g++ % && ./a.exe<CR>
+  au!
+  au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
+  au FileType cpp nnoremap <buffer> <localleader>r :wr<CR>:!g++ % && ./a.exe<CR>
 augroup end
 
 augroup KawpuhPerl
-    au!
-    au FileType perl nnoremap <buffer> <localleader>r :wr<CR>:!perl %<CR>
+  au!
+  au FileType perl nnoremap <buffer> <localleader>r :wr<CR>:!perl %<CR>
 augroup end
 
 augroup KawpuhGolang
-    au!
-    au FileType go nnoremap <buffer> <localleader>r :wr<CR>:!go run %<CR>
-    au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
-    au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
+  au!
+  au FileType go nnoremap <buffer> <localleader>r :wr<CR>:!go run %<CR>
+  au FileType go nnoremap <buffer> <localleader>b :!go build %<CR>
+  au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
 augroup end
 
 augroup KawpuhPython
-    au!
-    au FileType python nnoremap <buffer> <localleader>r :wr<CR>:!python3 %<CR>
-    au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
-    au FileType python setlocal tabstop=2 shiftwidth=2
+  au!
+  au FileType python nnoremap <buffer> <localleader>r :wr<CR>:!python3 %<CR>
+  au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
+  " au FileType python setlocal tabstop=2 shiftwidth=2
 augroup end
 
 augroup KawpuhRust
-    au!
-    au FileType rust nnoremap <buffer> <localleader>r :wr<CR>:Cargo run<CR>
-    au FileType rust nnoremap <buffer> <localleader>b :Cargo build<CR>
-    au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
-    au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>
+  au!
+  au FileType rust nnoremap <buffer> <localleader>r :wr<CR>:Cargo run<CR>
+  au FileType rust nnoremap <buffer> <localleader>b :Cargo build<CR>
+  au FileType rust nnoremap <buffer> <localleader>f :RustFmt<CR>
+  au FileType rust nnoremap <buffer> <localleader>c :Cargo check<CR>
 augroup end
 
 augroup KawpuhHelp
-    au!
-    au FileType help wincmd o
+  au!
+  au FileType help wincmd o
 augroup end
 
 augroup KawpuhCSS
-    au!
-    au FileType css setlocal tabstop=2 shiftwidth=2
+  au!
+  " au FileType css setlocal tabstop=2 shiftwidth=2
 augroup end
 
 augroup KawpuhHTML
-    au!
-    au FileType html setlocal tabstop=2 shiftwidth=2
+  au!
+  " au FileType html setlocal tabstop=2 shiftwidth=2
 augroup end
 
 augroup KawpuhClojure
-    au!
-    let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
-    au FileType clojure command! -nargs=1 CS ConjureShadowSelect <args>
-    au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
-    au FileType clojure nnoremap <buffer> <localleader>ck :CK<CR>
-    au FileType clojure nnoremap <buffer> <localleader>cs :CS<space>
-    au FileType clojure nnoremap <buffer> <localleader>cc :ConjureConnect<CR>
+  au!
+  let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
+  au FileType clojure command! -nargs=1 CS ConjureShadowSelect <args>
+  au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
+  au FileType clojure nnoremap <buffer> <localleader>ck :CK<CR>
+  au FileType clojure nnoremap <buffer> <localleader>cs :CS<space>
+  au FileType clojure nnoremap <buffer> <localleader>cc :ConjureConnect<CR>
 augroup end
 
 augroup KawpuhNix
-    au!
-    au FileType nix setlocal tabstop=2 shiftwidth=2
+  au!
+  au FileType nix setlocal tabstop=2 shiftwidth=2
 augroup end
 
 augroup KawpuhLua
-    au!
-    au FileType lua setlocal tabstop=2 shiftwidth=2
+  au!
+  au FileType lua setlocal tabstop=2 shiftwidth=2
 augroup end
 
 if argc() == 0 && index(v:argv, '-c') == -1

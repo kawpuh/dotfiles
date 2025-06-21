@@ -1,11 +1,10 @@
 URxvt.scrollBar: false
 URxvt.depth: 32
-URxvt.font: xft:Noto Mono:size=13
-Xft.dpi: 96
+Xft.dpi: 192
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintslight
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 Xcursor.theme: catppuccin-frappe-dark-cursors
-Xcursor.size: 24
+Xcursor.size: 48
