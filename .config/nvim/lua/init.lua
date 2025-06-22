@@ -12,6 +12,11 @@ require('nvim-surround').setup({
   surrounds = {
     ["c"] = {
       add = function()
+        return { { "`" }, { "`" } }
+      end,
+    },
+    ["C"] = {
+      add = function()
         return { { "```\n" }, { "\n```" } }
       end,
     }
