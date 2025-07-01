@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Options for rofi menu
+options="Cancel\nLog out\nLock\nSuspend\nReboot\nPower off"
+
+# Show rofi menu and get user selection
+chosen=$(echo -e "$options" | rofi -dmenu -i -p "Exit:" -theme-str 'window {width: 300px;}')
+
+# Execute action based on selection
+case $chosen in
+    "Cancel")
+        exit 0
+        ;;
+    "Log out")
+        i3-msg exit &
+        qtile shell -c 'shutdown()' &
+        ;;
+    "Lock")
+        i3lock-fancy -f roboto &
+        ;;
+    "Suspend")
+        systemctl suspend &
+        i3lock-fancy -f roboto &
+        ;;
+    "Reboot")
+        systemctl reboot
+        ;;
+    "Power off")
+        systemctl poweroff
+        ;;
+    *)
+        exit 0
+        ;;
+esac
