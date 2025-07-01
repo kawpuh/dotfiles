@@ -4,7 +4,7 @@
 options="Cancel\nLog out\nLock\nSuspend\nReboot\nPower off"
 
 # Show rofi menu and get user selection
-chosen=$(echo -e "$options" | rofi -dmenu -i -p "Exit:" -theme-str 'window {width: 300px;}')
+chosen=$(echo -e "$options" | rofi -dmenu -i -p "Exit:")
 
 # Execute action based on selection
 case $chosen in
