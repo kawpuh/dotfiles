@@ -1,12 +1,12 @@
 background-opacity = 0.98
 window-decoration = false
-theme = catppuccin-frappe
+# theme = catppuccin-frappe
+theme = catppuccin-latte
 font-size = 12
 # font-family = "Monaspace Argon"
-# font-family = "Monaspace Neon"
+font-family = "Monaspace Neon"
 # font-family = "Monaspace Xenon"
-# font-family = "Monaspace Radon"
-font-family = "Monaspace Krypton"
+# font-family = "Monaspace Krypton"
 confirm-close-surface = false
 shell-integration = zsh
 keybind = ctrl+[=text:\x1b

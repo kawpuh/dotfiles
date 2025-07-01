@@ -25,16 +25,21 @@ require('nvim-surround').setup({
 })
 
 require("catppuccin").setup {
-    custom_highlights = function(colors)
-        return {
-            SignColumn = { bg = colors.surface0 }
-        }
-    end
+  custom_highlights = function(colors)
+    return {
+      SignColumn = { bg = colors.surface0 }
+    }
+  end,
+  background = {
+    dark = "frappe",
+  }
+
 }
+
 
 require('lualine').setup({
   options = {
-    theme = 'catppuccin-frappe',
+    theme = "catppuccin"
   },
   sections = {
     lualine_b = {
