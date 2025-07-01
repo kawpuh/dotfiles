@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# GNOME Dark Mode Controller
+# Usage: ./darkmode.sh [light|dark|default|toggle|status]
+
+DCONF_KEY="/org/gnome/desktop/interface/color-scheme"
+
+# Function to display usage
+show_usage() {
+    echo "Usage: $0 [light|dark|default|toggle|status|help]"
+    echo ""
+    echo "Commands:"
+    echo "  light    - Switch to light mode"
+    echo "  dark     - Switch to dark mode"
+    echo "  default  - Use system default"
+    echo "  toggle   - Toggle between light and dark"
+    echo "  status   - Show current setting"
+    echo "  help     - Show this help message"
+}
+
+# Function to get current color scheme
+get_current_scheme() {
+    dconf read $DCONF_KEY 2>/dev/null | tr -d "'"
+}
+
+# Function to set color scheme
+set_scheme() {
+    local scheme="$1"
+    dconf write $DCONF_KEY "'$scheme'"
+    echo "Color scheme set to: $scheme"
+}
+
+# Function to toggle between light and dark
+toggle_scheme() {
+    local current=$(get_current_scheme)
+    case "$current" in
+        "prefer-light")
+            set_scheme "prefer-dark"
+            ;;
+        "prefer-dark")
+            set_scheme "prefer-light"
+            ;;
+        "default"|"")
+            set_scheme "prefer-dark"
+            ;;
+        *)
+            echo "Unknown current scheme: $current"
+            echo "Setting to dark mode..."
+            set_scheme "prefer-dark"
+            ;;
+    esac
+}
+
+# Function to show current status
+show_status() {
+    local current=$(get_current_scheme)
+    case "$current" in
+        "prefer-light")
+            echo "Current mode: Light"
+            ;;
+        "prefer-dark")
+            echo "Current mode: Dark"
+            ;;
+        "default"|"")
+            echo "Current mode: Default (system preference)"
+            ;;
+        *)
+            echo "Current mode: Unknown ($current)"
+            ;;
+    esac
+}
+
+# Main script logic
+case "$1" in
+    "light")
+        set_scheme "prefer-light"
+        ;;
+    "dark")
+        set_scheme "prefer-dark"
+        ;;
+    "default")
+        set_scheme "default"
+        ;;
+    "toggle")
+        toggle_scheme
+        ;;
+    "status")
+        show_status
+        ;;
+    "help"|"-h"|"--help")
+        show_usage
+        ;;
+    "")
+        echo "No argument provided."
+        show_usage
+        exit 1
+        ;;
+    *)
+        echo "Invalid argument: $1"
+        show_usage
+        exit 1
+        ;;
+esac
