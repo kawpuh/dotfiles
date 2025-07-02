@@ -1,2 +1,22 @@
 #!/bin/bash
-(cd $(xcwd); ghostty)
+
+fullscreen=false
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -f|--fullscreen)
+            fullscreen=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+if [ "$fullscreen" = true ]; then
+    (cd $(xcwd); ghostty --fullscreen)
+else
+    (cd $(xcwd); ghostty)
+fi
