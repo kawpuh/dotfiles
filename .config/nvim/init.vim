@@ -116,8 +116,6 @@ set shell=/bin/zsh
 lua require('init')
 
 colorscheme catppuccin
-" highlight Normal guibg=none
-" highlight NonText guibg=none
 
 " Binds ------------------------------------------------------------------------
 nnoremap <M-j> <C-e>M
