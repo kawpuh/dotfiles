@@ -1,0 +1,17 @@
+#!/usr/bin/env bb
+
+(require '[clojure.pprint :as pprint]
+         '[clojure.edn :as edn])
+
+(defn default-data-reader [tag value]
+  (tagged-literal tag value))
+
+(let [input (slurp *in*)]
+  (when (not-empty (.trim input))
+    (try
+      (let [data (edn/read-string {:default default-data-reader} input)]
+        (pprint/pprint data))
+      (catch Exception e
+        (binding [*out* *err*]
+          (println "Error parsing EDN:" (.getMessage e)))
+        (System/exit 1)))))
