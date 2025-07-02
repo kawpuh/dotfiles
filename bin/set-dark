@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # XDG Dark Mode Controller
-# Usage: ./darkmode.sh [light|dark|default|toggle|status]
+# Usage: ./{scriptname} [light|dark|default|toggle|status]
 
 DCONF_KEY="/org/gnome/desktop/interface/color-scheme"
 
