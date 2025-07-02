@@ -33,6 +33,14 @@ from libqtile.utils import guess_terminal
 
 from libqtile.log_utils import logger
 
+colors = {
+    "highlight": "#df8e1d",
+    "text": "#c6d0f5",
+    "overlay": "#838ba7",
+    "bg": "#303446",
+    "bgdark": "#232634",
+}
+
 MOD = "mod4"
 TERM = guess_terminal("ghostty")
 
@@ -276,8 +284,8 @@ layouts = [
   layout.MonadTall(
     auto_maximize=True,
     min_secondary_size=200,
-    border_focus='#d5c4a1',
-    border_normal='#3c3836',
+    border_focus=colors["highlight"],
+    border_normal=colors["overlay"],
     margin=4,
     border_width=2 if os.uname()[1] != "campstove" else 4,
     border_on_single=True,
@@ -286,22 +294,22 @@ layouts = [
 ]
 
 widget_defaults = dict(
-  font='Noto Sans',
+  font='Monaspace Argon',
   fontsize=12 if os.uname()[1] != "campstove" else 28,
   padding=4,
-  background="#282828",
-  foreground="#ebdbb2",
+  background=colors["bg"],
+  foreground=colors["text"],
 )
 
 extension_defaults = widget_defaults.copy()
 
 common_bar_prefix = [
   widget.CurrentLayoutIcon(),
-  widget.GroupBox(active="ebdbb2",
+  widget.GroupBox(active=colors["text"],
                   disable_drag=True,
                   highlight_method="line",
-                  this_current_screen_border='928374',
-                  this_screen_border='928374',
+                  this_current_screen_border=colors["overlay"],
+                  this_screen_border=colors["overlay"],
                   other_current_screen_border='504945',
                   other_screen_border='504945'),
   widget.Sep(padding=12, size_percent=80, foreground="504945"),
