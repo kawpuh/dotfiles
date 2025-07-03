@@ -135,7 +135,7 @@ keys = [
       "m",
       lazy.function(goto_next_hidden_group),
       desc="Mnemonic masked"),
-  Key([MOD], "n", lazy.spawn("foliate")),
+  Key([MOD], "n", lazy.spawn("sitelist")),
   Key([MOD], "o", lazy.next_screen()),
   Key([MOD], "p", lazy.spawn("flameshot gui")),
   Key([MOD], "r", lazy.spawn("rofi -show run")),
