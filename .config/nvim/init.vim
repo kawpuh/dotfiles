@@ -222,6 +222,7 @@ augroup KawpuhMarkdown
   au FileType markdown nnoremap <buffer> <localleader>gc :LLM -m claude<CR>
   au FileType markdown nnoremap <buffer> <localleader>gt :LLM -m claude -o thinking_budget<space>
   au FileType markdown nnoremap <buffer> <localleader>fa :ScratchAddName<space>
+  au FileType markdown nnoremap <buffer> <localleader>cc :LLMCommand claude -p<CR>
 augroup end
 
 augroup KawpuhShell

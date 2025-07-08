@@ -120,6 +120,19 @@ def toggle_bar_and_fullscreen(qtile):
   else:
     bar.show(True)
 
+layouts = [
+  layout.MonadTall(
+    auto_maximize=True,
+    min_secondary_size=200,
+    border_focus=colors["highlight"],
+    border_normal=colors["overlay"],
+    margin=4,
+    border_width=2 if os.uname()[1] != "campstove" else 4,
+    border_on_single=True,
+  ),
+  layout.Max(),
+]
+
 keys = [
   # Switch between windows
   Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes"), desc="mnemonic 'agenda'"),
@@ -279,19 +292,6 @@ for i in groups:
         lazy.window.togroup(i.name),
         desc="move focused window to group  {}".format(i.name)),
   ])
-
-layouts = [
-  layout.MonadTall(
-    auto_maximize=True,
-    min_secondary_size=200,
-    border_focus=colors["highlight"],
-    border_normal=colors["overlay"],
-    margin=4,
-    border_width=2 if os.uname()[1] != "campstove" else 4,
-    border_on_single=True,
-  ),
-  layout.Max(),
-]
 
 widget_defaults = dict(
   font='Monaspace Argon',
