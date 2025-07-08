@@ -120,6 +120,14 @@ def toggle_bar_and_fullscreen(qtile):
   else:
     bar.show(True)
 
+def shuffle_to_second(qtile):
+  windows = qtile.current_group.windows
+  start_idx = qtile.current_layout.info()['current']
+  if start_idx > 1:
+    for _ in range(start_idx - 1):
+      qtile.current_layout.shuffle_up()
+
+
 layouts = [
   layout.MonadTall(
     auto_maximize=True,
@@ -163,6 +171,7 @@ keys = [
   Key([MOD], "Tab", lazy.screen.toggle_group()),
   Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim .config/qtile/config.py")),
   Key([MOD, "Shift"], "f", lazy.function(toggle_bar_and_fullscreen)),
+  Key([MOD, "Shift"], "i", lazy.function(shuffle_to_second)),
   Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
   Key([MOD, "Shift"], "j", lazy.layout.shuffle_down()),
   Key([MOD, "Shift"], "k", lazy.layout.shuffle_up()),

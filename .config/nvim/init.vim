@@ -257,7 +257,7 @@ augroup KawpuhPython
   au!
   au FileType python nnoremap <buffer> <localleader>r :wr<CR>:!python3 %<CR>
   au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
-  " au FileType python setlocal tabstop=2 shiftwidth=2
+  au FileType python setlocal tabstop=2 shiftwidth=2
 augroup end
 
 augroup KawpuhRust
