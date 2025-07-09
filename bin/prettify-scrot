@@ -1,0 +1,147 @@
+#!/bin/bash
+
+# prettify-scrot - Process clipboard image with padding and gradient background
+# Usage: ./prettify-scrot [output_filename]
+
+set -e
+
+# Default output filename
+OUTPUT="${1:-prettified-screenshot.png}"
+
+# Temporary files
+TEMP_DIR=$(mktemp -d)
+CLIPBOARD_IMG="$TEMP_DIR/clipboard.png"
+PROCESSED_IMG="$TEMP_DIR/processed.png"
+
+# Cleanup function
+cleanup() {
+    rm -rf "$TEMP_DIR"
+}
+trap cleanup EXIT
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check for required dependencies
+if ! command_exists xclip; then
+    echo "Error: xclip is required but not installed." >&2
+    exit 1
+fi
+
+if ! command_exists convert; then
+    echo "Error: ImageMagick (convert) is required but not installed." >&2
+    exit 1
+fi
+
+# Get image from clipboard
+echo "Reading image from clipboard..."
+if ! xclip -selection clipboard -t image/png -o > "$CLIPBOARD_IMG" 2>/dev/null; then
+    echo "Error: No image found in clipboard or failed to read clipboard." >&2
+    exit 1
+fi
+
+# Verify we got a valid image
+if ! identify "$CLIPBOARD_IMG" >/dev/null 2>&1; then
+    echo "Error: Invalid image data in clipboard." >&2
+    exit 1
+fi
+
+# Get original dimensions
+ORIGINAL_INFO=$(identify -format "%w %h" "$CLIPBOARD_IMG")
+ORIGINAL_WIDTH=$(echo $ORIGINAL_INFO | cut -d' ' -f1)
+ORIGINAL_HEIGHT=$(echo $ORIGINAL_INFO | cut -d' ' -f2)
+
+echo "Original dimensions: ${ORIGINAL_WIDTH}x${ORIGINAL_HEIGHT}"
+
+# Calculate target dimensions
+# Target aspect ratio range: 1.91:1 to 4:5 (0.8:1)
+# Min dimensions: 1080x628
+
+MIN_WIDTH=1080
+MIN_HEIGHT=628
+MIN_ASPECT_RATIO=0.8   # 4:5
+MAX_ASPECT_RATIO=1.91  # 1.91:1
+
+CURRENT_ASPECT_RATIO=$(echo "scale=4; $ORIGINAL_WIDTH / $ORIGINAL_HEIGHT" | bc -l)
+
+echo "Current aspect ratio: $CURRENT_ASPECT_RATIO"
+
+# Determine target dimensions
+if (( $(echo "$CURRENT_ASPECT_RATIO < $MIN_ASPECT_RATIO" | bc -l) )); then
+    # Too tall, use min aspect ratio (4:5)
+    TARGET_ASPECT_RATIO=$MIN_ASPECT_RATIO
+    echo "Image too tall, using aspect ratio 4:5"
+elif (( $(echo "$CURRENT_ASPECT_RATIO > $MAX_ASPECT_RATIO" | bc -l) )); then
+    # Too wide, use max aspect ratio (1.91:1)
+    TARGET_ASPECT_RATIO=$MAX_ASPECT_RATIO
+    echo "Image too wide, using aspect ratio 1.91:1"
+else
+    # Within range, keep current aspect ratio
+    TARGET_ASPECT_RATIO=$CURRENT_ASPECT_RATIO
+    echo "Aspect ratio within range, keeping current ratio"
+fi
+
+# Calculate final dimensions ensuring minimums are met
+if (( $(echo "$TARGET_ASPECT_RATIO >= 1" | bc -l) )); then
+    # Landscape or square
+    FINAL_WIDTH=$(echo "scale=0; if($ORIGINAL_WIDTH > $MIN_WIDTH) $ORIGINAL_WIDTH else $MIN_WIDTH" | bc -l)
+    FINAL_HEIGHT=$(echo "scale=0; $FINAL_WIDTH / $TARGET_ASPECT_RATIO" | bc -l)
+
+    # Ensure minimum height
+    if (( $(echo "$FINAL_HEIGHT < $MIN_HEIGHT" | bc -l) )); then
+        FINAL_HEIGHT=$MIN_HEIGHT
+        FINAL_WIDTH=$(echo "scale=0; $FINAL_HEIGHT * $TARGET_ASPECT_RATIO" | bc -l)
+    fi
+else
+    # Portrait
+    FINAL_HEIGHT=$(echo "scale=0; if($ORIGINAL_HEIGHT > $MIN_HEIGHT) $ORIGINAL_HEIGHT else $MIN_HEIGHT" | bc -l)
+    FINAL_WIDTH=$(echo "scale=0; $FINAL_HEIGHT * $TARGET_ASPECT_RATIO" | bc -l)
+
+    # Ensure minimum width
+    if (( $(echo "$FINAL_WIDTH < $MIN_WIDTH" | bc -l) )); then
+        FINAL_WIDTH=$MIN_WIDTH
+        FINAL_HEIGHT=$(echo "scale=0; $FINAL_WIDTH / $TARGET_ASPECT_RATIO" | bc -l)
+    fi
+fi
+
+# Convert to integers
+FINAL_WIDTH=$(printf "%.0f" "$FINAL_WIDTH")
+FINAL_HEIGHT=$(printf "%.0f" "$FINAL_HEIGHT")
+
+echo "Target dimensions: ${FINAL_WIDTH}x${FINAL_HEIGHT}"
+
+# Create gradient background
+echo "Creating gradient background..."
+convert -size "${FINAL_WIDTH}x${FINAL_HEIGHT}" \
+    gradient:'#667eea-#764ba2' \
+    "$TEMP_DIR/gradient.png"
+
+# Calculate position to center the original image
+X_OFFSET=$(( (FINAL_WIDTH - ORIGINAL_WIDTH) / 2 ))
+Y_OFFSET=$(( (FINAL_HEIGHT - ORIGINAL_HEIGHT) / 2 ))
+
+echo "Centering image at offset: +${X_OFFSET}+${Y_OFFSET}"
+
+# Add subtle shadow to the original image
+echo "Adding shadow effect..."
+convert "$CLIPBOARD_IMG" \
+    \( +clone -background black -shadow 60x8+8+8 \) \
+    +swap -background none -layers merge +repage \
+    "$TEMP_DIR/shadowed.png"
+
+# Composite the shadowed image onto the gradient background
+echo "Compositing final image..."
+convert "$TEMP_DIR/gradient.png" \
+    "$TEMP_DIR/shadowed.png" \
+    -gravity center \
+    -composite \
+    "$PROCESSED_IMG"
+
+# Copy final image to output location
+cp "$PROCESSED_IMG" "$OUTPUT"
+
+echo "✓ Prettified screenshot saved as: $OUTPUT"
+echo "  Final dimensions: ${FINAL_WIDTH}x${FINAL_HEIGHT}"
+echo "  Final aspect ratio: $(echo "scale=2; $FINAL_WIDTH / $FINAL_HEIGHT" | bc -l):1"
