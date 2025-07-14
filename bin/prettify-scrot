@@ -62,6 +62,7 @@ echo "Original dimensions: ${ORIGINAL_WIDTH}x${ORIGINAL_HEIGHT}"
 MIN_WIDTH=1080
 MIN_HEIGHT=628
 MIN_ASPECT_RATIO=0.8   # 4:5
+MIN_MARGIN=16
 MAX_ASPECT_RATIO=1.91  # 1.91:1
 
 CURRENT_ASPECT_RATIO=$(echo "scale=4; $ORIGINAL_WIDTH / $ORIGINAL_HEIGHT" | bc -l)
@@ -106,6 +107,18 @@ else
     fi
 fi
 
+# Ensure minimum margin around the image
+MIN_CANVAS_WIDTH=$((ORIGINAL_WIDTH + 2 * MIN_MARGIN))
+MIN_CANVAS_HEIGHT=$((ORIGINAL_HEIGHT + 2 * MIN_MARGIN))
+
+if (( FINAL_WIDTH < MIN_CANVAS_WIDTH )); then
+    FINAL_WIDTH=$MIN_CANVAS_WIDTH
+fi
+
+if (( FINAL_HEIGHT < MIN_CANVAS_HEIGHT )); then
+    FINAL_HEIGHT=$MIN_CANVAS_HEIGHT
+fi
+
 # Convert to integers
 FINAL_WIDTH=$(printf "%.0f" "$FINAL_WIDTH")
 FINAL_HEIGHT=$(printf "%.0f" "$FINAL_HEIGHT")
@@ -127,7 +140,7 @@ echo "Centering image at offset: +${X_OFFSET}+${Y_OFFSET}"
 # Add subtle shadow to the original image
 echo "Adding shadow effect..."
 convert "$CLIPBOARD_IMG" \
-    \( +clone -background black -shadow 60x8+8+8 \) \
+    \( +clone -background black -shadow 60x8+0+8 \) \
     +swap -background none -layers merge +repage \
     "$TEMP_DIR/shadowed.png"
 
