@@ -62,11 +62,12 @@ Plug 'kylechui/nvim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-sleuth'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter-context'
-Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'MunifTanjim/nui.nvim'
 " text object
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire' " (ae) think a entire

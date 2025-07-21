@@ -1,14 +1,6 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Enable colors and change prompt:
 autoload -U colors && colors
 autoload -U promptinit; promptinit
-[[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]] && source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 setopt autocd
 
 # History in cache directory:
@@ -119,14 +111,13 @@ seecopy() {
     rm "$tmpfile"
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 if [[ $IN_NIX_SHELL ]]; then
     source $HOME/.config/nix.zsh
 elif [[ -f $HOME/.config/config.zsh ]]; then
     source $HOME/.config/config.zsh
 fi
+
+eval "$(starship init zsh)"
 
 # Created by `pipx` on 2025-06-06 01:32:35
 export PATH="$PATH:/home/ethan/.local/bin"
