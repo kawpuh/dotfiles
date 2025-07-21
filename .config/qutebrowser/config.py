@@ -7,6 +7,8 @@ if os.path.exists(config.configdir / "theme.py"):
 
 config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
+config.bind('<Ctrl-V>', 'mode-leave', mode='passthrough')
+
 
 c.tabs.last_close = "close"
 c.content.javascript.clipboard = "access"
