@@ -65,4 +65,8 @@ c.aliases = {"q": "close",
              "wqa": "quit --save",
              "mpv": "spawn --detach mpv {url}"}
 
+content.javascript.log_message.excludes = \
+{"userscript:_qute_stylesheet": ["*Refused to apply inline style because it violates the following Content Security Policy directive: *"],
+ "userscript:_qute_js": ["Uncaught TypeError: Cannot read properties of undefined (reading 'length')"]}
+
 config.load_autoconfig(False)

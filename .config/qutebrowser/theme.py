@@ -306,7 +306,7 @@ def setup(c, flavour, samecolorrows = False):
     ## Background color of unselected even tabs.
     c.colors.tabs.even.bg = palette["surface2"]
     ## Background color of unselected odd tabs.
-    c.colors.tabs.odd.bg = palette["surface1"]
+    c.colors.tabs.odd.bg = palette["surface2"]
 
     ## Foreground color of unselected even tabs.
     c.colors.tabs.even.fg = palette["overlay2"]
