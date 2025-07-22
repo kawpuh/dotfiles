@@ -1,14 +1,43 @@
 import os
+import subprocess
 from urllib.request import urlopen
+
+def get_theme_from_dconf():
+    try:
+        result = subprocess.run(
+            ['dconf', 'read', '/org/gnome/desktop/interface/color-scheme'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+
+        # Remove quotes and whitespace
+        scheme = result.stdout.strip().strip("'\"")
+
+        # Map dconf values to theme names
+        if scheme == "prefer-dark":
+            return 'dark'
+        elif scheme == "prefer-light":
+            return 'light'
+        else:  # default or empty
+            return 'light'  # default to dark theme
+
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        # If dconf is not available or command fails, default to mocha
+        return 'light'
 
 if os.path.exists(config.configdir / "theme.py"):
     import theme
-    theme.setup(c, 'latte', True)
+    if get_theme_from_dconf() == 'dark':
+        theme.setup(c, 'mocha', True)
+        c.colors.webpage.preferred_color_scheme = 'dark'
+    else:
+        theme.setup(c, 'latte', True)
+        c.colors.webpage.preferred_color_scheme = 'light'
 
 config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 config.bind('<Ctrl-V>', 'mode-leave', mode='passthrough')
-
 
 c.tabs.last_close = "close"
 c.content.javascript.clipboard = "access"
