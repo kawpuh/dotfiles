@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# PID file to track if unclutter is running
+PIDFILE=/tmp/unclutter.pid
+
+# Check if already running
+if [ -f "$PIDFILE" ]; then
+    PID=$(cat "$PIDFILE")
+    if kill -0 "$PID" 2>/dev/null; then
+        # Already running (icon should be present if launched via this script)
+        exit 0
+    else
+        # Clean up stale PID file
+        rm -f "$PIDFILE"
+    fi
+fi
+
+# Start unclutter in the background (add options like -idle 2 if needed)
+unclutter &
+UNCLUTTER_PID=$!
+
+# Write PID to file
+echo "$UNCLUTTER_PID" > "$PIDFILE"
+
+# Trap to kill unclutter and clean up on exit
+trap "kill $UNCLUTTER_PID 2>/dev/null; rm -f $PIDFILE" EXIT
+
+# Show tray icon with yad
+yad --notification \
+    --image="input-mouse" \  # Icon for the tray (change if desired)
+    --text="Unclutter is running. Right-click to quit." \  # Tooltip text
+    --menu="Quit|quit|gtk-quit"  # Menu: Quit exits yad (trap handles killing unclutter)
