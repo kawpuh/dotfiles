@@ -12,3 +12,5 @@ keybind = ctrl+[=text:\x1b
 keybind = ctrl+shift+j=scroll_page_lines:1
 keybind = ctrl+shift+k=scroll_page_lines:-1
 keybind = shift+enter=text:\n
+# custom-shader = shaders/cursor_smear.glsl
+custom-shader = shaders/cursor_smear.glsl
