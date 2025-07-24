@@ -54,7 +54,6 @@ c.tabs.indicator.width = 0
 c.statusbar.padding = {"bottom": 4, "left": 4, "right": 4, "top": 2}
 c.fonts.statusbar = "14pt monospace"
 c.url.open_base_url = True
-
 c.input.insert_mode.auto_load = True
 c.window.transparent = True
 
@@ -65,8 +64,10 @@ c.aliases = {"q": "close",
              "wqa": "quit --save",
              "mpv": "spawn --detach mpv {url}"}
 
-content.javascript.log_message.excludes = \
+c.content.javascript.log_message.excludes = \
 {"userscript:_qute_stylesheet": ["*Refused to apply inline style because it violates the following Content Security Policy directive: *"],
  "userscript:_qute_js": ["Uncaught TypeError: Cannot read properties of undefined (reading 'length')"]}
+
+c.hints.chars = "asdfghjklqwertyuiopzxcvbnm"
 
 config.load_autoconfig(False)
