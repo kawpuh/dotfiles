@@ -169,6 +169,7 @@ noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<CR><Esc>
 noremap <leader>cy :YankCodeBlock<CR>
 nnoremap <leader>llm :LLM<space>
 nnoremap <leader>lll :LLMLogs<CR>
+nnoremap <leader>llr :LLMLogs -r<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
