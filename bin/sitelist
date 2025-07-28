@@ -10,5 +10,5 @@ fi
 selection=$(cat "$CONFIG_FILE" | rofi -dmenu -p "Select site:")
 
 if [[ -n "$selection" ]]; then
-    chromium --new-window "$selection"
+    xdg-open "https://$selection"
 fi
