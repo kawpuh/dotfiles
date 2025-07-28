@@ -72,6 +72,7 @@ noremap <leader>y "+y
 noremap <leader>p "+p
 noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
+nnoremap - <cmd>Explore<CR>
 augroup KawpuhNetrw
   au!
   au FileType netrw nmap <buffer> H u
@@ -108,7 +109,7 @@ Plug 'folke/todo-comments.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'kylechui/nvim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
 Plug 'lukas-reineke/indent-blankline.nvim'
