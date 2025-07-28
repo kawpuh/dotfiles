@@ -79,7 +79,7 @@ configuration {
   /*	kb-remove-word-forward: "Control+Alt+d";*/
   /*	kb-remove-char-forward: "Delete,Control+d";*/
   /*	kb-remove-char-back: "BackSpace,Shift+BackSpace,Control+h";*/
-  kb-remove-to-eol: "Control+p";
+  kb-remove-to-eol: "";
   /*	kb-remove-to-sol: "Control+u";*/
   kb-accept-entry: "Control+m,Return,KP_Enter";
   /*	kb-accept-custom: "Control+Return";*/
@@ -95,7 +95,7 @@ configuration {
   kb-row-down: "Down";
   /*	kb-row-tab: "";*/
   kb-element-next: "Tab,Control+j,Control+n";
-  kb-element-prev: "ISO_Left_Tab,Control+k";
+  kb-element-prev: "ISO_Left_Tab,Control+k,Control+p";
   /*	kb-page-prev: "Page_Up";*/
   /*	kb-page-next: "Page_Down";*/
   /*	kb-row-first: "Home,KP_Home";*/
