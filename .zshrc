@@ -6,6 +6,7 @@ setopt autocd
 # History in cache directory:
 HISTSIZE=1000000000
 SAVEHIST=1000000000
+mkdir -p ~/.cache/zsh
 HISTFILE=~/.cache/zsh/history
 setopt INC_APPEND_HISTORY
 export HISTTIMEFORMAT="[%F %T] "
