@@ -43,6 +43,54 @@ set guifont=NotoSansMono\ Nerd\ Font:h11
 autocmd BufWritePre * :%s/\s\+$//e
 
 set termguicolors
+nnoremap <M-j> <C-e>M
+nnoremap <M-k> <C-y>M
+noremap <C-f> <C-f>M
+noremap <C-b> <C-b>M
+
+nnoremap <C-j> i<CR><Esc>l
+nnoremap <leader>fs :w<CR>
+nnoremap <leader>bd :confirm bw<CR>
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>fc :e $MYVIMRC<CR>
+nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
+nnoremap <leader>rc :source $MYVIMRC<CR>
+nnoremap <leader><leader> :term<CR>A
+nnoremap <leader>m :w<cr>:Make<cr>
+nnoremap <leader>rr :w<cr>:!!<CR>
+nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
+" quickfix, loclist ------------------------------------------------------------
+nnoremap ]q :cn<CR>
+nnoremap [q :cp<CR>
+nnoremap <leader>qc :ccl<CR>
+nnoremap <leader>qo :copen<CR>
+nnoremap ]l :lne<CR>
+nnoremap [l :lp<CR>
+" copy/paste to clipboard ------------------------------------------------------
+noremap <leader>y "+y
+noremap <leader>p "+p
+noremap <leader>P "+P
+nnoremap <leader>by gg"+yG<C-o>
+augroup KawpuhNetrw
+  au!
+  au FileType netrw nmap <buffer> H u
+  au FileType netrw nmap <buffer> h -
+  au FileType netrw nmap <buffer> l <CR>
+  au FileType netrw nnoremap <buffer> s <Plug>(leap)
+augroup end
+
+set shell=/bin/zsh
+
+if argc() == 0 && index(v:argv, '-c') == -1
+  autocmd VimEnter * :Ex
+endif
+
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  echom "vim-plug not found. Using minimal config."
+  finish
+endif
 
 call plug#begin()
 " Core
@@ -112,37 +160,17 @@ let g:rainbow_active=1
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
 let g:vsnip_snippet_dir="$HOME/.config/nvim/snippets"
 
-set shell=/bin/zsh
-
 lua require('init')
 
 colorscheme catppuccin
 
 " Binds ------------------------------------------------------------------------
-nnoremap <M-j> <C-e>M
-nnoremap <M-k> <C-y>M
-noremap <C-f> <C-f>M
-noremap <C-b> <C-b>M
 
-nnoremap <C-j> i<CR><Esc>l
-nnoremap <leader>fs :w<CR>
-nnoremap <leader>bd :confirm bw<CR>
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>bp :bp<CR>
-nnoremap <leader><tab> <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR><Esc>
-
-nnoremap <leader>fc :e $MYVIMRC<CR>
-nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
 nnoremap <leader>fn :Scratch<CR>
 nnoremap <leader>fp :OpenLatestScratch<CR>
 nnoremap <leader>fv :vs<CR>:OpenLatestScratch<CR>
-nnoremap <leader>rc :source $MYVIMRC<CR>
-
-nnoremap <leader><leader> :term<CR>A
-nnoremap <leader>m :w<cr>:Make<cr>
-nnoremap <leader>rr :w<cr>:!!<CR>
-nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
 " telescope --------------------------------------------------------------------
+nnoremap <leader><tab> <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR><Esc>
 nnoremap <leader>f/ :Telescope find_files<CR>
 " nnoremap <leader>bt <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR>
 nnoremap <leader>" :Telescope registers<CR>
@@ -150,19 +178,6 @@ nnoremap <leader>/ :Telescope live_grep<CR>
 nnoremap <leader>td :TodoTelescope<CR>
 " Explore root
 nnoremap <leader>fr :execute 'Explore ' . FindRootDirectory()<CR>
-" quickfix, loclist ------------------------------------------------------------
-nnoremap ]q :cn<CR>
-nnoremap [q :cp<CR>
-nnoremap <leader>qc :ccl<CR>
-nnoremap <leader>qo :copen<CR>
-nnoremap <leader>qh :Telescope quickfixhistory<CR>
-nnoremap ]l :lne<CR>
-nnoremap [l :lp<CR>
-" copy/paste to clipboard ------------------------------------------------------
-noremap <leader>y "+y
-noremap <leader>p "+p
-noremap <leader>P "+P
-nnoremap <leader>by gg"+yG<C-o>
 " LLM --------------------------------------------------------------------------
 noremap <leader>cn :YankCodeBlock<CR>:Scratch<CR>pGo<CR><Esc>
 noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<CR><Esc>
@@ -202,14 +217,6 @@ nnoremap <leader>gd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
-
-augroup KawpuhNetrw
-  au!
-  au FileType netrw nmap <buffer> H u
-  au FileType netrw nmap <buffer> h -
-  au FileType netrw nmap <buffer> l <CR>
-  au FileType netrw nnoremap <buffer> s <Plug>(leap)
-augroup end
 
 augroup KawpuhMarkdown
   au!
@@ -304,7 +311,3 @@ augroup KawpuhLua
   au!
   au FileType lua setlocal tabstop=2 shiftwidth=2
 augroup end
-
-if argc() == 0 && index(v:argv, '-c') == -1
-  autocmd VimEnter * :Ex
-endif
