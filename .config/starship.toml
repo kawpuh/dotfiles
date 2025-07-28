@@ -9,6 +9,8 @@ right_format = """
 $status\
 $cmd_duration\
 $jobs\
+$username\
+$hostname\
 $time"""
 
 # Add newline before prompt
@@ -70,14 +72,14 @@ format = '[$time]($style)'
 style = "blue"
 time_format = "%H:%M:%S"
 
+[username]
+format = '[$user]($style) '
+
+[hostname]
+format = '@[$hostname]($style) '
+
 [package]
 disabled = true
 
 [docker_context]
-disabled = true
-
-[hostname]
-disabled = true
-
-[username]
 disabled = true
