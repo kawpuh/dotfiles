@@ -117,6 +117,10 @@ elif [[ -f $HOME/.config/config.zsh ]]; then
     source $HOME/.config/config.zsh
 fi
 
+if ! command -v starship &> /dev/null; then
+    echo "Starship not found. Installing..."
+    curl -sS https://starship.rs/install.sh | sh
+fi
 eval "$(starship init zsh)"
 
 # Created by `pipx` on 2025-06-06 01:32:35

@@ -1,0 +1,83 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$line_break\
+$character"""
+
+right_format = """
+$status\
+$cmd_duration\
+$jobs\
+$time"""
+
+# Add newline before prompt
+add_newline = true
+
+[character]
+success_symbol = "[>](green)"
+error_symbol = "[>](red)"
+vimcmd_symbol = "[<](green)"
+vimcmd_replace_one_symbol = "[^](green)"
+vimcmd_replace_symbol = "[^](green)"
+vimcmd_visual_symbol = "[V](green)"
+
+[directory]
+style = "bold cyan"
+truncation_length = 0
+truncate_to_repo = false
+truncation_symbol = ""
+fish_style_pwd_dir_length = 1
+
+[git_branch]
+symbol = ""
+style = "green"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "green"
+conflicted = "~${count}"
+ahead = ">${count}"
+behind = "<${count}"
+diverged = "<${ahead_count}>${behind_count}"
+up_to_date = ""
+untracked = "?${count}"
+stashed = "*${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[status]
+disabled = false
+format = '[$symbol$status]($style) '
+symbol = "err "
+success_symbol = ""
+
+[cmd_duration]
+min_time = 3000
+format = '[$duration]($style) '
+style = "yellow"
+
+[jobs]
+format = '[$symbol$number]($style) '
+style = "green"
+symbol = "&"
+
+[time]
+disabled = false
+format = '[$time]($style)'
+style = "blue"
+time_format = "%H:%M:%S"
+
+[package]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[hostname]
+disabled = true
+
+[username]
+disabled = true
