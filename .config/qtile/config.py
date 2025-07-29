@@ -143,7 +143,7 @@ layouts = [
 
 keys = [
   # Switch between windows
-  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes"), desc="mnemonic 'agenda'"),
+  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes/agenda.md")),
   Key([MOD], "b", lazy.spawn("qutebrowser")),
   Key([MOD, "shift"], "b", lazy.spawn("chromium")),
   Key([MOD], "d", lazy.window.move_down(force=True)),

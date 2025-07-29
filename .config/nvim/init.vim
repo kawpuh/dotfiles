@@ -47,6 +47,8 @@ nnoremap <M-j> <C-e>M
 nnoremap <M-k> <C-y>M
 noremap <C-f> <C-f>M
 noremap <C-b> <C-b>M
+noremap <C-u> <C-u>M
+noremap <C-d> <C-d>M
 
 nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>fs :w<CR>
