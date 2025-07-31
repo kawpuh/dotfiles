@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Bluetooth manager script using bluetoothctl and rofi
+
+get_paired_devices() {
+    bluetoothctl devices | grep -E "^Device" | sed 's/Device //' | while read -r mac name; do
+        echo "$mac $name"
+    done
+}
+
+get_connected_devices() {
+    bluetoothctl devices Connected | grep -E "^Device" | sed 's/Device //' | while read -r mac name; do
+        echo "$mac $name"
+    done
+}
+
+connect_device() {
+    local mac="$1"
+    bluetoothctl connect "$mac"
+}
+
+disconnect_device() {
+    local mac="$1"
+    bluetoothctl disconnect "$mac"
+}
+
+main() {
+    # Get connected devices
+    connected_devices=$(get_connected_devices)
+    
+    # Get paired devices
+    paired_devices=$(get_paired_devices)
+    
+    # Build menu options
+    menu_options=""
+    
+    # Add disconnect options for connected devices
+    if [[ -n "$connected_devices" ]]; then
+        while IFS=' ' read -r mac name; do
+            menu_options+="🔗 Disconnect: $name\n"
+        done <<< "$connected_devices"
+    fi
+    
+    # Add connect options for paired but not connected devices
+    while IFS=' ' read -r mac name; do
+        # Check if device is not already connected
+        if ! echo "$connected_devices" | grep -q "$mac"; then
+            menu_options+="📱 Connect: $name\n"
+        fi
+    done <<< "$paired_devices"
+    
+    # Show rofi menu
+    if [[ -z "$menu_options" ]]; then
+        rofi -dmenu -p "Bluetooth" -mesg "No paired devices found" <<< ""
+        exit 0
+    fi
+    
+    selected=$(echo -e "$menu_options" | rofi -dmenu -p "Bluetooth" -i)
+    
+    if [[ -z "$selected" ]]; then
+        exit 0
+    fi
+    
+    # Extract device name from selection
+    device_name=$(echo "$selected" | sed 's/^[🔗📱] \(Connect\|Disconnect\): //')
+    
+    # Find MAC address for the selected device
+    device_mac=$(echo "$paired_devices" | grep "$device_name" | cut -d' ' -f1)
+    
+    if [[ -z "$device_mac" ]]; then
+        rofi -dmenu -p "Error" -mesg "Device not found" <<< ""
+        exit 1
+    fi
+    
+    # Perform action based on selection
+    if [[ "$selected" == *"Connect:"* ]]; then
+        connect_device "$device_mac"
+        if [[ $? -eq 0 ]]; then
+            notify-send "Bluetooth" "Connected to $device_name"
+        else
+            notify-send "Bluetooth" "Failed to connect to $device_name"
+        fi
+    elif [[ "$selected" == *"Disconnect:"* ]]; then
+        disconnect_device "$device_mac"
+        if [[ $? -eq 0 ]]; then
+            notify-send "Bluetooth" "Disconnected from $device_name"
+        else
+            notify-send "Bluetooth" "Failed to disconnect from $device_name"
+        fi
+    fi
+}
+
+main "$@"
