@@ -46,8 +46,7 @@ c.url.searchengines = {
     'DEFAULT':  'https://google.com/search?hl=en&q={}',
     'yt': 'https://www.youtube.com/results?search_query={}'
 }
-c.url.start_pages = "https://google.com"
-c.url.default_page = "https://google.com"
+c.url.start_pages = c.url.default_page = "https://web.tabliss.io"
 c.tabs.padding = {'top': 8, 'bottom': 8, 'left': 16, 'right': 16}
 c.tabs.width = '7%'
 c.tabs.indicator.width = 0
