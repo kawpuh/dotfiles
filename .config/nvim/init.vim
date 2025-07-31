@@ -298,10 +298,7 @@ augroup end
 augroup KawpuhClojure
   au!
   let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
-  au FileType clojure command! -nargs=1 CS ConjureShadowSelect <args>
-  au FileType clojure command! CK ConjureEval (require '[clojure.edn :as edn] '[clojure.java.io :as io] '[cider.piggieback] '[krell.api :as krell] '[krell.repl]) (let [config (edn/read-string (slurp (io/file "build.edn")))] (apply cider.piggieback/cljs-repl (krell.repl/repl-env) (mapcat identity config)))
-  au FileType clojure nnoremap <buffer> <localleader>ck :CK<CR>
-  au FileType clojure nnoremap <buffer> <localleader>cs :CS<space>
+  au FileType clojure nnoremap <buffer> <localleader>cs :ConjureShadowSelect<space>
   au FileType clojure nnoremap <buffer> <localleader>cc :ConjureConnect<CR>
 augroup end
 
