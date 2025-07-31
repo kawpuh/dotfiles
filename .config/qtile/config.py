@@ -145,6 +145,8 @@ keys = [
   # Switch between windows
   Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes/agenda.md")),
   Key([MOD], "b", lazy.spawn("qutebrowser")),
+  Key([MOD], "c", lazy.spawn("bt-script")),
+  Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim .config/qtile/config.py")),
   Key([MOD, "shift"], "b", lazy.spawn("chromium")),
   Key([MOD], "d", lazy.window.move_down(force=True)),
   Key([MOD], "e", lazy.spawn("ghostty -e nvim -c ':Scratch'")),
@@ -170,7 +172,6 @@ keys = [
   Key([MOD], "Return", lazy.spawn(TERM), desc="Launch terminal"),
   Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
   Key([MOD], "Tab", lazy.screen.toggle_group()),
-  Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim .config/qtile/config.py")),
   Key([MOD, "Shift"], "f", lazy.function(toggle_bar_and_fullscreen)),
   Key([MOD, "Shift"], "i", lazy.function(shuffle_to_second)),
   Key([MOD, "Shift"], "h", lazy.layout.shuffle_left()),
