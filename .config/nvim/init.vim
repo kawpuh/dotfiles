@@ -111,7 +111,6 @@ Plug 'folke/todo-comments.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'kylechui/nvim-surround'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -119,6 +118,7 @@ Plug 'mbbill/undotree'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'MunifTanjim/nui.nvim'
+Plug 'folke/snacks.nvim'
 " text object
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire' " (ae) think a entire
@@ -128,10 +128,6 @@ Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
 Plug 'hrsh7th/vim-vsnip'
 " Completion
 Plug 'saghen/blink.cmp', { 'do': 'cargo build --release' }
-" Telescope
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
-Plug 'nvim-telescope/telescope.nvim'
 " Lisp
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
@@ -172,13 +168,13 @@ colorscheme catppuccin
 nnoremap <leader>fn :Scratch<CR>
 nnoremap <leader>fp :OpenLatestScratch<CR>
 nnoremap <leader>fv :vs<CR>:OpenLatestScratch<CR>
-" telescope --------------------------------------------------------------------
-nnoremap <leader><tab> <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR><Esc>
-nnoremap <leader>f/ :Telescope find_files<CR>
-" nnoremap <leader>bt <cmd>lua require('telescope.builtin').buffers({sort_mru = true})<CR>
-nnoremap <leader>" :Telescope registers<CR>
-nnoremap <leader>/ :Telescope live_grep<CR>
-nnoremap <leader>td :TodoTelescope<CR>
+" snacks.nvim picker -----------------------------------------------------------
+nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, layout = 'telescope'})<CR>
+nnoremap <leader>f/ <cmd>lua Snacks.picker.files({layout = 'telescope'})<CR>
+" nnoremap <leader>bt <cmd>lua Snacks.picker.buffers({sort_mru = true})<CR>
+nnoremap <leader>" <cmd>lua Snacks.picker.registers({layout = 'telescope'})<CR>
+nnoremap <leader>/ <cmd>lua Snacks.picker.grep({layout = 'telescope'})<CR>
+nnoremap <leader>td <cmd>lua Snacks.picker.todo_comments({layout = 'telescope'})<CR>
 " Explore root
 nnoremap <leader>fr :execute 'Explore ' . FindRootDirectory()<CR>
 " LLM --------------------------------------------------------------------------

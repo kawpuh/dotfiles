@@ -6,7 +6,7 @@ require('pelican').setup()
 
 require('ibl').setup()
 require('lsp-progress').setup()
-require('treesitter-context').setup({enable = true})
+require('treesitter-context').setup({ enable = true })
 
 require('nvim-surround').setup({
   surrounds = {
@@ -61,44 +61,16 @@ vim.api.nvim_create_autocmd("User", {
   callback = require("lualine").refresh,
 })
 
-local actions = require('telescope.actions')
-local action_state = require('telescope.actions.state')
-
-function edit_multi_select(prompt_bufnr)
-  local picker = action_state.get_current_picker(prompt_bufnr)
-  local num_selections = table.getn(picker:get_multi_selection())
-
-  if num_selections > 1 then
-    local picker = action_state.get_current_picker(prompt_bufnr)
-    for _, entry in ipairs(picker:get_multi_selection()) do
-      vim.cmd(string.format("%s %s", ":e!", entry.value))
-    end
-    vim.cmd('stopinsert')
-  else
-    actions.file_edit(prompt_bufnr)
-  end
-end
-
-require('telescope').setup {
-  defaults = {
-    mappings = {
-      n = {
-        ["<C-[>"] = require('telescope.actions').close,
-        ["<CR>"] = edit_multi_select
-      },
-      i = {
-        ["<CR>"] = edit_multi_select
-      },
-    },
-    path_display = {
-      "smart"
-    },
+require('snacks').setup({
+  picker = {
+    enabled = true,
+    formatters = {
+      file = {
+        filename_first = true,
+      }
+    }
   },
-  extensions = {
-    fzf = {},
-  },
-}
-require('telescope').load_extension('fzf')
+})
 
 require("todo-comments").setup {}
 
@@ -124,5 +96,5 @@ require('ufo').setup({
   provider_selector = function(bufnr, filetype, buftype)
     return { 'treesitter', 'indent' }
   end
-})
 
+})
