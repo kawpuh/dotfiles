@@ -174,6 +174,7 @@ nnoremap <leader>f/ <cmd>lua Snacks.picker.files({layout = 'telescope'})<CR>
 " nnoremap <leader>bt <cmd>lua Snacks.picker.buffers({sort_mru = true})<CR>
 nnoremap <leader>" <cmd>lua Snacks.picker.registers({layout = 'telescope'})<CR>
 nnoremap <leader>/ <cmd>lua Snacks.picker.grep({layout = 'telescope'})<CR>
+vnoremap <leader>/ :lua Snacks.picker.grep_word({layout = 'telescope'})<CR>
 nnoremap <leader>td <cmd>lua Snacks.picker.todo_comments({layout = 'telescope'})<CR>
 " Explore root
 nnoremap <leader>fr :execute 'Explore ' . FindRootDirectory()<CR>
