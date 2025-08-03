@@ -9,6 +9,7 @@ right_format = """
 $status\
 $cmd_duration\
 $jobs\
+$guix_shell\
 $username\
 $hostname\
 $time"""
