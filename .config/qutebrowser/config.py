@@ -44,7 +44,8 @@ c.content.javascript.clipboard = "access"
 
 c.url.searchengines = {
     'DEFAULT':  'https://google.com/search?hl=en&q={}',
-    'yt': 'https://www.youtube.com/results?search_query={}'
+    'yt': 'https://www.youtube.com/results?search_query={}',
+    'gh': 'https://www.github.com/search?q={}&type=repositories'
 }
 c.url.start_pages = c.url.default_page = "https://web.tabliss.io"
 c.tabs.padding = {'top': 8, 'bottom': 8, 'left': 16, 'right': 16}
