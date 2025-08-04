@@ -32,6 +32,10 @@ jr() { # jina reader
     clipboard_content=$(xclip -selection clipboard -o 2>/dev/null)
     curl "https://r.jina.ai/$clipboard_content"
 }
+
+claude-chat() {
+    cd ~/sandbox/claude-chat && claude
+}
 alias ym="llm logs -r | 2clip" # mnemonic yank-message
 alias yc="llm logs -c --xl | 2clip" # mnemonic yank-code
 alias pm="clip2 | llm" # mnemonic put-message
