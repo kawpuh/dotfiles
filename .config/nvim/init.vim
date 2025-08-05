@@ -92,7 +92,7 @@ augroup end
 
 set shell=/bin/zsh
 
-if argc() == 0 && index(v:argv, '-c') == -1
+if argc() == 0 && index(v:argv, '-c') == -1 && index(v:argv, '-R') == -1
   autocmd VimEnter * :Ex
 endif
 
