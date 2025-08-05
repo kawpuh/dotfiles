@@ -38,7 +38,14 @@ let g:rooter_patterns = ['.git', 'justfile', 'deps.edn', 'shadow-cljs.edn']
 
 command! WC call CwdLineCounts()
 
-set guifont=NotoSansMono\ Nerd\ Font:h11
+" neovide
+if exists('g:neovide')
+  set guifont=Monaspace\ Argon:h12
+  let g:neovide_cursor_short_animation_length = 0.04
+  let theme = substitute(system('dconf read /org/gnome/desktop/interface/color-scheme 2>/dev/null | tr -d "' . "'" . '"'), '\n', '', 'g')
+  let &background = (theme == 'prefer-light') ? 'light' : 'dark'
+endif
+
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 

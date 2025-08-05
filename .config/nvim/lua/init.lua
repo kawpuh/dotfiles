@@ -26,15 +26,18 @@ require('nvim-surround').setup({
 
 require("catppuccin").setup {
   custom_highlights = function(colors)
-    return {
+    local highlights = {
       SignColumn = { bg = colors.surface0 },
-      Normal = { bg = "NONE" },
-      NonText = { bg = "NONE" }
     }
+    if not vim.g.neovide then
+      highlights.Normal = { bg = "NONE" }
+      highlights.NonText = { bg = "NONE" }
+    end
+    return highlights
   end,
   background = {
     dark = "frappe",
-  }
+  },
 }
 
 require('lualine').setup({
