@@ -69,19 +69,20 @@ nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
-" quickfix, loclist ------------------------------------------------------------
+nnoremap - <cmd>Explore<CR>
+" quickfix, loclist -----------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap <leader>qc :ccl<CR>
 nnoremap <leader>qo :copen<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
-" copy/paste to clipboard ------------------------------------------------------
+"  clipboard ------------------------------------------------------------------
 noremap <leader>y "+y
 noremap <leader>p "+p
 noremap <leader>P "+P
 nnoremap <leader>by gg"+yG<C-o>
-nnoremap - <cmd>Explore<CR>
+
 augroup KawpuhNetrw
   au!
   au FileType netrw nmap <buffer> H u
@@ -96,6 +97,7 @@ if argc() == 0 && index(v:argv, '-c') == -1 && index(v:argv, '-R') == -1
   autocmd VimEnter * :Ex
 endif
 
+" End no plugin config ---------------------------------------------------------
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   echom "vim-plug not found. Using minimal config."
