@@ -176,7 +176,7 @@ nnoremap <leader>fn :Scratch<CR>
 nnoremap <leader>fp :OpenLatestScratch<CR>
 nnoremap <leader>fv :vs<CR>:OpenLatestScratch<CR>
 " snacks.nvim picker -----------------------------------------------------------
-nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, layout = 'telescope'})<CR>
+nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, layout = 'telescope'})<CR>
 nnoremap <leader>f/ <cmd>lua Snacks.picker.files({layout = 'telescope'})<CR>
 " nnoremap <leader>bt <cmd>lua Snacks.picker.buffers({sort_mru = true})<CR>
 nnoremap <leader>" <cmd>lua Snacks.picker.registers({layout = 'telescope'})<CR>
