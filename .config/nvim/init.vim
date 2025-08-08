@@ -69,7 +69,7 @@ nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
-nnoremap - <cmd>Explore .<CR>
+nnoremap - <cmd>Explore<CR>
 " quickfix, loclist -----------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
