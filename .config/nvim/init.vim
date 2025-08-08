@@ -69,7 +69,6 @@ nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
-nnoremap - <cmd>Explore<CR>
 " quickfix, loclist -----------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
@@ -101,6 +100,7 @@ endif
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   echom "vim-plug not found. Using minimal config."
+  nnoremap - <cmd>Explore<CR>
   finish
 endif
 
@@ -121,6 +121,7 @@ Plug 'tpope/vim-repeat'
 Plug 'kylechui/nvim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-sleuth'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mbbill/undotree'
