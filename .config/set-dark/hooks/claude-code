@@ -1,0 +1,14 @@
+#!/bin/bash
+# Claude Code theme hook for set-dark
+
+case "$1" in
+    "dark")
+        claude config set -g theme dark 2>/dev/null || true
+        ;;
+    "light")
+        claude config set -g theme light 2>/dev/null || true
+        ;;
+    "default")
+        claude config set -g theme light 2>/dev/null || true
+        ;;
+esac
