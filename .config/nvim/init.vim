@@ -49,6 +49,9 @@ endif
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+command! -range YankRangeReference let @+ = expand('%') . ':' . <line1> . ':' . <line2>
+vnoremap <leader>r :YankRangeReference<CR>
+
 set termguicolors
 nnoremap <M-j> <C-e>M
 nnoremap <M-k> <C-y>M
