@@ -11,8 +11,6 @@
 
 (function() {
     'use strict';
-
-    // Function to hide the trending section
     function hideTrending(element) {
         if (element && element.getAttribute('aria-label') === 'Timeline: Trending now') {
             element.style.display = 'none';
@@ -26,7 +24,6 @@
         hideTrending(initialTrending);
     }
 
-    // Set up MutationObserver to watch for dynamically added elements
     const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             if (mutation.type === 'childList') {
@@ -47,7 +44,6 @@
         });
     });
 
-    // Observe changes to the body (subtree for nested changes)
     observer.observe(document.body, {
         childList: true,
         subtree: true
