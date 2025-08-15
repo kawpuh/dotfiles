@@ -177,25 +177,23 @@ lua require('init')
 colorscheme catppuccin
 
 " Binds ------------------------------------------------------------------------
-
-nnoremap <leader>fn :Scratch<CR>
-nnoremap <leader>fp :OpenLatestScratch<CR>
-nnoremap <leader>fv :vs<CR>:OpenLatestScratch<CR>
 " snacks.nvim picker -----------------------------------------------------------
 nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, layout = 'telescope'})<CR>
 nnoremap <leader>f/ <cmd>lua Snacks.picker.files({layout = 'telescope'})<CR>
 " nnoremap <leader>bt <cmd>lua Snacks.picker.buffers({sort_mru = true})<CR>
 nnoremap <leader>" <cmd>lua Snacks.picker.registers({layout = 'telescope'})<CR>
 nnoremap <leader>/ <cmd>lua Snacks.picker.grep({layout = 'telescope'})<CR>
-vnoremap <leader>/ :lua Snacks.picker.grep_word({layout = 'telescope'})<CR>
+vnoremap <leader>/ <cmd>lua Snacks.picker.grep_word({layout = 'telescope'})<CR>
 nnoremap <leader>td <cmd>lua Snacks.picker.todo_comments({layout = 'telescope'})<CR>
 " Explore root
-nnoremap <leader>fr :execute 'Explore ' . FindRootDirectory()<CR>
+nnoremap <leader>fr <cmd>execute 'Explore ' . FindRootDirectory()<CR>
 " LLM --------------------------------------------------------------------------
-noremap <leader>cn :YankCodeBlock<CR>:Scratch<CR>pGo<CR><Esc>
-noremap <leader>cp :YankCodeBlock<CR>:OpenLatestScratch<CR>Go<Esc>pGo<CR><Esc>
-noremap <leader>cy :YankCodeBlock<CR>
-nnoremap <leader>llm :LLM<space>
+nnoremap <leader>fn <cmd>Scratch<CR>
+nnoremap <leader>fp <cmd>OpenLatestScratch<CR>
+noremap <leader>cn <Plug>PutCodeBlockNewScratch<CR>
+noremap <leader>cp <Plug>PutCodeBlockLatestScratch<CR>
+noremap <leader>cy <cmd>YankCodeBlock<CR>
+noremap <leader>llm <cmd>LLMPrompt<CR>
 nnoremap <leader>lll :LLMLogs<CR>
 nnoremap <leader>llr :LLMLogs -r<CR>
 " Snippet ----------------------------------------------------------------------
@@ -233,18 +231,18 @@ au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p
 
 augroup KawpuhMarkdown
   au!
-  au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
   au FileType markdown setlocal spell
+  au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
   au FileType markdown nnoremap <buffer> <C-m> :SelectCodeBlock<CR>"+y
   au FileType markdown nnoremap <buffer> <C-y> "+yae
   au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
   au FileType markdown nnoremap <buffer> <localleader>fb :ScratchBranch<CR>
-  au FileType markdown nnoremap <buffer> <localleader>gg :LLM -m gemini<CR>
-  au FileType markdown nnoremap <buffer> <localleader>gf :LLM -m flash<CR>
-  au FileType markdown nnoremap <buffer> <localleader>gc :LLM -m claude<CR>
-  au FileType markdown nnoremap <buffer> <localleader>gt :LLM -m claude -o thinking_budget<space>
   au FileType markdown nnoremap <buffer> <localleader>fa :ScratchAddName<space>
-  au FileType markdown nnoremap <buffer> <localleader>cc :LLMCommand claude -p<CR>
+  au FileType markdown noremap <buffer> <localleader>gg <cmd>LLM -m gemini<CR>
+  au FileType markdown noremap <buffer> <localleader>gf <cmd>LLM -m flash<CR>
+  au FileType markdown noremap <buffer> <localleader>gc <cmd>LLM -m claude<CR>
+  au FileType markdown noremap <buffer> <localleader>gt <cmd>LLM -m gpt-5 -o reasoning_effort medium<CR>
+  au FileType markdown noremap <buffer> <localleader>cc <cmd>LLMCommand claude -p<CR>
 augroup end
 
 augroup KawpuhShell
