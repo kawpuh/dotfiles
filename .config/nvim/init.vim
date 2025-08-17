@@ -77,6 +77,7 @@ nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap <leader>qc :ccl<CR>
 nnoremap <leader>qo :copen<CR>
+nnoremap <leader>qd <cmd>lua vim.diagnostic.setqflist()<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 "  clipboard ------------------------------------------------------------------
