@@ -315,7 +315,7 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 common_bar_prefix = [
-  widget.CurrentLayoutIcon(),
+  widget.CurrentLayout(mode="icon"),
   widget.GroupBox(active=colors["text"],
                   disable_drag=True,
                   highlight_method="line",
