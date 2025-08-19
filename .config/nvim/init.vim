@@ -133,6 +133,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'folke/snacks.nvim'
+Plug 'ibhagwan/fzf-lua'
 " text object
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire' " (ae) think a entire
@@ -195,8 +196,12 @@ noremap <leader>cn <Plug>PutCodeBlockNewScratch<CR>
 noremap <leader>cp <Plug>PutCodeBlockLatestScratch<CR>
 noremap <leader>cy <cmd>YankCodeBlock<CR>
 noremap <leader>llm <cmd>LLMPrompt<CR>
+noremap <leader>llc <cmd>LLMCommandPrompt<CR>
 nnoremap <leader>lll :LLMLogs<CR>
 nnoremap <leader>llr :LLMLogs -r<CR>
+" fzf
+noremap <silent> <C-x><C-f> <Cmd>lua require('fzf-lua').complete_path()<CR>
+inoremap <silent> <C-x><C-f> <Cmd>lua require('fzf-lua').complete_path()<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
