@@ -1,0 +1,6 @@
+#!/bin/bash
+
+hiccup=$(xclip -o -selection clipboard | html2hiccup)
+echo "$hiccup"
+read -p "Continue? Ctrl-C to exit: "
+echo "$hiccup" | xclip -selection clipboard
