@@ -2,6 +2,8 @@ import os
 import subprocess
 from urllib.request import urlopen
 
+config.load_autoconfig()
+
 def get_theme_from_dconf():
     try:
         result = subprocess.run(
@@ -72,4 +74,3 @@ c.content.javascript.log_message.excludes = \
 c.hints.chars = "asdfghjklqwertyuiopzxcvbnm"
 c.hints.scatter = False
 
-config.load_autoconfig(False)
