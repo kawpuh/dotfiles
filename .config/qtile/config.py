@@ -1,29 +1,3 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 import os
 from typing import List  # noqa: F401
 from libqtile import bar, layout, widget
@@ -34,17 +8,26 @@ from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger
 
 colors = {
-    "highlight": "#df8e1d",
-    "text": "#c6d0f5",
-    "overlay": "#838ba7",
-    "bg": "#303446",
-    "bgdark": "#232634",
+  "base"     : "1e1e2e",
+  "mantle"   : "181825",
+  "surface0" : "313244",
+  "surface1" : "45475a",
+  "surface2" : "585b70",
+  "text"     : "cdd6f4",
+  "rosewater": "f5e0dc",
+  "lavender" : "b4befe",
+  "red"      : "f38ba8",
+  "peach"    : "fab387",
+  "yellow"   : "f9e2af",
+  "green"    : "a6e3a1",
+  "teal"     : "94e2d5",
+  "blue"     : "89b4fa",
+  "mauve"    : "cba6f7",
+  "flamingo" : "f2cdcd",
 }
 
 MOD = "mod4"
 TERM = guess_terminal("ghostty")
-
-# TODO: mark/unmark groups not to be visited by mod+space and mod+t
 
 def send_to_next_screen(qtile):
   to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
@@ -132,8 +115,8 @@ layouts = [
   layout.MonadTall(
     auto_maximize=True,
     min_secondary_size=200,
-    border_focus=colors["highlight"],
-    border_normal=colors["overlay"],
+    border_focus=colors["peach"],
+    border_normal=colors["surface2"],
     margin=4,
     border_width=2 if os.uname()[1] != "campstove" else 4,
     border_on_single=True,
@@ -220,33 +203,7 @@ mouse = [
 ]
 
 # setup hostname specific keys
-if os.uname()[1] == 'trailer':
-  keys.extend([
-    Key([],
-        "XF86MonBrightnessUp",
-        lazy.spawn("xbacklight -inc 10"),
-        desc="Coarse Brightness up"),
-    Key([],
-        "XF86MonBrightnessDown",
-        lazy.spawn("xbacklight -dec 10"),
-        desc="Coarse Brightness down"),
-    Key(["shift"],
-        "XF86MonBrightnessUp",
-        lazy.spawn("xbacklight -inc 5"),
-        desc="Fine Brightness up"),
-    Key(["shift"],
-        "XF86MonBrightnessDown",
-        lazy.spawn("xbacklight -dec 5"),
-        desc="Fine Brightness down"),
-  ])
-elif os.uname()[1] == 'camper':
-  keys.extend([
-    Key([MOD],
-        "d",
-        lazy.spawn("camper-displays-gui"),
-        desc="GUI for setting up xrandr displays"),
-  ])
-elif os.uname()[1] == 'campstove':
+if os.uname()[1] in ['campstove', 'trailer']:
   keys.extend([
     Key([],
         "XF86MonBrightnessUp",
@@ -297,50 +254,50 @@ for i in groups:
 widget_defaults = dict(
   font='Monaspace Argon',
   fontsize=12 if os.uname()[1] != "campstove" else 28,
-  padding=4,
-  background=colors["bg"],
+  background=colors["base"],
   foreground=colors["text"],
 )
-
 extension_defaults = widget_defaults.copy()
+
+sep = widget.Sep(padding=12, size_percent=80, foreground=colors["surface2"])
 
 common_bar_prefix = [
   widget.CurrentLayout(mode="icon"),
   widget.GroupBox(active=colors["text"],
                   disable_drag=True,
                   highlight_method="line",
-                  this_current_screen_border=colors["overlay"],
-                  this_screen_border=colors["overlay"],
-                  other_current_screen_border='504945',
-                  other_screen_border='504945'),
-  widget.Sep(padding=12, size_percent=80, foreground="504945"),
+                  this_current_screen_border=colors["surface2"],
+                  this_screen_border=colors["surface2"],
+                  other_current_screen_border=colors["surface0"],
+                  other_screen_border=colors["surface0"]),
+  sep,
   widget.Prompt(),
-  widget.WindowName(),
+  widget.WindowName(max_chars=15),
   widget.OpenWeather(
     zip="35114",
     update_interval=120,
     metric=False,
     format='{icon} {main_temp} °{units_temperature} 💧{humidity}%'),
-  widget.Sep(padding=12, size_percent=80, foreground="504945"),
-  widget.Net(format="{down:.0f} {down_suffix} ↓↑ {up:.0f} {up_suffix}"),
-  widget.Sep(padding=12, size_percent=80, foreground="504945"),
-  widget.TextBox("CPU:"),
+  sep,
+  widget.Net(format="{down:03.0f} {down_suffix:>2} ↓↑ {up:03.0f} {up_suffix:>2}"),
+  sep,
+  widget.TextBox("CPU"),
   widget.CPUGraph(samples=30),
-  widget.TextBox("Disk:"),
+  widget.TextBox("Disk"),
   widget.HDDBusyGraph(samples=30),
   widget.Memory(measure_mem="G"),
-  widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
-  widget.TextBox("🔊:"),
+  sep,
+  widget.TextBox("🔊"),
   widget.PulseVolume(mute_format="🔇"),
 ]
 common_bar_suffix = [
-  widget.Sep(padding=12, size_percent=80, foreground="504945"),
+  sep,
   widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
-  widget.Sep(padding=12, size_percent=80, foreground="504945"),
+  sep,
   widget.Systray(icon_size=20 if os.uname()[1] != "campstove" else 40),
 ]
 
-bar_settings = {"opacity": 0.75}
+bar_settings = {"opacity": 0.80}
 
 if os.uname()[1] == 'toaster':
   screens = [
@@ -356,7 +313,7 @@ if os.uname()[1] == 'toaster':
                       this_screen_border='928374',
                       other_current_screen_border='504945',
                       other_screen_border='504945'),
-      widget.Sep(padding=12, size_percent=80, foreground="504945"),
+      sep,
       widget.WindowName(),
       widget.Clock(format='%a %m/%d/%Y %H:%M:%S')
     ], 24, **bar_settings))
@@ -365,7 +322,7 @@ elif os.uname()[1] == 'trailer':
   screens = [
     Screen(bottom=bar.Bar(
       common_bar_prefix + [
-        widget.Sep(padding=12, size_percent=80, foreground="504945"),
+        sep,
         widget.TextBox("💡:"),
         widget.Backlight(
           brightness_file=
@@ -378,10 +335,9 @@ elif os.uname()[1] == 'camper':
   screens = [
     Screen(bottom=bar.Bar(
       common_bar_prefix + [
-        widget.Sep(padding=12, size_percent=80, foreground="504945"),
-        widget.Battery(
-          format='⚡ {percent:2.0%} {hour:d}:{min:02d} {watt:.2f} W'),
-        widget.Sep(padding=12, size_percent=80, foreground="504945"),
+        sep,
+        widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫", empty_char="💀", update_interval=15),
+        sep,
         widget.Backlight(),
       ] + common_bar_suffix, 24, **bar_settings), ),
   ]
@@ -389,16 +345,15 @@ elif os.uname()[1] == 'campstove':
   screens = [
     Screen(bottom=bar.Bar(
       common_bar_prefix + [
-        widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
-        widget.TextBox("💡:"),
+        sep,
+        widget.TextBox("💡"),
         widget.Backlight(
           brightness_file=
           "/sys/class/backlight/amdgpu_bl1/brightness",
           max_brightness_file=
           "/sys/class/backlight/amdgpu_bl1/max_brightness"),
-        widget.Sep(linewidth=2, padding=12, size_percent=80, foreground="504945"),
-        widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫", empty_char="💀",
-                       charge_controller=lambda: (0, 90), update_interval=15),
+        sep,
+        widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫", empty_char="💀", update_interval=15),
       ] + common_bar_suffix, 48, **bar_settings), ),
   ]
 
