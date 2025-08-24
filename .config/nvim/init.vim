@@ -72,6 +72,7 @@ nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
+nnoremap <leader>gd :terminal git diff %<CR>:startinsert<CR>
 " quickfix, loclist -----------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
@@ -225,11 +226,11 @@ function! ToggleSignColumn()
     set signcolumn=no
   endif
 endfunction
-nnoremap <leader>sc :call ToggleSignColumn()<CR>
 " git signs
+nnoremap <leader>sc :call ToggleSignColumn()<CR>
 nnoremap ]c <cmd>Gitsigns next_hunk<CR>
 nnoremap [c <cmd>Gitsigns prev_hunk<CR>
-nnoremap <leader>gd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
+nnoremap <leader>sd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
 
 
 " Auto-create parent directories (except for URIs "://").
