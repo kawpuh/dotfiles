@@ -41,9 +41,6 @@ require("catppuccin").setup {
 }
 
 require('lualine').setup({
-  options = {
-    theme = "catppuccin"
-  },
   sections = {
     lualine_b = {
       'filename', 'diff', 'diagnostic'
