@@ -1,0 +1,10 @@
+#!/bin/bash
+
+hiccup=$(xclip -o -selection clipboard | html2hiccup)
+
+if zenity --question --text="Copy to clipboard?\n\n$hiccup" --width=600; then
+    echo "$hiccup" | xclip -selection clipboard
+    zenity --info --text="Copied to clipboard!" --timeout=2
+else
+    exit 1
+fi
