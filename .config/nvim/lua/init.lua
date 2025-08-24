@@ -36,7 +36,7 @@ require("catppuccin").setup {
     return highlights
   end,
   background = {
-    dark = "frappe",
+    dark = "mocha",
   },
 }
 
