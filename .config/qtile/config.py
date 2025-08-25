@@ -115,7 +115,7 @@ layouts = [
   layout.MonadTall(
     auto_maximize=True,
     min_secondary_size=200,
-    border_focus=colors["peach"],
+    border_focus="#fe640b",
     border_normal=colors["surface2"],
     margin=4,
     border_width=2 if os.uname()[1] != "campstove" else 4,
