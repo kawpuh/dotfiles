@@ -347,10 +347,9 @@ elif os.uname()[1] == 'campstove':
         sep,
         widget.TextBox("💡"),
         widget.Backlight(
-          brightness_file=
-          "/sys/class/backlight/amdgpu_bl1/brightness",
-          max_brightness_file=
-          "/sys/class/backlight/amdgpu_bl1/max_brightness"),
+          brightness_file= "/sys/class/backlight/amdgpu_bl1/brightness",
+          max_brightness_file= "/sys/class/backlight/amdgpu_bl1/max_brightness",
+          padding=3),
         sep,
         widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫",
                        empty_char="💀", update_interval=15, notify_below=0.15,
