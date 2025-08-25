@@ -66,7 +66,9 @@ c.aliases = {"q": "close",
              "w": "session-save",
              "wq": "quit --save",
              "wqa": "quit --save",
-             "mpv": "spawn --detach mpv {url}"}
+             "mpv": "spawn --detach mpv {url}",
+             "dm": "set colors.webpage.darkmode.enabled"
+             "dc": "download-clear"}
 
 c.content.javascript.log_message.excludes = \
 {"userscript:_qute_stylesheet": ["*Refused to apply inline style because it violates the following Content Security Policy directive: *"],
