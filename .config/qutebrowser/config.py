@@ -67,7 +67,7 @@ c.aliases = {"q": "close",
              "wq": "quit --save",
              "wqa": "quit --save",
              "mpv": "spawn --detach mpv {url}",
-             "dm": "set colors.webpage.darkmode.enabled"
+             "dm": "set colors.webpage.darkmode.enabled",
              "dc": "download-clear"}
 
 c.content.javascript.log_message.excludes = \
