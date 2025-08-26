@@ -72,6 +72,13 @@ require('snacks').setup({
     matcher = {
       frecency = true,
       sort_empty = true,
+    },
+    win = {
+      input = {
+        keys = {
+          ["<a-a>"] = { "toggle_hidden", mode = { "i", "n" } },
+        }
+      }
     }
   },
 })
