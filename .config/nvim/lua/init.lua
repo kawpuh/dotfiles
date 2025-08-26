@@ -68,6 +68,10 @@ require('snacks').setup({
       file = {
         filename_first = true,
       }
+    },
+    matcher = {
+      frecency = true,
+      sort_empty = true,
     }
   },
 })
