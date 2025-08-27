@@ -78,7 +78,7 @@ nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap <leader>qc :ccl<CR>
 nnoremap <leader>qo :copen<CR>
-nnoremap <leader>qd <cmd>lua vim.diagnostic.setqflist()<CR>
+nnoremap <leader>qf <cmd>lua vim.diagnostic.setqflist()<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 "  clipboard ------------------------------------------------------------------
@@ -235,6 +235,8 @@ nnoremap <leader>sd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
+
+au TermOpen * startinsert
 
 augroup KawpuhMarkdown
   au!
