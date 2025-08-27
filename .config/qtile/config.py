@@ -33,17 +33,14 @@ def send_to_next_screen(qtile):
   to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
   qtile.current_window.cmd_toscreen(to_idx)
 
-
 def group_shown(group):
   return group.windows or group.screen
-
 
 def goto_next_empty_group(qtile):
   for group in qtile.groups:
     if not group_shown(group):
       qtile.current_screen.set_group(group)
       return
-
 
 def followto_next_empty_group(qtile):
   "send and follow the selected window to a new group"
@@ -53,7 +50,6 @@ def followto_next_empty_group(qtile):
       qtile.current_screen.set_group(group)
       return
 
-
 def goto_next_unhidden_group(qtile):
   group = qtile.current_screen.group
   for i in range(10):
@@ -61,7 +57,6 @@ def goto_next_unhidden_group(qtile):
     if group.name not in hidden_group_names:
       qtile.current_screen.set_group(group)
       return
-
 
 def goto_prev_unhidden_group(qtile):
   group = qtile.current_screen.group
@@ -71,7 +66,6 @@ def goto_prev_unhidden_group(qtile):
       qtile.current_screen.set_group(group)
       return
 
-
 def goto_next_hidden_group(qtile):
   group = qtile.current_screen.group
   for i in range(10):
@@ -79,7 +73,6 @@ def goto_next_hidden_group(qtile):
     if group.name in hidden_group_names:
       qtile.current_screen.set_group(group)
       return
-
 
 def sendto_next_hidden_group(qtile):
   group = qtile.current_screen.group
@@ -175,10 +168,8 @@ keys = [
   Key([MOD, "Shift"], "Down", lazy.spawn("xdotool mousemove_relative 0 200")),
   Key([MOD, "Shift"], "Left", lazy.spawn("xdotool mousemove_relative -- -300 0")),
   Key([MOD, "Shift"], "Right", lazy.spawn("xdotool mousemove_relative 300 0")),
-  KeyChord([MOD], "Next", [
-    Key([], "Left", lazy.spawn("xdotool click 1")),
-    Key([], "Right", lazy.spawn("xdotool click 3")),
-  ]),
+  Key([MOD, "mod1"], "Left", lazy.spawn("xdotool click 1")),
+  Key([MOD, "mod1"], "Right", lazy.spawn("xdotool click 3")),
   # media keys
   Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
   Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
