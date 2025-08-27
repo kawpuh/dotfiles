@@ -165,7 +165,7 @@ Plug 'kevinhwang91/nvim-ufo'
 " Leap
 Plug 'ggandor/leap.nvim'
 " LLM
-Plug 'kawpuh/pelican', { 'dir': '~/sandbox/pelican' }
+Plug 'kawpuh/pelicano', { 'dir': '~/sandbox/pelicano' }
 " Optional deps
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.icons'
