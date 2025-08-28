@@ -92,7 +92,6 @@ augroup KawpuhNetrw
   au FileType netrw nmap <buffer> H u
   au FileType netrw nmap <buffer> h -
   au FileType netrw nmap <buffer> l <CR>
-  au FileType netrw nnoremap <buffer> s <Plug>(leap)
 augroup end
 
 set shell=/bin/zsh
