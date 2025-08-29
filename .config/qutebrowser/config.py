@@ -42,6 +42,9 @@ config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 config.bind('<Ctrl-V>', 'mode-leave', mode='passthrough')
 config.bind('<Ctrl-W>', 'rl-backward-kill-word', mode='command')
+config.bind('<Ctrl-[>', 'mode-leave ;; jseval -q document.activeElement.blur()', mode='insert')
+
+c.editor.command = ["neovide", "{file}", "+{line}", "+normal {column0}l"]
 
 c.tabs.last_close = "close"
 c.content.javascript.clipboard = "access"
