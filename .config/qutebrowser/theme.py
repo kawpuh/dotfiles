@@ -5,7 +5,65 @@ def setup(c, flavour, samecolorrows = False):
     palette = {}
 
     # flavours {{{
-    if flavour == "latte":
+    if flavour == "gruvbox_dark":
+        palette = {
+            "rosewater": "#fb4934",
+            "flamingo": "#fe8019",
+            "pink": "#d3869b",
+            "mauve": "#b16286",
+            "red": "#cc241d",
+            "maroon": "#fb4934",
+            "peach": "#fe8019",
+            "yellow": "#d79921",
+            "green": "#98971a",
+            "teal": "#689d6a",
+            "sky": "#83a598",
+            "sapphire": "#458588",
+            "blue": "#458588",
+            "lavender": "#d3869b",
+            "text": "#ebdbb2",
+            "subtext1": "#d5c4a1",
+            "subtext0": "#bdae93",
+            "overlay2": "#a89984",
+            "overlay1": "#928374",
+            "overlay0": "#7c6f64",
+            "surface2": "#665c54",
+            "surface1": "#504945",
+            "surface0": "#3c3836",
+            "base": "#282828",
+            "mantle": "#1d2021",
+            "crust": "#1d2021",
+        }
+    elif flavour == "gruvbox_light":
+        palette = {
+            "rosewater": "#d65d0e",
+            "flamingo": "#cc241d",
+            "pink": "#b16286",
+            "mauve": "#b16286",
+            "red": "#cc241d",
+            "maroon": "#9d0006",
+            "peach": "#d65d0e",
+            "yellow": "#d79921",
+            "green": "#98971a",
+            "teal": "#689d6a",
+            "sky": "#458588",
+            "sapphire": "#076678",
+            "blue": "#458588",
+            "lavender": "#8f3f71",
+            "text": "#3c3836",
+            "subtext1": "#504945",
+            "subtext0": "#665c54",
+            "overlay2": "#7c6f64",
+            "overlay1": "#928374",
+            "overlay0": "#a89984",
+            "surface2": "#bdae93",
+            "surface1": "#d5c4a1",
+            "surface0": "#ebdbb2",
+            "base": "#fbf1c7",
+            "mantle": "#f9f5d7",
+            "crust": "#f2e5bc",
+        }
+    elif flavour == "latte":
         palette = {
             "rosewater": "#dc8a78",
             "flamingo": "#dd7878",

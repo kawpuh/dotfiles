@@ -3,6 +3,7 @@ import subprocess
 from urllib.request import urlopen
 
 config.load_autoconfig()
+gruvbox = True
 
 def get_theme_from_dconf():
     try:
@@ -12,29 +13,29 @@ def get_theme_from_dconf():
             text=True,
             check=True
         )
-
-        # Remove quotes and whitespace
         scheme = result.stdout.strip().strip("'\"")
-
-        # Map dconf values to theme names
         if scheme == "prefer-dark":
             return 'dark'
         elif scheme == "prefer-light":
             return 'light'
-        else:  # default or empty
-            return 'light'  # default to dark theme
-
+        else:
+            return 'light'
     except (subprocess.CalledProcessError, FileNotFoundError):
-        # If dconf is not available or command fails, default to mocha
         return 'light'
 
 if os.path.exists(config.configdir / "theme.py"):
     import theme
     if get_theme_from_dconf() == 'dark':
-        theme.setup(c, 'mocha', True)
+        if gruvbox == True:
+            theme.setup(c, 'gruvbox_dark', True)
+        else:
+            theme.setup(c, 'mocha', True)
         c.colors.webpage.preferred_color_scheme = 'dark'
     else:
-        theme.setup(c, 'latte', True)
+        if gruvbox == True:
+            theme.setup(c, 'gruvbox_light', True)
+        else:
+            theme.setup(c, 'latte', True)
         c.colors.webpage.preferred_color_scheme = 'light'
 
 config.bind('J', 'tab-prev')
@@ -56,7 +57,9 @@ c.tabs.padding = {'top': 8, 'bottom': 8, 'left': 16, 'right': 16}
 c.tabs.width = '7%'
 c.tabs.indicator.width = 0
 c.statusbar.padding = {"bottom": 4, "left": 4, "right": 4, "top": 2}
-c.fonts.statusbar = "14pt monospace"
+c.fonts.completion.category = "bold 12pt Monaspace Krypton"
+c.fonts.completion.entry = "12pt Monaspace Krypton"
+c.fonts.statusbar = "14pt Monaspace Krypton"
 c.url.open_base_url = True
 c.input.insert_mode.auto_load = True
 c.window.transparent = True
@@ -67,7 +70,7 @@ c.aliases = {"q": "close",
              "wq": "quit --save",
              "wqa": "quit --save",
              "mpv": "spawn --detach mpv {url}",
-             "dm": "set colors.webpage.darkmode.enabled",
+             "dm": "config-cycle colors.webpage.darkmode.enabled",
              "dc": "download-clear"}
 
 c.content.javascript.log_message.excludes = \

@@ -38,6 +38,10 @@ require("catppuccin").setup {
   },
 }
 
+require("gruvbox").setup {
+  transparent_mode = true
+}
+
 require('lualine').setup({
   sections = {
     lualine_b = {

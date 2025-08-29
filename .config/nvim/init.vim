@@ -113,6 +113,7 @@ call plug#begin()
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 " General
+Plug 'ellisonleao/gruvbox.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'linrongbin16/lsp-progress.nvim'
@@ -176,7 +177,8 @@ let g:vsnip_snippet_dir="$HOME/.config/nvim/snippets"
 
 lua require('init')
 
-colorscheme catppuccin
+" colorscheme catppuccin
+colorscheme gruvbox
 
 " Binds ------------------------------------------------------------------------
 " snacks.nvim picker -----------------------------------------------------------
@@ -230,7 +232,6 @@ nnoremap <leader>sc :call ToggleSignColumn()<CR>
 nnoremap ]c <cmd>Gitsigns next_hunk<CR>
 nnoremap [c <cmd>Gitsigns prev_hunk<CR>
 nnoremap <leader>sd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
-
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
