@@ -49,6 +49,8 @@ endif
 " Cleanup trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+au TermOpen * startinsert
+
 command! -range YankRangeReference let @+ = expand('%') . ':' . <line1> . ':' . <line2>
 vnoremap <leader>r :YankRangeReference<CR>
 
@@ -71,8 +73,8 @@ nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
-nnoremap <leader>gl :terminal git log -p %<CR>:startinsert<CR>
-nnoremap <leader>gd :terminal git diff %<CR>:startinsert<CR>
+nnoremap <leader>gl :terminal git log -p %<CR>
+nnoremap <leader>gd :terminal git diff %<CR>
 " quickfix, loclist -----------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
@@ -232,11 +234,8 @@ nnoremap <leader>sc :call ToggleSignColumn()<CR>
 nnoremap ]c <cmd>Gitsigns next_hunk<CR>
 nnoremap [c <cmd>Gitsigns prev_hunk<CR>
 nnoremap <leader>sd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
-
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
-
-au TermOpen * startinsert
 
 augroup KawpuhMarkdown
   au!
