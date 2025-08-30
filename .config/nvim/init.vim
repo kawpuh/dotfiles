@@ -54,6 +54,11 @@ au TermOpen * startinsert
 command! -range YankRangeReference let @+ = expand('%') . ':' . <line1> . ':' . <line2>
 vnoremap <leader>r :YankRangeReference<CR>
 
+function! TabTerm(cmd)
+    tabnew
+    execute 'terminal ' . a:cmd
+endfunction
+
 set termguicolors
 nnoremap <M-j> <C-e>M
 nnoremap <M-k> <C-y>M
@@ -73,8 +78,8 @@ nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader><leader> :term<CR>A
 nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
-nnoremap <leader>gl :terminal git log -p %<CR>
-nnoremap <leader>gd :terminal git diff %<CR>
+nnoremap <leader>gl :call TabTerm('git log -p ' . expand('%'))<CR>
+nnoremap <leader>gd :call TabTerm('git diff ' . expand('%'))<CR>
 " quickfix, loclist -----------------------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
