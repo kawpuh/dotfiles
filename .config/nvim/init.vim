@@ -240,7 +240,7 @@ endfunction
 nnoremap <leader>sc :call ToggleSignColumn()<CR>
 nnoremap ]c <cmd>Gitsigns next_hunk<CR>
 nnoremap [c <cmd>Gitsigns prev_hunk<CR>
-nnoremap <leader>sd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
+nnoremap <leader>gs <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
 " text obj
 xmap aa <Plug>(textobj-entire-a)
 omap aa <Plug>(textobj-entire-a)
