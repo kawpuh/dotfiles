@@ -258,11 +258,6 @@ augroup KawpuhShell
   au FileType sh nnoremap <buffer> <localleader>r :wr<CR>:!./%<CR>
 augroup end
 
-augroup KawpuhVimscript
-  au!
-  au FileType vim nnoremap <buffer> <localleader>fp :!cd ~/dotfiles/.config/nvim/ && git add init.vim && git commit -m "fast update" && git push<CR>
-augroup end
-
 augroup KawpuhC++
   au!
   au FileType cpp nnoremap <buffer> <localleader>b :!g++ %<CR>
@@ -283,8 +278,6 @@ augroup end
 
 augroup KawpuhPython
   au!
-  au FileType python nnoremap <buffer> <localleader>r :wr<CR>:!python3 %<CR>
-  au FileType python nnoremap <buffer> <localleader><s-r> :!xcwd && urxvt -e python3 -i % &<CR>
   au FileType python setlocal tabstop=2 shiftwidth=2
 augroup end
 
