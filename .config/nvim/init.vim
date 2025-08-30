@@ -110,6 +110,8 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   finish
 endif
 
+let g:textobj_entire_no_default_key_mappings=1
+
 call plug#begin()
 " Core
 Plug 'neovim/nvim-lspconfig'
@@ -234,6 +236,10 @@ nnoremap <leader>sc :call ToggleSignColumn()<CR>
 nnoremap ]c <cmd>Gitsigns next_hunk<CR>
 nnoremap [c <cmd>Gitsigns prev_hunk<CR>
 nnoremap <leader>sd <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
+" text obj
+xmap aa <Plug>(textobj-entire-a)
+omap aa <Plug>(textobj-entire-a)
+
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
 
