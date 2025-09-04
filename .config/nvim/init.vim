@@ -191,13 +191,13 @@ colorscheme gruvbox
 
 " Binds ------------------------------------------------------------------------
 " snacks.nvim picker -----------------------------------------------------------
-nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, layout = 'telescope'})<CR>
-nnoremap <leader>f/ <cmd>lua Snacks.picker.files({layout = 'telescope'})<CR>
+nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
+nnoremap <leader>f/ <cmd>lua Snacks.picker.files({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
 " nnoremap <leader>bt <cmd>lua Snacks.picker.buffers({sort_mru = true})<CR>
-nnoremap <leader>" <cmd>lua Snacks.picker.registers({layout = 'telescope'})<CR>
-nnoremap <leader>/ <cmd>lua Snacks.picker.grep({layout = 'telescope'})<CR>
-vnoremap <leader>/ <cmd>lua Snacks.picker.grep_word({layout = 'telescope'})<CR>
-nnoremap <leader>td <cmd>lua Snacks.picker.todo_comments({layout = 'telescope'})<CR>
+nnoremap <leader>" <cmd>lua Snacks.picker.registers({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
+nnoremap <leader>/ <cmd>lua Snacks.picker.grep({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
+vnoremap <leader>/ <cmd>lua Snacks.picker.grep_word({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
+nnoremap <leader>td <cmd>lua Snacks.picker.todo_comments({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
 " Explore root
 nnoremap <leader>fr <cmd>execute 'Explore ' . FindRootDirectory()<CR>
 " LLM --------------------------------------------------------------------------

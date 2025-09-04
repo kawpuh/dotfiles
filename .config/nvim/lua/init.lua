@@ -71,10 +71,6 @@ require('snacks').setup({
         filename_first = true,
       }
     },
-    matcher = {
-      frecency = true,
-      sort_empty = true,
-    },
     win = {
       input = {
         keys = {
