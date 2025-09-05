@@ -191,7 +191,7 @@ colorscheme gruvbox
 
 " Binds ------------------------------------------------------------------------
 " snacks.nvim picker -----------------------------------------------------------
-nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
+nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, layout = 'telescope'})<CR>
 nnoremap <leader>f/ <cmd>lua Snacks.picker.files({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
 " nnoremap <leader>bt <cmd>lua Snacks.picker.buffers({sort_mru = true})<CR>
 nnoremap <leader>" <cmd>lua Snacks.picker.registers({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
