@@ -80,12 +80,13 @@ nnoremap <leader>m :w<cr>:Make<cr>
 nnoremap <leader>rr :w<cr>:!!<CR>
 nnoremap <leader>gl :call TabTerm('git log -p ' . expand('%'))<CR>
 nnoremap <leader>gd :call TabTerm('git diff ' . expand('%'))<CR>
-" quickfix, loclist -----------------------------------------------------------
+" quickfix, loclist, diagnostics ----------------------------------------------
 nnoremap ]q :cn<CR>
 nnoremap [q :cp<CR>
 nnoremap <leader>qc :ccl<CR>
 nnoremap <leader>qo :copen<CR>
 nnoremap <leader>qf <cmd>lua vim.diagnostic.setqflist()<CR>
+nnoremap <leader>qd <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap ]l :lne<CR>
 nnoremap [l :lp<CR>
 "  clipboard ------------------------------------------------------------------
