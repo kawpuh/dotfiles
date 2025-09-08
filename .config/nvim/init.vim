@@ -321,6 +321,7 @@ augroup KawpuhClojure
   let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
   au FileType clojure nnoremap <buffer> <localleader>cs :ConjureShadowSelect<space>
   au FileType clojure nnoremap <buffer> <localleader>cc :ConjureConnect<CR>
+  au FileType clojure nnoremap <buffer> <leader>fs :w <bar> TermSend (re)<CR>
 augroup end
 
 augroup KawpuhNix
