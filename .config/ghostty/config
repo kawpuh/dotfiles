@@ -11,8 +11,14 @@ font-family = "Monaspace Argon"
 # font-family = "Monaspace Krypton"
 confirm-close-surface = false
 shell-integration = zsh
-keybind = ctrl+[=text:\x1b
 keybind = ctrl+shift+j=scroll_page_lines:1
 keybind = ctrl+shift+k=scroll_page_lines:-1
+keybind = ctrl+alt+j=jump_to_prompt:1
+keybind = ctrl+alt+k=jump_to_prompt:-1
+keybind = ctrl+shift+up=scroll_page_up
+keybind = ctrl+shift+down=scroll_page_down
+keybind = ctrl+[=text:\x1b
 keybind = shift+enter=text:\n
+keybind = ctrl+shift+plus=reset_font_size
+
 custom-shader = shaders/cursor_smear.glsl
