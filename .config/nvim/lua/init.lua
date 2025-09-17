@@ -39,7 +39,8 @@ require("catppuccin").setup {
 }
 
 require("gruvbox").setup {
-  transparent_mode = true
+  transparent_mode = true,
+  contrast = "hard"
 }
 
 require('lualine').setup({

@@ -3,7 +3,7 @@ import subprocess
 from urllib.request import urlopen
 
 config.load_autoconfig()
-gruvbox = True
+gruvbox = False
 
 def get_theme_from_dconf():
     try:
@@ -53,7 +53,8 @@ c.url.searchengines = {
     'DEFAULT':  'https://google.com/search?hl=en&q={}',
     'yt': 'https://www.youtube.com/results?search_query={}',
     'wiki': 'https://en.wikipedia.org/w/index.php?search={}',
-    'gh': 'https://www.github.com/search?q={}&type=repositories'
+    'gh': 'https://www.github.com/search?q={}&type=repositories',
+    'arch': 'https://wiki.archlinux.org/index.php?search={}',
 }
 c.url.start_pages = c.url.default_page = "https://web.tabliss.io"
 c.tabs.padding = {'top': 8, 'bottom': 8, 'left': 16, 'right': 16}

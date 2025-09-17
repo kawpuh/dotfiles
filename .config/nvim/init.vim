@@ -187,8 +187,8 @@ let g:vsnip_snippet_dir="$HOME/.config/nvim/snippets"
 
 lua require('init')
 
-" colorscheme catppuccin
-colorscheme gruvbox
+colorscheme catppuccin
+" colorscheme gruvbox
 
 " Binds ------------------------------------------------------------------------
 " snacks.nvim picker -----------------------------------------------------------
