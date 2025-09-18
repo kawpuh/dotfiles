@@ -119,11 +119,11 @@ layouts = [
 
 keys = [
   # Switch between windows
-  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim ~/Sync/notes/agenda.md")),
+  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim /home/ethan/Sync/notes/agenda.md")),
   Key([MOD], "b", lazy.spawn("qutebrowser")),
   Key([MOD, "shift"], "b", lazy.spawn("chromium")),
   Key([MOD], "c", lazy.spawn("bt-script")),
-  Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim .config/qtile/config.py")),
+  Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim /home/ethan/.config/qtile/config.py")),
   Key([MOD], "d", lazy.window.move_down(force=True)),
   Key([MOD], "e", lazy.spawn("ghostty -e nvim -c ':Scratch'")),
   Key([MOD], "f", lazy.next_layout()),
