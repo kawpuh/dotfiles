@@ -27,7 +27,6 @@ colors = {
 }
 
 MOD = "mod4"
-TERM = guess_terminal("ghostty")
 
 def send_to_next_screen(qtile):
   to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
@@ -142,7 +141,7 @@ keys = [
   Key([MOD], "u", lazy.window.bring_to_front()),
   Key([MOD], "w", lazy.window.kill()),
   Key([MOD], "comma", lazy.spawn("zathura")),
-  Key([MOD], "Return", lazy.spawn(TERM)),
+  Key([MOD], "Return", lazy.spawn("ghostty --window-inherit-working-directory=false")),
   Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
   Key([MOD], "Tab", lazy.screen.toggle_group()),
   Key([MOD, "Shift"], "f", lazy.function(toggle_bar_and_fullscreen)),

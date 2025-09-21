@@ -2,14 +2,14 @@ background-opacity = 0.98
 window-decoration = false
 # theme = dark:GruvboxDarkHard,light:GruvboxLightHard
 theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+working-directory = home
+# window-inherit-working-directory = false
 font-size = 12
-# font-feature = calt, liga, ss01, ss02, ss03, ss04, ss05, ss06, ss07, ss08, ss09
 font-feature = calt, liga
-font-family = "Monaspace Argon"
-# font-family = "Monaspace Neon"
-# font-family = "Monaspace Xenon"
-# font-family = "Monaspace Krypton"
-confirm-close-surface = false
+font-family = Monaspace Argon
+# font-family = Monaspace Neon
+# font-family = Monaspace Xenon
+# font-family = Monaspace Krypton
 shell-integration = zsh
 keybind = ctrl+shift+j=scroll_page_lines:1
 keybind = ctrl+shift+k=scroll_page_lines:-1
@@ -20,5 +20,4 @@ keybind = ctrl+shift+down=scroll_page_down
 keybind = ctrl+[=text:\x1b
 keybind = shift+enter=text:\n
 keybind = ctrl+shift+plus=reset_font_size
-
 custom-shader = shaders/cursor_smear.glsl
