@@ -1,16 +1,16 @@
+shell-integration = zsh
 background-opacity = 0.98
 window-decoration = false
 # theme = dark:GruvboxDarkHard,light:GruvboxLightHard
 theme = dark:Catppuccin Mocha,light:Catppuccin Latte
-working-directory = home
-# window-inherit-working-directory = false
+working-directory = inherit
+window-inherit-working-directory = true
 font-size = 12
 font-feature = calt, liga
 font-family = Monaspace Argon
 # font-family = Monaspace Neon
 # font-family = Monaspace Xenon
 # font-family = Monaspace Krypton
-shell-integration = zsh
 keybind = ctrl+shift+j=scroll_page_lines:1
 keybind = ctrl+shift+k=scroll_page_lines:-1
 keybind = ctrl+alt+j=jump_to_prompt:1
