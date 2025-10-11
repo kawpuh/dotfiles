@@ -167,3 +167,7 @@ background = "#24272e"
 foreground = "#abb2bf"
 frame_color = "#e06c75"
 timeout = 0
+
+[play_sound]
+summary = "*"
+script = /home/ethan/bin/notif-sound.sh
