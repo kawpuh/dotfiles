@@ -12,14 +12,16 @@ setopt INC_APPEND_HISTORY
 export HISTTIMEFORMAT="[%F %T] "
 setopt EXTENDED_HISTORY
 
-# Basic auto/tab complete:
-# autoload -U compinit
-# zstyle ':completion:*' completer _extensions _complete _approximate
-# zstyle ':completion:*' menu yes select
-# zstyle ':completion:*:*:make:*' tag-order 'targets'
-# zmodload zsh/complist
-# compinit
-# _comp_options+=(globdots)		# Include hidden files.
+# FAST COMPINIT
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit -C
+else
+  compinit
+  { compinit; touch ~/.zcompdump } &!
+fi
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # vi mode
 bindkey -v

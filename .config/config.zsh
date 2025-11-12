@@ -54,6 +54,7 @@ export OPENSSL_CONF=/etc/ssl/
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export NODE_OPTIONS=--openssl-legacy-provider
 
+eval "$(llm cmdcomp --init zsh)"
 # plugins
 # First antigen check with additional path
 if [ -f /usr/share/zsh/share/antigen.zsh ]; then
