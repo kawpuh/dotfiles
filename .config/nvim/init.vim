@@ -93,7 +93,6 @@ nnoremap [l :lp<CR>
 noremap <leader>y "+y
 noremap <leader>p "+p
 noremap <leader>P "+P
-nnoremap <leader>by gg"+yG<C-o>
 
 augroup KawpuhNetrw
   au!
@@ -243,8 +242,8 @@ nnoremap ]c <cmd>Gitsigns next_hunk<CR>
 nnoremap [c <cmd>Gitsigns prev_hunk<CR>
 nnoremap <leader>gs <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
 " text obj
-xmap aa <Plug>(textobj-entire-a)
-omap aa <Plug>(textobj-entire-a)
+xmap ia <Plug>(textobj-entire-i)
+omap ia <Plug>(textobj-entire-i)
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
@@ -254,7 +253,6 @@ augroup KawpuhMarkdown
   au FileType markdown setlocal spell
   au FileType markdown nnoremap <buffer> <leader>id "=strftime("# %a %d %B %Y")<CR>p
   au FileType markdown nnoremap <buffer> <C-m> :SelectCodeBlock<CR>"+y
-  au FileType markdown nnoremap <buffer> <C-y> "+yae
   au FileType markdown nnoremap <buffer> <C-p> :normal yssc"+p<CR>
   au FileType markdown nnoremap <buffer> <localleader>fb :ScratchBranch<CR>
   au FileType markdown nnoremap <buffer> <localleader>fa :ScratchAddName<space>
