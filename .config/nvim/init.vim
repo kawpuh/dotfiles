@@ -51,7 +51,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 au TermOpen * startinsert
 
-command! -range YankRangeReference let @+ = expand('%') . ':' . <line1> . ':' . <line2>
+command! -range YankRangeReference let @+ = expand('%') . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
+nnoremap <leader>r :YankRangeReference<CR>
 vnoremap <leader>r :YankRangeReference<CR>
 
 function! TabTerm(cmd)
