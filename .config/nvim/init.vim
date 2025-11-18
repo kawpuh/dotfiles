@@ -52,8 +52,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 au TermOpen * startinsert
 
 command! -range YankRangeReference let @+ = expand('%') . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
-nnoremap <leader>r :YankRangeReference<CR>
-vnoremap <leader>r :YankRangeReference<CR>
+nnoremap <leader>ry :YankRangeReference<CR>
+vnoremap <leader>ry :YankRangeReference<CR>
 
 function! TabTerm(cmd)
     tabnew
@@ -201,12 +201,13 @@ vnoremap <leader>/ <cmd>lua Snacks.picker.grep_word({matcher = {frecency = true,
 nnoremap <leader>td <cmd>lua Snacks.picker.todo_comments({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
 " Explore root
 nnoremap <leader>fr <cmd>execute 'Explore ' . FindRootDirectory()<CR>
-" LLM --------------------------------------------------------------------------
+" pelicano --------------------------------------------------------------------------
 nnoremap <leader>fn <cmd>Scratch<CR>
 nnoremap <leader>fp <cmd>OpenLatestScratch<CR>
 noremap <leader>cn <Plug>PutCodeBlockNewScratch<CR>
 noremap <leader>cp <Plug>PutCodeBlockLatestScratch<CR>
 noremap <leader>cy <cmd>YankCodeBlock<CR>
+noremap <leader>rp :YankRangeReference<CR>:OpenLatestScratch<CR>GA<space><c-r>+<Esc>
 noremap <leader>llm <cmd>LLMPrompt<CR>
 noremap <leader>llc <cmd>LLMCommandPrompt<CR>
 nnoremap <leader>lll :LLMLogs<CR>
