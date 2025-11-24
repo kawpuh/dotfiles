@@ -47,7 +47,7 @@ config.bind('<Ctrl-[>', 'mode-leave ;; jseval -q document.activeElement.blur()',
 c.editor.command = ["neovide", "{file}", "+{line}", "+normal {column0}l"]
 
 c.tabs.last_close = "close"
-c.content.javascript.clipboard = "access"
+c.content.javascript.clipboard = "access-paste"
 
 c.url.searchengines = {
     'DEFAULT':  'https://google.com/search?hl=en&q={}',
