@@ -208,6 +208,7 @@ noremap <leader>cn <Plug>PutCodeBlockNewScratch<CR>
 noremap <leader>cp <Plug>PutCodeBlockLatestScratch<CR>
 noremap <leader>cy <cmd>YankCodeBlock<CR>
 noremap <leader>rp :YankRangeReference<CR>:OpenLatestScratch<CR>GA<space><c-r>+<Esc>
+noremap <leader>rn :YankRangeReference<CR>:Scratch<CR>"+p
 noremap <leader>llm <cmd>LLMPrompt<CR>
 noremap <leader>llc <cmd>LLMCommandPrompt<CR>
 nnoremap <leader>lll :LLMLogs<CR>

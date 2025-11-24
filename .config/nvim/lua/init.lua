@@ -54,6 +54,10 @@ require('lualine').setup({
       end,
     },
     lualine_x = { 'filetype' },
+  },
+  options = {
+    section_separators = '',
+    component_separators = ''
   }
 })
 -- listen lsp-progress event and refresh lualine
