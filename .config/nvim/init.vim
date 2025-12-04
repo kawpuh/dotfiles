@@ -78,8 +78,6 @@ noremap <C-d> <C-d>M
 nnoremap <C-j> i<CR><Esc>l
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>bd :confirm bw<CR>
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>bp :bp<CR>
 nnoremap <leader>fc :e $MYVIMRC<CR>
 nnoremap <leader>fl :e $HOME/.config/nvim/lua/init.lua<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
@@ -201,7 +199,6 @@ colorscheme catppuccin
 " snacks.nvim picker -----------------------------------------------------------
 nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, layout = 'telescope'})<CR>
 nnoremap <leader>f/ <cmd>lua Snacks.picker.files({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
-" nnoremap <leader>bt <cmd>lua Snacks.picker.buffers({sort_mru = true})<CR>
 nnoremap <leader>" <cmd>lua Snacks.picker.registers({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
 nnoremap <leader>/ <cmd>lua Snacks.picker.grep({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
 vnoremap <leader>/ <cmd>lua Snacks.picker.grep_word({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
@@ -296,11 +293,6 @@ augroup KawpuhGolang
   au FileType go nnoremap <buffer> <localleader>f :call GoFmt()<CR>
 augroup end
 
-augroup KawpuhPython
-  au!
-  au FileType python setlocal tabstop=2 shiftwidth=2
-augroup end
-
 augroup KawpuhRust
   au!
   au FileType rust nnoremap <buffer> <localleader>r :wr<CR>:Cargo run<CR>
@@ -314,30 +306,10 @@ augroup KawpuhHelp
   au FileType help wincmd o
 augroup end
 
-augroup KawpuhCSS
-  au!
-  " au FileType css setlocal tabstop=2 shiftwidth=2
-augroup end
-
-augroup KawpuhHTML
-  au!
-  " au FileType html setlocal tabstop=2 shiftwidth=2
-augroup end
-
 augroup KawpuhClojure
   au!
   let g:clojure_syntax_keywords = {'clojureMacro': ["deftest"]}
   au FileType clojure nnoremap <buffer> <localleader>cs :ConjureShadowSelect<space>
   au FileType clojure nnoremap <buffer> <localleader>cc :ConjureConnect<CR>
   " au FileType clojure nnoremap <buffer> <leader>fs :w <bar> TermSend (re)<CR>
-augroup end
-
-augroup KawpuhNix
-  au!
-  au FileType nix setlocal tabstop=2 shiftwidth=2
-augroup end
-
-augroup KawpuhLua
-  au!
-  au FileType lua setlocal tabstop=2 shiftwidth=2
 augroup end
