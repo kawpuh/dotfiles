@@ -24,6 +24,8 @@ let maplocalleader=","
 let g:netrw_banner=0
 let g:netrw_keepdir=0 " part of our use for netrw is to cwd
 let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_sort_by="time"
+let g:netrw_sort_direction="reverse"
 
 function! CwdLineCounts()
   let files = split(glob('*'), '\n')
@@ -51,7 +53,12 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 au TermOpen * startinsert
 
-command! -range YankRangeReference let @+ = (exists('*FindRootDirectory') && !empty(FindRootDirectory()) ? fnamemodify(expand('%'), ':p')[len(FindRootDirectory())+1:] : expand('%')) . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
+" command! -range YankRangeReference let @+ = (exists('*FindRootDirectory') && !empty(FindRootDirectory()) ? fnamemodify(expand('%'), ':p')[len(FindRootDirectory())+1:] : expand('%')) . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
+command! -range YankRangeReference let @+ =
+  \ (exists('*FindRootDirectory') && !empty(FindRootDirectory())
+  \   ? fnamemodify(expand('%:p'), ':s?' . FindRootDirectory() . '/??')
+  \   : expand('%'))
+  \ . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
 nnoremap <leader>ry :YankRangeReference<CR>
 vnoremap <leader>ry :YankRangeReference<CR>
 
