@@ -51,7 +51,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 au TermOpen * startinsert
 
-command! -range YankRangeReference let @+ = expand('%') . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
+command! -range YankRangeReference let @+ = (exists('*FindRootDirectory') && !empty(FindRootDirectory()) ? fnamemodify(expand('%'), ':p')[len(FindRootDirectory())+1:] : expand('%')) . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
 nnoremap <leader>ry :YankRangeReference<CR>
 vnoremap <leader>ry :YankRangeReference<CR>
 
