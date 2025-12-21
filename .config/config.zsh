@@ -41,7 +41,7 @@ alias qinst="sudo pacman -S"
 alias inst="sudo pacman -Syu"
 alias uninst="sudo pacman -R"
 function timertui() {
-    termdown $@ && notify-send "Timer Finished" && play ~/Sync/chime.wav
+    termdown $@ && notify-send "Timer Finished" && play ~/Sync/sounds/chime.wav
 }
 alias tm="timertui"
 alias cider="clj -Mcider"

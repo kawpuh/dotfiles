@@ -15,6 +15,7 @@ set undodir=~/.config/nvim/undo
 set list
 set signcolumn=no
 set syntax=off " use treesitter
+set autoindent
 syntax on
 filetype plugin indent on
 let mapleader=" "
