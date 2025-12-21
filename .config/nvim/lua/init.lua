@@ -6,6 +6,20 @@ require('ibl').setup()
 require('lsp-progress').setup()
 require('treesitter-context').setup({ enable = true })
 
+vim.filetype.add({
+  pattern = {
+    ['.*'] = {
+      priority = -math.huge,
+      function(path, bufnr)
+        local first_line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1] or ''
+        if first_line:match('^#!.*%f[%w]bb%f[%W]') then
+          return 'clojure'
+        end
+      end,
+    },
+  },
+})
+
 require('nvim-surround').setup({
   surrounds = {
     ["c"] = {
