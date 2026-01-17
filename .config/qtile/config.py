@@ -102,7 +102,6 @@ def shuffle_to_second(qtile):
     for _ in range(start_idx - 1):
       qtile.current_layout.shuffle_up()
 
-
 layouts = [
   layout.MonadTall(
     auto_maximize=True,
@@ -115,6 +114,24 @@ layouts = [
   ),
   layout.Max(),
 ]
+
+floating_layout = layout.Floating(
+  border_width=4 if os.uname()[1] != "campstove" else 6,
+  border_focus=colors["teal"],
+  border_normal=colors["base"],
+  float_rules=[
+  # Run the utility of `xprop` to see the wm class and name of an X client.
+  *layout.Floating.default_float_rules,
+  Match(wm_class='confirmreset'),  # gitk
+  Match(wm_class='makebranch'),  # gitk
+  Match(wm_class='maketag'),  # gitk
+  Match(wm_class='ssh-askpass'),  # ssh-askpass
+  Match(wm_class='steam_app_1172470'),
+  Match(wm_class='Wine'),  # apex
+  Match(wm_type='splash'),
+  Match(title='branchdialog'),  # gitk
+  Match(title='pinentry'),  # GPG key password entry
+])
 
 keys = [
   # Switch between windows
@@ -252,7 +269,8 @@ sep = widget.Sep(padding=12, size_percent=80, foreground=colors["surface2"])
 
 common_bar_prefix = [
   widget.CurrentLayout(mode="icon"),
-  widget.GroupBox(active=colors["text"],
+  widget.GroupBox(padding=4,
+                  active=colors["text"],
                   disable_drag=True,
                   highlight_method="line",
                   this_current_screen_border=colors["teal"],
@@ -282,7 +300,7 @@ common_bar_suffix = [
   sep,
   widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
   sep,
-  widget.Systray(icon_size=20 if os.uname()[1] != "campstove" else 40),
+  widget.Systray(icon_size=40),
 ]
 
 bar_settings = {"opacity": 0.80}
@@ -293,7 +311,7 @@ if os.uname()[1] == 'toaster':
       common_bar_suffix, 24, **bar_settings)),
     # it seems we can't easily deepcopy bar; have to redefine
     Screen(bottom=bar.Bar([
-      widget.CurrentLayoutIcon(),
+      widget.CurrentLayout(),
       widget.GroupBox(active="ebdbb2",
                       disable_drag=True,
                       highlight_method="line",
@@ -353,19 +371,6 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = True
-floating_layout = layout.Floating(float_rules=[
-  # Run the utility of `xprop` to see the wm class and name of an X client.
-  *layout.Floating.default_float_rules,
-  Match(wm_class='confirmreset'),  # gitk
-  Match(wm_class='makebranch'),  # gitk
-  Match(wm_class='maketag'),  # gitk
-  Match(wm_class='ssh-askpass'),  # ssh-askpass
-  Match(wm_class='steam_app_1172470'),
-  Match(wm_class='Wine'),  # apex
-  Match(wm_type='splash'),
-  Match(title='branchdialog'),  # gitk
-  Match(title='pinentry'),  # GPG key password entry
-])
 auto_fullscreen = True
 auto_minimize = True
 focus_on_window_activation = "never"
