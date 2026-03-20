@@ -278,11 +278,7 @@ common_bar_prefix = [
                   other_screen_border=colors["surface0"]),
   sep,
   widget.WindowName(max_chars=15),
-  widget.OpenWeather(
-    zip="35114",
-    update_interval=120,
-    metric=False,
-    format='{icon} {main_temp} °{units_temperature} 💧{humidity}%'),
+  widget.Wttr(location={"Alabaster": "35114"}, units='u', format="%c%t  💧%h"),
   sep,
   widget.Net(format="{up:3.0f} {up_suffix:>2} ↑↓ {down:3.0f} {down_suffix:>2}"),
   sep,
