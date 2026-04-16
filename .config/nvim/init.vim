@@ -127,7 +127,7 @@ let g:textobj_entire_no_default_key_mappings=1
 call plug#begin()
 " Core
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch' : 'master' }
 " General
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
@@ -155,7 +155,7 @@ Plug 'ibhagwan/fzf-lua'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire' " (ae) think a entire
 " display colors
-Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git'
+Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim'
 " snippet
 Plug 'hrsh7th/vim-vsnip'
 " Completion
@@ -179,7 +179,7 @@ Plug 'MeanderingProgrammer/render-markdown.nvim'
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
 " Leap
-Plug 'ggandor/leap.nvim'
+Plug 'https://codeberg.org/andyg/leap.nvim'
 " LLM
 Plug 'kawpuh/pelicano', { 'dir': '~/sandbox/pelicano' }
 " Optional deps
