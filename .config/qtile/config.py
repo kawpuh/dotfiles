@@ -30,7 +30,7 @@ MOD = "mod4"
 
 def send_to_next_screen(qtile):
   to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
-  qtile.current_window.cmd_toscreen(to_idx)
+  qtile.current_window.toscreen(to_idx)
 
 def group_shown(group):
   return group.windows or group.screen
@@ -42,12 +42,15 @@ def goto_next_empty_group(qtile):
       return
 
 def followto_next_empty_group(qtile):
-  "send and follow the selected window to a new group"
-  for group in qtile.groups:
-    if not group_shown(group):
-      qtile.current_window.cmd_togroup(group.name)
-      qtile.current_screen.set_group(group)
-      return
+    "send and follow the selected window to a new group"
+    window = qtile.current_window
+    if window is None:
+        return
+    for group in qtile.groups:
+        if not group_shown(group):
+            window.togroup(group.name)
+            qtile.current_screen.set_group(group)
+            return
 
 def goto_next_unhidden_group(qtile):
   group = qtile.current_screen.group
@@ -78,7 +81,7 @@ def sendto_next_hidden_group(qtile):
   for i in range(10):
     group = group.get_next_group(skip_empty=False, skip_managed=False)
     if group.name in hidden_group_names:
-      qtile.current_window.cmd_togroup(group.name)
+      qtile.current_window.togroup(group.name)
       return
 
 def swap_screens(qtile):
@@ -91,7 +94,7 @@ def toggle_bar_and_fullscreen(qtile):
   bar = qtile.current_screen.bottom
   if bar.is_show():
     bar.show(False)
-    qtile.current_screen.group.cmd_setlayout('max')
+    qtile.current_screen.group.setlayout('max')
   else:
     bar.show(True)
 
