@@ -1,58 +1,43 @@
-require 'nvim-treesitter.configs'.setup {
-  textobjects = {
-    select = {
-      enable = true,
-      disable = { 'clojure' },
-      lookahead = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        -- You can optionally set descriptions to the mappings (used in the desc parameter of
-        -- nvim_buf_set_keymap) which plugins like which-key display
-        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-        -- You can also use captures from other query groups like `locals.scm`
-        ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
-      },
-      -- You can choose the select mode (default is charwise 'v')
-      --
-      -- Can also be a function which gets passed a table with the keys
-      -- * query_string: eg '@function.inner'
-      -- * method: eg 'v' or 'o'
-      -- and should return the mode ('v', 'V', or '<c-v>') or a table
-      -- mapping query_strings to modes.
-      selection_modes = {
-        ['@parameter.outer'] = 'v', -- charwise
-        ['@function.outer'] = 'V',  -- linewise
-        ['@class.outer'] = '<c-v>', -- blockwise
-      },
-      -- If you set this to `true` (default is `false`) then any textobject is
-      -- extended to include preceding or succeeding whitespace. Succeeding
-      -- whitespace has priority in order to act similarly to eg the built-in
-      -- `ap`.
-      --
-      -- Can also be a function which gets passed a table with the keys
-      -- * query_string: eg '@function.inner'
-      -- * selection_mode: eg 'v'
-      -- and should return true or false
-      include_surrounding_whitespace = true,
+local ensure_installed = {
+  "c", "lua", "rust", "python", "clojure", "vim",
+  "fennel", "html", "css", "json", "markdown", "scheme",
+}
+
+require('nvim-treesitter').setup()
+require('nvim-treesitter').install(ensure_installed)
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('treesitter.setup', {}),
+  callback = function(args)
+    local buf = args.buf
+    local filetype = args.match
+    local language = vim.treesitter.language.get_lang(filetype) or filetype
+    local ok, added = pcall(vim.treesitter.language.add, language)
+    if not ok or not added then
+      return
+    end
+    vim.treesitter.start(buf, language)
+    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
+
+require('nvim-treesitter-textobjects').setup {
+  select = {
+    enable = true,
+    disable = { 'clojure' },
+    lookahead = true,
+    keymaps = {
+      ["af"] = "@function.outer",
+      ["if"] = "@function.inner",
+      ["ac"] = "@class.outer",
+      ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+      ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
     },
-  },
-
-  -- A list of parser names, or "all"
-  ensure_installed = { "c", "lua", "rust", "python", "clojure", "vim", "fennel", "html", "css", "json", "markdown", "scheme" },
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  auto_install = true,
-  highlight = {
-    enable = true,
-    -- disable = { "c", "rust" },
-    additional_vim_regex_highlighting = true,
-  },
-  indent = {
-    enable = true,
+    selection_modes = {
+      ['@parameter.outer'] = 'v',
+      ['@function.outer'] = 'V',
+      ['@class.outer'] = '<c-v>',
+    },
+    include_surrounding_whitespace = true,
   },
 }

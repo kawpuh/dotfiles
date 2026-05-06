@@ -127,7 +127,7 @@ let g:textobj_entire_no_default_key_mappings=1
 call plug#begin()
 " Core
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch' : 'master' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch' : 'main' }
 " General
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
