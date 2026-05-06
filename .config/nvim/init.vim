@@ -159,7 +159,8 @@ Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim'
 " snippet
 Plug 'hrsh7th/vim-vsnip'
 " Completion
-Plug 'saghen/blink.cmp', { 'do': 'cargo build --release' }
+Plug 'saghen/blink.lib'
+Plug 'saghen/blink.cmp', { 'do': 'cargo build --release', 'branch': 'v1' }
 " Lisp
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'

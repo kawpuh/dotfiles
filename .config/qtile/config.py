@@ -301,49 +301,7 @@ common_bar_suffix = [
 
 bar_settings = {"opacity": 0.80}
 
-if os.uname()[1] == 'toaster':
-  screens = [
-    Screen(bottom=bar.Bar(common_bar_prefix +
-      common_bar_suffix, 24, **bar_settings)),
-    # it seems we can't easily deepcopy bar; have to redefine
-    Screen(bottom=bar.Bar([
-      widget.CurrentLayout(),
-      widget.GroupBox(active="ebdbb2",
-                      disable_drag=True,
-                      highlight_method="line",
-                      this_current_screen_border='928374',
-                      this_screen_border='928374',
-                      other_current_screen_border='504945',
-                      other_screen_border='504945'),
-      sep,
-      widget.WindowName(),
-      widget.Clock(format='%a %m/%d/%Y %H:%M:%S')
-    ], 24, **bar_settings))
-  ]
-elif os.uname()[1] == 'trailer':
-  screens = [
-    Screen(bottom=bar.Bar(
-      common_bar_prefix + [
-        sep,
-        widget.TextBox("💡:"),
-        widget.Backlight(
-          brightness_file=
-          "/sys/class/backlight/intel_backlight/brightness",
-          max_brightness_file=
-          "/sys/class/backlight/intel_backlight/max_brightness"),
-      ] + common_bar_suffix, 24, **bar_settings), ),
-  ]
-elif os.uname()[1] == 'camper':
-  screens = [
-    Screen(bottom=bar.Bar(
-      common_bar_prefix + [
-        sep,
-        widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫", empty_char="💀", update_interval=15),
-        sep,
-        widget.Backlight(),
-      ] + common_bar_suffix, 24, **bar_settings), ),
-  ]
-elif os.uname()[1] == 'campstove':
+if os.uname()[1] == 'campstove':
   screens = [
     Screen(bottom=bar.Bar(
       common_bar_prefix + [
