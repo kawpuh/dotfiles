@@ -60,8 +60,8 @@ command! -range YankRangeReference let @+ =
   \   ? fnamemodify(expand('%:p'), ':s?' . FindRootDirectory() . '/??')
   \   : expand('%'))
   \ . ':' . <line1> . (<line1> == <line2> ? '' : ':' . <line2>)
-nnoremap <leader>ry :YankRangeReference<CR>
-vnoremap <leader>ry :YankRangeReference<CR>
+nnoremap <leader>gr :YankRangeReference<CR>
+vnoremap <leader>gr :YankRangeReference<CR>
 
 function! TabTerm(cmd)
     tabnew
@@ -153,7 +153,7 @@ Plug 'folke/snacks.nvim'
 Plug 'ibhagwan/fzf-lua'
 " text object
 Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-entire' " (ae) think a entire
+Plug 'kana/vim-textobj-entire' " (aa) think a all
 " display colors
 Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim'
 " snippet
@@ -251,8 +251,8 @@ nnoremap ]c <cmd>Gitsigns next_hunk<CR>
 nnoremap [c <cmd>Gitsigns prev_hunk<CR>
 nnoremap <leader>gs <cmd>lua require('gitsigns').diffthis(nil,{vertical = true})<CR>
 " text obj
-xmap ia <Plug>(textobj-entire-i)
-omap ia <Plug>(textobj-entire-i)
+xmap aa <Plug>(textobj-entire-i)
+omap aa <Plug>(textobj-entire-i)
 
 " Auto-create parent directories (except for URIs "://").
 au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
