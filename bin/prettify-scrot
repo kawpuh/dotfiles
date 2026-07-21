@@ -125,10 +125,11 @@ FINAL_HEIGHT=$(printf "%.0f" "$FINAL_HEIGHT")
 
 echo "Target dimensions: ${FINAL_WIDTH}x${FINAL_HEIGHT}"
 
-# Create gradient background
+# Create modern mesh gradient background (midnight palette)
 echo "Creating gradient background..."
-convert -size "${FINAL_WIDTH}x${FINAL_HEIGHT}" \
-    gradient:'#667eea-#764ba2' \
+convert -size "${FINAL_WIDTH}x${FINAL_HEIGHT}" xc: \
+    -sparse-color barycentric \
+    '0,0 #0f172a  %w,0 #1e1b4b  0,%h #0c4a6e  %w,%h #312e81' \
     "$TEMP_DIR/gradient.png"
 
 # Calculate position to center the original image
