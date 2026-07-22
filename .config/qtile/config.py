@@ -154,6 +154,7 @@ keys = [
   Key([MOD], "n", lazy.spawn("sitelist")),
   Key([MOD], "o", lazy.next_screen()),
   Key([MOD], "p", lazy.spawn("flameshot gui")),
+  Key([MOD, "shift"], "p", lazy.spawn("scrot -u /home/ethan/screenshot.png && notify-send 'screenshot saved.'", True)),
   Key([MOD], "r", lazy.spawn("rofi -show run")),
   Key([MOD,"shift"], "r", lazy.spawn("rofi -show combi")),
   Key([MOD], "s", lazy.function(swap_screens)),
