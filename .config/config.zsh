@@ -46,6 +46,7 @@ function timertui() {
 alias tm="timertui"
 alias cider="clj -Mcider"
 alias rebl="clojure -Mrebel"
+alias piro="pi --tools read,grep,find,ls"
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator

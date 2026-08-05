@@ -82,6 +82,7 @@ alias gds="git diff --staged"
 alias gsub="git submodule update --remote --recursive"
 alias t="tmux"
 alias view="nvim -R"
+alias picommit='pi --model opencode-go/glm-5.2 --thinking max "Review the current git repository: run git status and git diff (staged and unstaged), stage relevant changes, then create a commit with a concise commit message describing the actual changes. Do not push."'
 
 up() {
   cd $(printf "%*s" ${1:-1} | tr ' ' '/' | sed 's|/|../|g')
