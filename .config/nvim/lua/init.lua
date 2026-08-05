@@ -1,10 +1,25 @@
-require('kawpuh.lsp')
+local completion = require('kawpuh.completion')
+
+-- LSP and completion are not needed until a supported filetype is opened.
+-- Scheduling their setup lets the initial buffer draw first.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {
+    'c', 'clojure', 'cpp', 'css', 'cuda', 'haskell', 'html', 'json',
+    'jsonc', 'less', 'lhaskell', 'lua', 'objc', 'objcpp', 'python',
+    'racket', 'scss', 'sh',
+  },
+  once = true,
+  callback = function()
+    vim.schedule(function()
+      completion.setup()
+      require('kawpuh.lsp')
+    end)
+  end,
+})
+
 require('kawpuh.treesitter')
 require('kawpuh.diffregister')
 require('kawpuh.termsend')
-require('ibl').setup()
-require('lsp-progress').setup()
-require('treesitter-context').setup({ enable = true })
 
 vim.filetype.add({
   pattern = {
@@ -52,10 +67,17 @@ require("catppuccin").setup {
   },
 }
 
-require("gruvbox").setup {
-  transparent_mode = true,
-  contrast = "hard"
-}
+-- Configure the inactive colorscheme only if it is selected later.
+vim.api.nvim_create_autocmd('ColorSchemePre', {
+  pattern = 'gruvbox',
+  once = true,
+  callback = function()
+    require('gruvbox').setup({
+      transparent_mode = true,
+      contrast = 'hard',
+    })
+  end,
+})
 
 require('lualine').setup({
   sections = {
@@ -64,7 +86,8 @@ require('lualine').setup({
     },
     lualine_c = {
       function()
-        return require('lsp-progress').progress()
+        local progress = package.loaded['lsp-progress']
+        return progress and progress.progress() or ''
       end,
     },
     lualine_x = { 'filetype' },
@@ -82,47 +105,50 @@ vim.api.nvim_create_autocmd("User", {
   callback = require("lualine").refresh,
 })
 
-require('snacks').setup({
-  picker = {
-    enabled = true,
-    formatters = {
-      file = {
-        filename_first = true,
-      }
-    },
-    win = {
-      input = {
-        keys = {
-          ["<a-a>"] = { "toggle_hidden", mode = { "i", "n" } },
-        }
-      }
-    }
-  },
-})
-
 require("todo-comments").setup {}
 
-require('blink.cmp').setup({
-  keymap = { preset = 'default' },
-  completion = {
-    list = {
-      selection = {
-        preselect = false,
-      },
-    },
-  },
-})
-
--- Folding
-vim.o.foldcolumn = '0' -- probably want either '0' or '1'
+-- Folding is comparatively expensive to initialize, so do it after the first
+-- screen has been drawn. The mappings also initialize it on demand.
+vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-require('ufo').setup({
-  provider_selector = function(bufnr, filetype, buftype)
-    return { 'treesitter', 'indent' }
+
+local ufo_configured = false
+local function setup_ufo()
+  if ufo_configured then
+    return require('ufo')
   end
 
+  local ufo = require('ufo')
+  ufo.setup({
+    provider_selector = function()
+      return { 'treesitter', 'indent' }
+    end,
+  })
+  ufo_configured = true
+  return ufo
+end
+
+vim.keymap.set('n', 'zR', function()
+  setup_ufo().openAllFolds()
+end)
+vim.keymap.set('n', 'zM', function()
+  setup_ufo().closeAllFolds()
+end)
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  once = true,
+  callback = function()
+    vim.schedule(function()
+      -- These plugins attach to buffers that were opened during startup.
+      vim.fn['plug#load']({
+        'gitsigns.nvim',
+        'indent-blankline.nvim',
+        'nvim-treesitter-context',
+      })
+      require('ibl').setup()
+      setup_ufo()
+    end)
+  end,
 })

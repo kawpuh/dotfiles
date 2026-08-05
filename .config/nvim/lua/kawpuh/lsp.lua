@@ -1,3 +1,6 @@
+vim.fn['plug#load']('lsp-progress.nvim')
+require('lsp-progress').setup()
+
 local servers = {
   "bashls",
   "clojure_lsp",

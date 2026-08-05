@@ -4,7 +4,17 @@ local ensure_installed = {
 }
 
 require('nvim-treesitter').setup()
-require('nvim-treesitter').install(ensure_installed)
+
+-- Parser checks can happen after the editor is usable. Existing parsers are
+-- still available immediately to the FileType callback below.
+vim.api.nvim_create_autocmd('VimEnter', {
+  once = true,
+  callback = function()
+    vim.schedule(function()
+      require('nvim-treesitter').install(ensure_installed)
+    end)
+  end,
+})
 
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('treesitter.setup', {}),

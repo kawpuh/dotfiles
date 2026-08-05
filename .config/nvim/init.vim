@@ -1,3 +1,8 @@
+" Cache Lua modules and skip Arch's bundled Black plugin, which otherwise
+" initializes the Python provider during every startup.
+lua vim.loader.enable()
+let g:load_black = 1
+
 set mouse=a
 set tabstop=2
 set shiftwidth=2
@@ -15,8 +20,10 @@ set undodir=~/.config/nvim/undo
 set list
 set signcolumn=no
 set syntax=off " use treesitter
+" vim-plug enables legacy syntax unless this flag exists. Treesitter handles
+" highlighting, so keep regex syntax off instead of paying for both systems.
+let g:syntax_on = 1
 set autoindent
-syntax on
 filetype plugin indent on
 let mapleader=" "
 let maplocalleader=","
@@ -40,6 +47,20 @@ let g:rooter_manual_only = 1
 let g:rooter_patterns = ['.git', 'justfile', 'deps.edn', 'shadow-cljs.edn']
 
 command! WC call CwdLineCounts()
+
+" Keep Arch's bundled Black integration available without loading the Python
+" provider until one of its commands is actually used.
+function! LoadBlackPlugin(command, args)
+  silent! delcommand Black
+  silent! delcommand BlackUpgrade
+  silent! delcommand BlackVersion
+  unlet! g:load_black
+  runtime plugin/black.vim
+  execute a:command . (empty(a:args) ? '' : ' ' . a:args)
+endfunction
+command! -nargs=* Black call LoadBlackPlugin('Black', <q-args>)
+command! BlackUpgrade call LoadBlackPlugin('BlackUpgrade', '')
+command! BlackVersion call LoadBlackPlugin('BlackVersion', '')
 
 " neovide
 if exists('g:neovide')
@@ -132,11 +153,11 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'branch' : 'main' }
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'linrongbin16/lsp-progress.nvim'
-Plug 'lewis6991/gitsigns.nvim'
+Plug 'linrongbin16/lsp-progress.nvim', { 'on': [] }
+Plug 'lewis6991/gitsigns.nvim', { 'on': 'Gitsigns' }
 Plug 'airblade/vim-rooter'
 Plug 'lambdalisue/suda.vim'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align', { 'on': ['EasyAlign', 'LiveEasyAlign', '<Plug>(EasyAlign)'] }
 Plug 'folke/todo-comments.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'kylechui/nvim-surround'
@@ -144,49 +165,55 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-sleuth'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'mbbill/undotree'
-Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'lukas-reineke/indent-blankline.nvim', { 'on': [] }
+Plug 'mbbill/undotree', { 'on': ['UndotreeToggle', 'UndotreeShow'] }
+Plug 'nvim-treesitter/nvim-treesitter-context', { 'on': [] }
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'MunifTanjim/nui.nvim'
-Plug 'folke/snacks.nvim'
-Plug 'ibhagwan/fzf-lua'
+Plug 'folke/snacks.nvim', { 'on': [] }
+Plug 'ibhagwan/fzf-lua', { 'on': 'FzfLua' }
 " text object
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-entire' " (aa) think a all
+Plug 'kana/vim-textobj-user', { 'on': '<Plug>(textobj-entire-i)' }
+Plug 'kana/vim-textobj-entire', { 'on': '<Plug>(textobj-entire-i)' } " (aa) think a all
 " display colors
 Plug 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim'
 " snippet
-Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip', { 'on': ['VsnipOpen', 'VsnipOpenEdit', 'VsnipOpenVsplit', 'VsnipOpenSplit'] }
 " Completion
 Plug 'saghen/blink.lib'
-Plug 'saghen/blink.cmp', { 'do': 'cargo build --release', 'branch': 'v1' }
+Plug 'saghen/blink.cmp', { 'do': 'cargo build --release', 'branch': 'v1', 'on': [] }
 " Lisp
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'guns/vim-sexp', { 'for': ['clojure', 'scheme', 'lisp', 'hy', 'fennel'] }
+Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure', 'scheme', 'lisp', 'hy', 'fennel'] }
 " Conjure and repl
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'Olical/conjure'
+Plug 'tpope/vim-dispatch', { 'on': ['Dispatch', 'FocusDispatch', 'Make', 'Spawn', 'Start'] }
+Plug 'radenling/vim-dispatch-neovim', { 'on': ['Dispatch', 'FocusDispatch', 'Make', 'Spawn', 'Start'] }
+Plug 'Olical/conjure', { 'for': ['clojure', 'fennel', 'janet', 'racket', 'scheme'] }
 " Language specific
-Plug 'simrat39/rust-tools.nvim'
-Plug 'jaawerth/fennel.vim'
-Plug 'clojure-vim/clojure.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'hylang/vim-hy'
-Plug 'NoahTheDuke/vim-just'
-Plug 'MeanderingProgrammer/render-markdown.nvim'
+Plug 'simrat39/rust-tools.nvim', { 'for': 'rust' }
+Plug 'jaawerth/fennel.vim', { 'for': 'fennel' }
+Plug 'clojure-vim/clojure.vim', { 'for': 'clojure' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'hylang/vim-hy', { 'for': 'hy' }
+Plug 'NoahTheDuke/vim-just', { 'for': 'just' }
+Plug 'MeanderingProgrammer/render-markdown.nvim', { 'for': 'markdown' }
 " Folding
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
 " Leap
-Plug 'https://codeberg.org/andyg/leap.nvim'
+Plug 'https://codeberg.org/andyg/leap.nvim', { 'on': '<Plug>(leap)' }
 " LLM
 Plug 'kawpuh/pelicano', { 'dir': '~/sandbox/pelicano' }
 " Optional deps
-Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/nvim-cmp', { 'on': [] }
 Plug 'echasnovski/mini.icons'
 call plug#end()
+
+" Snippets are only needed once insert mode is entered.
+augroup LazyVsnip
+  autocmd!
+  autocmd InsertEnter * ++once call plug#load('vim-vsnip')
+augroup END
 
 let g:rainbow_active=1
 let g:sexp_filetypes = "clojure,scheme,lisp,hy,fennel"
@@ -199,12 +226,12 @@ colorscheme catppuccin
 
 " Binds ------------------------------------------------------------------------
 " snacks.nvim picker -----------------------------------------------------------
-nnoremap <leader><tab> <cmd>lua Snacks.picker.buffers({sort_mru = true, current = false, layout = 'telescope'})<CR>
-nnoremap <leader>f/ <cmd>lua Snacks.picker.files({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
-nnoremap <leader>" <cmd>lua Snacks.picker.registers({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
-nnoremap <leader>/ <cmd>lua Snacks.picker.grep({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
-vnoremap <leader>/ <cmd>lua Snacks.picker.grep_word({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
-nnoremap <leader>td <cmd>lua Snacks.picker.todo_comments({matcher = {frecency = true, sort_empty = true}, layout = 'telescope'})<CR>
+nnoremap <leader><tab> <cmd>lua require('kawpuh.pickers').open('buffers', {sort_mru = true, current = false})<CR>
+nnoremap <leader>f/ <cmd>lua require('kawpuh.pickers').open('files')<CR>
+nnoremap <leader>" <cmd>lua require('kawpuh.pickers').open('registers')<CR>
+nnoremap <leader>/ <cmd>lua require('kawpuh.pickers').open('grep')<CR>
+vnoremap <leader>/ <cmd>lua require('kawpuh.pickers').open('grep_word')<CR>
+nnoremap <leader>td <cmd>lua require('kawpuh.pickers').open('todo_comments')<CR>
 " Explore root
 nnoremap <leader>fr <cmd>execute 'Explore ' . FindRootDirectory()<CR>
 " pelicano --------------------------------------------------------------------------
@@ -220,8 +247,8 @@ noremap <leader>llc <cmd>LLMCommandPrompt<CR>
 nnoremap <leader>lll :LLMLogs<CR>
 nnoremap <leader>llr :LLMLogs -r<CR>
 " fzf
-noremap <silent> <C-x><C-f> <Cmd>lua require('fzf-lua').complete_path()<CR>
-inoremap <silent> <C-x><C-f> <Cmd>lua require('fzf-lua').complete_path()<CR>
+noremap <silent> <C-x><C-f> <Cmd>call plug#load('fzf-lua') <Bar> lua require('fzf-lua').complete_path()<CR>
+inoremap <silent> <C-x><C-f> <Cmd>call plug#load('fzf-lua') <Bar> lua require('fzf-lua').complete_path()<CR>
 " Snippet ----------------------------------------------------------------------
 imap <expr> <C-s>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-s>'
 " folds ------------------------------------------------------------------------
