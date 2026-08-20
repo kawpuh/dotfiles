@@ -138,7 +138,7 @@ floating_layout = layout.Floating(
 
 keys = [
   # Switch between windows
-  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim /home/ethan/Sync/notes/agenda.md")),
+  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim /home/ethan/Sync/notes/")),
   Key([MOD], "b", lazy.spawn("qutebrowser")),
   Key([MOD, "shift"], "b", lazy.spawn("chromium")),
   Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim /home/ethan/.config/qtile/config.py")),
