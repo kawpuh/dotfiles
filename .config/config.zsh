@@ -34,6 +34,38 @@ jina() {
 claude-chat() {
     cd ~/sandbox/claude-chat && claude
 }
+
+tmpd() {
+    local dir="$HOME/tmp"
+
+    # Doesn't exist -> create it and cd in.
+    if [ ! -e "$dir" ]; then
+        mkdir -p "$dir" && cd "$dir"
+        return
+    fi
+
+    # Exists but isn't a directory.
+    if [ ! -d "$dir" ]; then
+        echo "tmpd: $dir exists and is not a directory" >&2
+        return 1
+    fi
+
+    # Not empty -> list contents and offer to clear it.
+    if [ -n "$(ls -A "$dir")" ]; then
+        ls -R "$dir"
+        printf 'Clear %s? [y/N] ' "$dir"
+        read -r answer
+        case "$answer" in
+            y|Y|yes|Yes)
+                find "$dir" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+                ;;
+        esac
+    fi
+
+    cd "$dir"
+}
+
+
 alias ym="llm logs -r | 2clip" # mnemonic yank-message
 alias yc="llm logs -c --xl | 2clip" # mnemonic yank-code
 alias pm="clip2 | llm" # mnemonic put-message
