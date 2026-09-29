@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+# Reconcile dotfiles whose hard link to the repo has broken (editors that save
+# by rename, git checkouts, etc. replace the inode on one side).
+#
+#   dotsync [status]          list files whose home copy isn't linked to the repo
+#   dotsync diff [file...]    diff repo -> home for drifted files
+#   dotsync local <file...>   keep the home version: copy it into the repo, relink
+#   dotsync repo <file...>    keep the repo version: relink home (old copy backed up)
+#   dotsync relink            relink files whose contents already match
+#
+# Files are repo-relative paths (e.g. .config/config.zsh) or paths under $HOME.
+
+set -euo pipefail
+
+DOTFILES=${DOTFILES:-$HOME/dotfiles}
+BACKUP_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/dotsync
+cd "$DOTFILES"
+
+tracked() {
+    git ls-files -z | while IFS= read -r -d '' f; do
+        case $f in README.md|install|installsh) continue ;; esac
+        printf '%s\n' "$f"
+    done
+}
+
+# Echo the drift state of one repo-relative file: ok, missing, same, or differs.
+state() {
+    local f=$1 h=$HOME/$1
+    if [[ ! -e $h ]]; then echo missing
+    elif [[ $f -ef $h ]]; then echo ok
+    elif cmp -s "$f" "$h"; then echo same
+    else echo differs
+    fi
+}
+
+# Accept "~/.xprofile", "/home/me/.xprofile", or ".xprofile".
+normalize() {
+    local p=$1
+    [[ $p == /* ]] || [[ -e $DOTFILES/$p ]] || p=$PWD/$p
+    p=${p#"$HOME"/}
+    p=${p#dotfiles/}
+    if ! git ls-files --error-unmatch -- "$p" >/dev/null 2>&1; then
+        echo "dotsync: $1 is not tracked in $DOTFILES" >&2
+        exit 1
+    fi
+    printf '%s\n' "$p"
+}
+
+drifted() {
+    tracked | while IFS= read -r f; do
+        [[ $(state "$f") == ok ]] || printf '%s\n' "$f"
+    done
+}
+
+link_home() {
+    mkdir -p "$(dirname "$HOME/$1")"
+    ln -f "$1" "$HOME/$1"
+}
+
+cmd=${1:-status}
+shift || true
+
+case $cmd in
+    status)
+        found=0
+        while IFS= read -r f; do
+            s=$(state "$f")
+            [[ $s == ok ]] && continue
+            found=1
+            printf '%-8s %s\n' "$s" "$f"
+        done < <(tracked)
+        ((found)) || echo "all dotfiles linked"
+        ;;
+    diff)
+        if (($#)); then files=(); for a in "$@"; do files+=("$(normalize "$a")"); done
+        else mapfile -t files < <(drifted); fi
+        for f in "${files[@]}"; do
+            [[ -e $HOME/$f ]] || { echo "missing in home: $f"; continue; }
+            git diff --no-index -- "$f" "$HOME/$f" || true
+        done
+        ;;
+    local)
+        (($#)) || { echo "usage: dotsync local <file...>" >&2; exit 1; }
+        for a in "$@"; do
+            f=$(normalize "$a")
+            [[ -e $HOME/$f ]] || { echo "dotsync: no home copy of $f" >&2; exit 1; }
+            [[ $(state "$f") == ok ]] && { echo "already linked: $f"; continue; }
+            cp -p "$HOME/$f" "$f"
+            link_home "$f"
+            echo "took local: $f"
+        done
+        git status --short
+        ;;
+    repo)
+        (($#)) || { echo "usage: dotsync repo <file...>" >&2; exit 1; }
+        for a in "$@"; do
+            f=$(normalize "$a")
+            [[ $(state "$f") == ok ]] && { echo "already linked: $f"; continue; }
+            if [[ -e $HOME/$f ]]; then
+                b=$BACKUP_DIR/$(date +%Y%m%d-%H%M%S)/$f
+                mkdir -p "$(dirname "$b")"
+                cp -p "$HOME/$f" "$b"
+                echo "backed up home copy to $b"
+            fi
+            link_home "$f"
+            echo "took repo: $f"
+        done
+        ;;
+    relink)
+        while IFS= read -r f; do
+            s=$(state "$f")
+            if [[ $s == same || $s == missing ]]; then
+                link_home "$f"
+                echo "relinked: $f"
+            fi
+        done < <(tracked)
+        ;;
+    *)
+        sed -n '2,11p' "$0" | sed 's/^# \{0,1\}//'
+        exit 1
+        ;;
+esac
