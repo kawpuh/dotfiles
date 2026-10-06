@@ -20,5 +20,6 @@ keybind = ctrl+shift+up=scroll_page_up
 keybind = ctrl+shift+down=scroll_page_down
 keybind = ctrl+[=text:\x1b
 keybind = shift+enter=text:\n
+keybind = ctrl+enter=unbind
 keybind = ctrl+shift+plus=reset_font_size
 custom-shader = shaders/cursor_smear.glsl
