@@ -112,14 +112,14 @@ layouts = [
     border_focus=colors["mauve"],
     border_normal=colors["base"],
     margin=2,
-    border_width=8 if os.uname()[1] != "campstove" else 10,
+    border_width=8 if os.uname()[1] != "acer" else 10,
     border_on_single=True,
   ),
   layout.Max(),
 ]
 
 floating_layout = layout.Floating(
-  border_width=4 if os.uname()[1] != "campstove" else 6,
+  border_width=4 if os.uname()[1] != "acer" else 6,
   border_focus=colors["teal"],
   border_normal=colors["base"],
   float_rules=[
@@ -213,7 +213,7 @@ mouse = [
 ]
 
 # setup hostname specific keys
-if os.uname()[1] in ['campstove', 'trailer']:
+if os.uname()[1] in ['acer', 'trailer']:
   keys.extend([
     Key([],
         "XF86MonBrightnessUp",
@@ -263,7 +263,7 @@ for i in groups:
 
 widget_defaults = dict(
   font='Monaspace Argon',
-  fontsize=12 if os.uname()[1] != "campstove" else 28,
+  fontsize=12 if os.uname()[1] != "acer" else 28,
   background=colors["base"],
   foreground=colors["text"],
 )
@@ -306,7 +306,7 @@ common_bar_suffix = [
 
 bar_settings = {"opacity": 0.80}
 
-if os.uname()[1] == 'campstove':
+if os.uname()[1] == 'acer':
   screens = [
     Screen(bottom=bar.Bar(
       common_bar_prefix + [

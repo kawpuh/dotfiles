@@ -18,7 +18,7 @@ source $HOME/.config/local.zsh
 # multiplies those to get 192 effective DPI, but Qt has no equivalent of
 # Gdk/WindowScalingFactor -- it reads Xft/DPI from XSETTINGS literally (which
 # also outranks the Xft.dpi=192 in .Xresources) and lands on a 1.0 device pixel
-# ratio. On campstove's 3840x2400 / 344mm panel (~283 real DPI) that renders
+# ratio. On acer's 3840x2400 / 344mm panel (~283 real DPI) that renders
 # Qt UIs at roughly a third of readable size.
 #
 # QT_SCALE_FACTOR is the Qt6 knob for this. QT_AUTO_SCREEN_SCALE_FACTOR and
@@ -26,7 +26,7 @@ source $HOME/.config/local.zsh
 # silently ignored by Qt6, which is why they never had any effect on Ark.
 #
 # Set before the daemons below so Qt-based ones inherit it.
-if [ "$(cat /etc/hostname)" = "campstove" ]; then
+if [ "$(cat /etc/hostname)" = "acer" ]; then
 	export QT_SCALE_FACTOR=2
 	# qtile runs as a systemd user service, which only sees the variables the
 	# session .desktop Exec imports -- hand this one to the user manager too, or
