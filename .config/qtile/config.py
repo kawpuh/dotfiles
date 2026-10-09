@@ -322,6 +322,11 @@ if os.uname()[1] == 'acer':
                        format="{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.0f} W"),
       ] + common_bar_suffix, 48, **bar_settings), ),
   ]
+elif os.uname()[1] == 'deskbox':
+  screens = [
+    Screen(bottom=bar.Bar(
+      common_bar_prefix + common_bar_suffix, 48, **bar_settings), ),
+  ]
 
 focus_on_window_activation = "never"
 
