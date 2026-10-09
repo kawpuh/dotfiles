@@ -148,7 +148,8 @@ let g:textobj_entire_no_default_key_mappings=1
 call plug#begin()
 " Core
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch' : 'main' }
+" Neovim 0.12 requires the rewritten Treesitter and textobjects APIs.
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'main', 'do': ':TSUpdate' }
 " General
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
@@ -168,7 +169,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'lukas-reineke/indent-blankline.nvim', { 'on': [] }
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle', 'UndotreeShow'] }
 Plug 'nvim-treesitter/nvim-treesitter-context', { 'on': [] }
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': 'main' }
 Plug 'MunifTanjim/nui.nvim'
 Plug 'folke/snacks.nvim', { 'on': [] }
 Plug 'ibhagwan/fzf-lua', { 'on': 'FzfLua' }
