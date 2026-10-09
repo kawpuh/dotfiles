@@ -28,6 +28,10 @@ colors = {
 
 MOD = "mod4"
 
+VOL_UP = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+VOL_DOWN = "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+VOL_MUTE = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+
 def send_to_next_screen(qtile):
   to_idx = (qtile.current_screen.index + 1) % len(qtile.screens)
   qtile.current_window.toscreen(to_idx)
@@ -193,9 +197,9 @@ keys = [
   Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
   Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
   Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
-  Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")),
-  Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")),
-  Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")),
+  Key([], "XF86AudioMute", lazy.spawn(VOL_MUTE)),
+  Key([], "XF86AudioLowerVolume", lazy.spawn(VOL_DOWN)),
+  Key([], "XF86AudioRaiseVolume", lazy.spawn(VOL_UP)),
 ]
 
 mouse = [
@@ -295,7 +299,12 @@ common_bar_prefix = [
   widget.Memory(measure_mem="G"),
   sep,
   widget.TextBox("🔊"),
-  widget.PulseVolume(mute_format="🔇"),
+  widget.Volume(mute_format="🔇", update_interval=0.5,
+                get_volume_command="pactl get-sink-volume @DEFAULT_SINK@",
+                check_mute_command="pactl get-sink-mute @DEFAULT_SINK@",
+                check_mute_string="Mute: yes",
+                volume_up_command=VOL_UP, volume_down_command=VOL_DOWN,
+                mute_command=VOL_MUTE),
 ]
 common_bar_suffix = [
   sep,
