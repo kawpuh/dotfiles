@@ -10,7 +10,7 @@ if [ -f "$HOME/.Xresources" ]; then
 fi
 
 export PATH="$PATH:/home/ethan/bin:/home/ethan/.local/bin:/home/ethan/.emacs.d/bin:/home/ethan/.yarn/bin"
-source $HOME/.config/local.zsh
+[ -f "$HOME/.config/local.zsh" ] && . "$HOME/.config/local.zsh"
 
 # HiDPI scaling for Qt apps (Ark, lxqt-policykit-agent, ...) under a bare WM.
 #
