@@ -140,17 +140,30 @@ floating_layout = layout.Floating(
   Match(title='pinentry'),  # GPG key password entry
 ])
 
+HOST = os.uname()[1]
+
+
+def term(cmd=None, big=False):
+  """Build a terminal command line; thinkie uses kitty, everything else ghostty."""
+  if HOST == "thinkie":
+    args = ["kitty"] + (["-o", "font_size=20"] if big else []) + ([cmd] if cmd else [])
+  else:
+    args = ["ghostty"] + (["--font-size=20"] if big else [])
+    args += ["-e", cmd] if cmd else ["--working-directory=home"]
+  return " ".join(args)
+
+
 keys = [
   # Switch between windows
-  Key([MOD], "a", lazy.spawn("ghostty --font-size=20 -e nvim /home/ethan/Sync/notes/")),
+  Key([MOD], "a", lazy.spawn(term("nvim /home/ethan/Sync/notes/", big=True))),
   Key([MOD], "b", lazy.spawn("qutebrowser")),
   Key([MOD, "shift"], "b", lazy.spawn("chromium")),
-  Key([MOD, "Shift"], "c", lazy.spawn("ghostty -e nvim /home/ethan/.config/qtile/config.py")),
+  Key([MOD, "Shift"], "c", lazy.spawn(term("nvim /home/ethan/.config/qtile/config.py"))),
   Key([MOD], "d", lazy.window.move_down(force=True)),
   Key([MOD], "e", lazy.spawn("thunar")),
   Key([MOD], "f", lazy.next_layout()),
   Key([MOD], "h", lazy.layout.left()),
-  Key([MOD], "i", lazy.spawn("ghostty --font-size=20 -e nvim /home/ethan/")),
+  Key([MOD], "i", lazy.spawn(term("nvim /home/ethan/", big=True))),
   Key([MOD], "j", lazy.group.next_window()),
   Key([MOD], "k", lazy.group.prev_window()),
   Key([MOD], "l", lazy.layout.right()),
@@ -166,7 +179,7 @@ keys = [
   Key([MOD], "u", lazy.window.bring_to_front()),
   Key([MOD], "w", lazy.window.kill()),
   Key([MOD], "comma", lazy.spawn("zathura")),
-  Key([MOD], "Return", lazy.spawn("ghostty --working-directory=home")),
+  Key([MOD], "Return", lazy.spawn(term())),
   Key([MOD], "Space", lazy.function(goto_next_unhidden_group)),
   Key([MOD], "Tab", lazy.screen.toggle_group()),
   Key([MOD, "Shift"], "f", lazy.function(toggle_bar_and_fullscreen)),
@@ -217,7 +230,7 @@ mouse = [
 ]
 
 # setup hostname specific keys
-if os.uname()[1] in ['acer', 'trailer']:
+if os.uname()[1] in ['acer', 'trailer', 'thinkie']:
   keys.extend([
     Key([],
         "XF86MonBrightnessUp",
@@ -273,7 +286,11 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-sep = widget.Sep(padding=12, size_percent=80, foreground=colors["surface2"])
+# small screen (1366x768): tighten spacing so the clock and systray fit
+SMALL = os.uname()[1] == "thinkie"
+GRAPH_W = 50 if SMALL else 100
+
+sep = widget.Sep(padding=6 if SMALL else 12, size_percent=80, foreground=colors["surface2"])
 
 common_bar_prefix = [
   widget.CurrentLayout(mode="icon"),
@@ -293,9 +310,9 @@ common_bar_prefix = [
   widget.Net(format="{up:3.0f} {up_suffix:>2} ↑↓ {down:3.0f} {down_suffix:>2}"),
   sep,
   widget.TextBox("CPU"),
-  widget.CPUGraph(samples=30, graph_color=colors["blue"], type="line"),
+  widget.CPUGraph(samples=30, width=GRAPH_W, graph_color=colors["blue"], type="line"),
   widget.TextBox("Disk"),
-  widget.HDDBusyGraph(samples=30, graph_color=colors["blue"], type="line"),
+  widget.HDDBusyGraph(samples=30, width=GRAPH_W, graph_color=colors["blue"], type="line"),
   widget.Memory(measure_mem="G"),
   sep,
   widget.TextBox("🔊"),
@@ -308,9 +325,9 @@ common_bar_prefix = [
 ]
 common_bar_suffix = [
   sep,
-  widget.Clock(format='%a %m/%d/%Y %H:%M:%S'),
+  widget.Clock(format='%a %m/%d %H:%M' if SMALL else '%a %m/%d/%Y %H:%M:%S'),
   sep,
-  widget.Systray(icon_size=40),
+  widget.Systray(icon_size=40 if os.uname()[1] != "thinkie" else 18),
 ]
 
 bar_settings = {"opacity": 0.80}
@@ -330,6 +347,22 @@ if os.uname()[1] == 'acer':
                        empty_char="💀", update_interval=15, notify_below=0.15,
                        format="{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.0f} W"),
       ] + common_bar_suffix, 48, **bar_settings), ),
+  ]
+elif os.uname()[1] == 'thinkie':
+  screens = [
+    Screen(bottom=bar.Bar(
+      common_bar_prefix + [
+        sep,
+        widget.Wlan(interface="wlan0", format="📶 {essid} {percent:2.0%}",
+                    disconnected_message="📶 ✗"),
+        sep,
+        widget.TextBox("💡"),
+        widget.Backlight(backlight_name="acpi_video0", padding=3),
+        sep,
+        widget.Battery(not_charging_char="🔋", charge_char="⚡", discharge_char="🪫",
+                       empty_char="💀", update_interval=15, notify_below=0.15,
+                       format="{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.0f} W"),
+      ] + common_bar_suffix, 24, **bar_settings), ),
   ]
 elif os.uname()[1] == 'deskbox':
   screens = [
